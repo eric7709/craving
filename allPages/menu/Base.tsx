@@ -36,7 +36,7 @@ export default function Base(props: Props) {
       try {
         const { data, error } = await supabase
           .from("tables") // Replace with actual table name
-          .select("*")
+          .select("*");
         if (data) setTables(data);
         console.log("Connection test2:", { data, error });
       } catch (err) {
@@ -80,10 +80,12 @@ export default function Base(props: Props) {
   return (
     <div className="h-screen bg-blue-400 flex flex-col">
       <MenuHeader />
-      <Search />
-      <Categories />
+      <div className="flex-1 scrollbar-none overflow-y-auto">
+        <Search />
+        <Categories />
+        <MenuItemOrderList />
+      </div>
       <CreateCustomerModal />
-      <MenuItemOrderList />
       <OrderSummary />
       <OrderButton />
     </div>

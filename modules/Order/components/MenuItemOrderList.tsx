@@ -5,7 +5,7 @@ import NoMenuItemsFound from "./NoMenuItemsFound";
 export default function MenuItemOrderList() {
   const { menuItems } = useMenuItemDataStore();
   return (
-    <div className={`p-3 flex-1 scrollbar-none overflow-y-auto`}>
+    <div className={`p-3 `}>
       {menuItems?.length > 0 ? (
         <div className="">
           {menuItems.map((menuItem) => (

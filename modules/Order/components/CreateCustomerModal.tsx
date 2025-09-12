@@ -90,7 +90,7 @@ export default function CreateCustomerModal() {
             value={form.name}
             onChange={handleChange}
             placeholder="Enter full name"
-            className="mt-1 w-full rounded-md border border-blue-400 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
+            className="mt-1 w-full rounded-md border border-blue-400 px-3 py-2 placeholder:text-sm text-base outline-none focus:ring-2 focus:ring-blue-500"
           />
           {errors.name && (
             <p className="text-red-500 text-xs mt-1">{errors.name}</p>
@@ -108,7 +108,7 @@ export default function CreateCustomerModal() {
             value={form.email}
             onChange={handleChange}
             placeholder="Enter email address"
-            className="mt-1 w-full rounded-md border border-blue-400 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
+            className="mt-1 w-full rounded-md border border-blue-400 px-3 py-2 placeholder:text-sm text-base outline-none focus:ring-2 focus:ring-blue-500"
           />
           {errors.email && (
             <p className="text-red-500 text-xs mt-1">{errors.email}</p>
@@ -126,7 +126,7 @@ export default function CreateCustomerModal() {
             value={form.phoneNumber}
             onChange={handleChange}
             placeholder="Enter phoneNumber number"
-            className="mt-1 w-full rounded-md border border-blue-400 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
+            className="mt-1 w-full rounded-md border border-blue-400 px-3 py-2 placeholder:text-sm text-base outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <button
