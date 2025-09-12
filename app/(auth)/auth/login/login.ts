@@ -7,8 +7,8 @@ export async function login(formData: FormData) {
   const cookieStore = await cookies(); // no await
 
   const supabase = createServerClient(
-    "https://ipbjywutwrfmuvgybjbq.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlwYmp5d3V0d3JmbXV2Z3liamJxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1MjkyODcsImV4cCI6MjA2NjEwNTI4N30.CtIEb776-njQbFKugMravxmigB9cg6cElOoJUsIPWGw",
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         get(name: string) {
