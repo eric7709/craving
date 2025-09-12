@@ -1,6 +1,5 @@
-
-export const dynamic = "force-dynamic";
-
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 import { supabase } from "@/global/lib/supabase";
 import React from "react";
 import DashboardPage from "../../../modules/DashboardAnalytics/components/Dashboard";
