@@ -1,0 +1,6 @@
+✅
+1. Create Customer 
+2. No Table Id 
+3. Order Summary 
+4. Create Order 
+5. 

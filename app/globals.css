@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+
+/* Hide scrollbar for all elements with scrollbar-none */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.orderHeaderInput{
+  @apply h-11 border-2 w-48 rounded-md
+}
+ 
