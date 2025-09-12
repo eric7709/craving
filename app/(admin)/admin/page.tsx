@@ -1,3 +1,6 @@
+
+export const dynamic = "force-dynamic";
+
 import { supabase } from "@/global/lib/supabase";
 import React from "react";
 import DashboardPage from "../../../modules/DashboardAnalytics/components/Dashboard";
