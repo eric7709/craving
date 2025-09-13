@@ -5,7 +5,7 @@ import NoMenuItemsFound from "./NoMenuItemsFound";
 export default function MenuItemOrderList() {
   const { menuItems } = useMenuItemDataStore();
   return (
-    <div className={`p-5`}>
+    <div className={`p-4`}>
       {menuItems?.length > 0 ? (
         <div className="space-y-2">
           {menuItems.map((menuItem) => (
