@@ -33,7 +33,7 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
           ? `shadow-md border-2 ${
               isSelected
                 ? "bg-blue-50 border-blue-400"
-                : "bg-white border-gray-200"
+                : "bg-gray-100 border-gray-200"
             }`
           : ""
       }`}

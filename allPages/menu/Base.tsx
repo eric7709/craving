@@ -30,17 +30,16 @@ export default function Base(props: Props) {
   const { setSelectedTable } = useOrderUtilStore();
   const [tables, setTables] = useState<TTable[]>([]);
 
-  // Add this to any existing page component
   useEffect(() => {
     const testConnection = async () => {
       try {
         const { data, error } = await supabase
-          .from("tables") // Replace with actual table name
+          .from("tables")
           .select("*");
         if (data) setTables(data);
-        console.log("Connection test2:", { data, error });
+        console.log("Connection test:", { data, error });
       } catch (err) {
-        console.error("Connection failed2:", err);
+        console.error("Connection failed:", err);
       }
     };
     testConnection();
@@ -54,14 +53,7 @@ export default function Base(props: Props) {
     initializeMenuItems(menuItems);
     setCategories(categories);
     setSelectedTable(table);
-  }, [
-    categories,
-    table,
-    menuItems,
-    setCategories,
-    initializeMenuItems,
-    setSelectedTable,
-  ]);
+  }, [categories, table, menuItems, setCategories, initializeMenuItems, setSelectedTable]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -71,14 +63,13 @@ export default function Base(props: Props) {
 
   useEffect(() => {
     const unsubscribe = subscribeToMenuItems();
-    return unsubscribe; // Cleanup on unmount
+    return unsubscribe;
   }, [subscribeToMenuItems]);
 
-  // Conditional return comes AFTER all hooks
   if (!displayed) return <Loading />;
 
   return (
-    <div className="h-screen bg-white flex flex-col">
+    <div className="h-screen bg-blue-100 flex flex-col">
       <MenuHeader />
       <div className="flex-1 scrollbar-none overflow-y-auto">
         <Search />
