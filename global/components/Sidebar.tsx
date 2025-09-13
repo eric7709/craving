@@ -3,7 +3,7 @@ import Link from "next/link";
 import { LogOut, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUIStore } from "../store/useUIStore";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation"; // ⬅️ added
 import { useState } from "react";
 import Image from "next/image";
 import { supabase } from "../lib/supabase";
@@ -13,8 +13,10 @@ import { NAV_ITEMS } from "../constants/NAV";
 export default function Sidebar() {
   const { sidebarOpened, closeSideBar } = useUIStore();
   const router = useRouter();
+  const pathname = usePathname(); // ⬅️ active route
   const [loading, setLoading] = useState(false);
   const { userName, userRole, isLoading } = useUser();
+
   const handleLogout = async () => {
     try {
       setLoading(true);
@@ -27,6 +29,7 @@ export default function Sidebar() {
       setLoading(false);
     }
   };
+
   const SidebarContent = () => (
     <>
       <div className="h-14 px-6 py-4 border-b border-slate-700 flex items-center justify-between">
@@ -35,19 +38,30 @@ export default function Sidebar() {
           <X className="w-6 h-6 text-gray-300" />
         </button>
       </div>
+
+      {/* Nav Items */}
       <nav className="flex-1 px-3 py-4 space-y-2">
-        {NAV_ITEMS.map(({ name, icon: Icon, href }) => (
-          <Link
-            key={name}
-            href={href}
-            onClick={closeSideBar}
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors"
-          >
-            <Icon className="w-5 h-5 text-gray-300" />
-            <span className="text-sm font-medium">{name}</span>
-          </Link>
-        ))}
+        {NAV_ITEMS.map(({ name, icon: Icon, href }) => {
+          const isActive = pathname === href; // ⬅️ check active
+          return (
+            <Link
+              key={name}
+              href={href}
+              onClick={closeSideBar}
+              className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
+                isActive
+                  ? "bg-blue-800 text-white"
+                  : "hover:bg-slate-800 text-gray-300"
+              }`}
+            >
+              <Icon className="w-5 h-5" />
+              <span className="text-sm font-medium">{name}</span>
+            </Link>
+          );
+        })}
       </nav>
+
+      {/* User Info */}
       <div className="flex items-center gap-2 px-6 py-4 border-b border-slate-700">
         <Image src={"/user.png"} width={40} height={40} alt="user" />
         <div>
@@ -59,6 +73,8 @@ export default function Sidebar() {
           </p>
         </div>
       </div>
+
+      {/* Logout */}
       <div className="p-4 border-t border-slate-700">
         <button
           onClick={handleLogout}
@@ -99,6 +115,7 @@ export default function Sidebar() {
           </>
         )}
       </AnimatePresence>
+
       <aside className="hidden lg:flex lg:w-64 lg:h-screen lg:bg-slate-900 lg:text-white lg:flex-col lg:shadow-lg">
         <SidebarContent />
       </aside>

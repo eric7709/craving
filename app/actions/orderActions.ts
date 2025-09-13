@@ -7,19 +7,15 @@ import {
   TOrderPayload,
 } from "@/modules/Order/types/order";
 
-export async function fetchOrders(
-  params: TFetchOrdersParams = {}
-): Promise<TOrder[]> {
+export async function fetchOrders(params: TFetchOrdersParams = {}): Promise<TOrder[]> {
   let { startDate, endDate } = params;
   const { status } = params;
-
   if (!startDate || !endDate) {
     const today = new Date();
     startDate = startDate ?? new Date(today.setHours(0, 0, 0, 0)).toISOString();
     endDate =
       endDate ?? new Date(today.setHours(23, 59, 59, 999)).toISOString();
   }
-
   let query = supabaseAdmin.from("orders").select(`
     *,
     table:tables(*),
