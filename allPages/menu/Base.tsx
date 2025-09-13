@@ -80,9 +80,9 @@ export default function Base(props: Props) {
   return (
     <div className="h-screen bg-white flex flex-col">
       <MenuHeader />
+      <Search />
+      <Categories />
       <div className="flex-1 scrollbar-none overflow-y-auto">
-        <Search />
-        <Categories />
         <MenuItemOrderList />
       </div>
       <CreateCustomerModal />

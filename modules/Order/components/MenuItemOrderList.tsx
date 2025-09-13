@@ -7,7 +7,7 @@ export default function MenuItemOrderList() {
   return (
     <div className={`p-3 `}>
       {menuItems?.length > 0 ? (
-        <div className="">
+        <div className="space-y-2 py-2">
           {menuItems.map((menuItem) => (
             <MenuItemOrderCard key={menuItem.id} menuItem={menuItem} />
           ))}

@@ -56,7 +56,6 @@ export const useOrderUtilStore = create<TOrderUtilStore>((set, get) => ({
             ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1 }
             : item
         )
-        .filter((item) => item.quantity > 0),
     })),
   toggleTakeOut: (id: string) =>
     set((state) => ({
