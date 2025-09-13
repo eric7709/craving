@@ -28,7 +28,7 @@ export default function OrderButton() {
 
             <button
               onClick={openOrderSummaryModal}
-              className="px-4 py-2 duration-300 cursor-pointer bg-red-500 hover:bg-red-600 active:scale-95 text-white text-sm font-semibold rounded-md shadow-sm transition-all"
+              className="px-4 py-2 duration-300 cursor-pointer bg-green-500 hover:bg-green-600 active:scale-95 text-white text-sm font-semibold rounded-md shadow-sm transition-all"
             >
               Place Order
             </button>

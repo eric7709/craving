@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function MenuHeader() {
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-md">
+    <header className="sticky top-0 z-50 bg-white shadow">
       <div className="h-[60px] flex items-center justify-between px-4">
         {/* Logo + Name */}
         <div className="flex items-center gap-2">
@@ -18,7 +18,7 @@ export default function MenuHeader() {
         </div>
 
         {/* Optional Tagline or Greeting */}
-        <span className="hidden sm:block text-sm font-medium text-gray-600">
+        <span className="block text-sm font-medium text-gray-600">
           Order & Enjoy 🍽️
         </span>
       </div>

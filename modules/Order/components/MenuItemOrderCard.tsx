@@ -25,12 +25,12 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
 
   return (
     <div
-      className={`relative shadow-sm rounded-lg p-3 mb-2
+      className={`relative  rounded-lg p-3 mb-2
         transition-colors duration-300 ease-in-out
         ${
           isSelected
-            ? "border-2 border-red-500 bg-white"
-            : "border border-gray-200 bg-amber-50"
+            ? " text-white shadow-md bg-blue-800"
+            : "shadow bg-gray-100"
         }
         ${!isAvailable ? "opacity-60" : ""}
       `}
@@ -47,14 +47,14 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
         <div className="min-w-0">
           <p
             className={`font-semibold text-sm truncate transition-colors duration-300 ${
-              isSelected ? "text-blue-700" : ""
+              isSelected ? "text-white" : ""
             }`}
           >
             {menuItem.name}
           </p>
           <p
             className={`text-xs font-semibold mt-1.5 transition-colors duration-300 ${
-              isSelected ? "text-blue-600" : ""
+              isSelected ? "text-white" : ""
             }`}
           >
             {formatPrice(menuItem.price)}
@@ -63,7 +63,7 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
         {isSelected && isAvailable && (
           <button
             onClick={() => removeFromCart(menuItem.id)}
-            className="text-red-500 hover:text-red-600 hover:bg-red-50 p-1 rounded-full cursor-pointer active:scale-90 transition-all"
+            className="text-red-500 hover:text-red-600 bg-red-50 p-1 rounded-full cursor-pointer active:scale-90 transition-all"
           >
             <Trash2 className="w-4 h-4" />
           </button>
@@ -73,7 +73,7 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
       {/* Description */}
       <p
         className={`mt-2 text-[13px] leading-snug transition-colors duration-300 ${
-          isAvailable ? "text-black" : "text-gray-400"
+          isAvailable ? isSelected && "text-white" : "text-gray-400"
         }`}
       >
         {menuItem.description}
@@ -109,23 +109,15 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
             <button
               onClick={() => decreaseQuantity(menuItem.id)}
               disabled={!isAvailable}
-              className={`w-6 h-6 flex items-center justify-center rounded-full duration-300
-                ${
-                  isAvailable
-                    ? "bg-gray-200 hover:bg-gray-300"
-                    : "bg-gray-200 cursor-not-allowed"
-                }
+              className={`w-6 h-6 flex items-center text-red-500 justify-center rounded-full duration-300 bg-white active:scale-90
+                border-2 border-gray-300
               `}
             >
-              <Minus
-                className={`w-3 h-3 ${
-                  isAvailable ? "text-gray-700" : "text-gray-400"
-                }`}
-              />
+              <Minus size={16} />
             </button>
             <span
               className={`w-5 text-center text-sm font-medium transition-colors duration-300 ${
-                isAvailable ? "text-blue-600" : "text-gray-400"
+                isAvailable ? isSelected && "text-white" : "text-gray-400"
               }`}
             >
               {selectedItem.quantity}
@@ -133,19 +125,11 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
             <button
               onClick={() => increaseQuantity(menuItem.id)}
               disabled={!isAvailable}
-              className={`w-6 h-6 flex items-center justify-center rounded-full duration-300
-                ${
-                  isAvailable
-                    ? "bg-gray-200 hover:bg-gray-300"
-                    : "bg-gray-200 cursor-not-allowed"
-                }
+              className={`w-6 h-6 flex items-center text-green-500 justify-center rounded-full duration-300 bg-white
+                border-2 border-gray-300  active:scale-90
               `}
             >
-              <Plus
-                className={`w-3 h-3 ${
-                  isAvailable ? "text-gray-700" : "text-gray-400"
-                }`}
-              />
+              <Plus size={18} />
             </button>
           </div>
         </div>

@@ -18,8 +18,8 @@ export default function Categories() {
             className={`flex-shrink-0 capitalize active:scale-90 cursor-pointer px-4 py-2 rounded-full text-[13px] font-medium transition-all duration-200
                   ${
                     isSelected
-                      ? "bg-red-500 text-white"
-                      : "bg-white text-gray-800 hover:bg-gray-200"
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-100 text-gray-800 hover:bg-gray-200"
                   }`}
           >
             {name}

@@ -78,7 +78,7 @@ export default function Base(props: Props) {
   if (!displayed) return <Loading />;
 
   return (
-    <div className="h-screen bg-blue-400 flex flex-col">
+    <div className="h-screen bg-white flex flex-col">
       <MenuHeader />
       <div className="flex-1 scrollbar-none overflow-y-auto">
         <Search />
