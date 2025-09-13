@@ -42,13 +42,13 @@ export default function Sidebar() {
       {/* Nav Items */}
       <nav className="flex-1 px-3 py-4 space-y-2">
         {NAV_ITEMS.map(({ name, icon: Icon, href }) => {
-          const isActive = pathname === href; // ⬅️ check active
+          const isActive = pathname === href; 
           return (
             <Link
               key={name}
               href={href}
               onClick={closeSideBar}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
+              className={`flex items-center duration-300 gap-3 px-3 py-2 rounded-lg ${
                 isActive
                   ? "bg-blue-800 text-white"
                   : "hover:bg-blue-600 text-white"
