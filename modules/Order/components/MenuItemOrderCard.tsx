@@ -47,6 +47,7 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
       )}
 
       <div>
+        {/* Image Section */}
         <div className="h-44 w-full rounded-2xl relative">
           {isSelected && (
             <OrderTypeButton
@@ -56,15 +57,17 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
           )}
           <Image
             alt="Menu item"
-            src={menuItem.imageUrl || "/placeholder.jpg"} // fallback placeholder
+            src={menuItem.imageUrl || "/placeholder.jpg"}
             height={20}
             width={20}
             className="z-20 object-contain relative rounded-2xl h-full w-full"
-          />{" "}
+          />
         </div>
 
+        {/* Content Section */}
         <div className="flex mt-2 flex-col gap-2">
-          <div className="flex justify-between items-center">
+          {/* Title + Remove */}
+          <div className="flex justify-between items-center pb-2 border-b border-gray-200">
             <p
               className={`text-lg font-semibold ${
                 !isAvailable ? "text-gray-400" : "text-gray-900"
@@ -81,16 +84,18 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
             )}
           </div>
 
+          {/* Description */}
           <p
-            className={`text-[15px] ${
+            className={`text-[15px] pb-2 border-b border-gray-200 ${
               !isAvailable ? "text-gray-400" : "text-gray-700"
             }`}
           >
             {menuItem.description}
           </p>
 
+          {/* Price */}
           <p
-            className={`text-[15px] ${
+            className={`text-[15px] pb-2 border-b border-gray-200 ${
               !isAvailable ? "text-gray-400" : "text-gray-600"
             }`}
           >
@@ -104,8 +109,9 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
             </span>
           </p>
 
+          {/* Quantity Controls or Add Button */}
           {isSelected && (
-            <div className="flex justify-between mt-1 items-center">
+            <div className="flex justify-between mt-1 items-center pt-2 border-gray-200">
               <div className="flex p-1 items-center bg-gray-200 rounded-full">
                 {/* Decrease */}
                 <div
@@ -115,7 +121,7 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
                   <Minus size={15} />
                 </div>
 
-                <div className="w-12  flex justify-center">
+                <div className="w-12 flex justify-center">
                   {/* Animated Quantity */}
                   <AnimatePresence mode="wait">
                     <motion.span
@@ -159,7 +165,7 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
           )}
 
           {!isSelected && isAvailable && (
-            <div className="grid place-content-center">
+            <div className="grid place-content-center pt-2 border-gray-200">
               <div
                 onClick={() => addToCart(menuItem)}
                 className="h-10 w-10 shadow-md text-white rounded-full cursor-pointer bg-blue-600 grid place-content-center duration-300 active:scale-90"
