@@ -14,7 +14,7 @@ export default function MenuHeader() {
               className="object-contain"
             />
           </div>
-          <p className="text-xl font-bold text-gray-800">Cravings</p>
+          <p className="text-xl font-bold text-blue-800">Cravings</p>
         </div>
 
         {/* Optional Tagline or Greeting */}
