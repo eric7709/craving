@@ -33,7 +33,7 @@ export default function AddCategory() {
         className={`group h-44 bg-gradient-to-br from-blue-50 to-indigo-100 border-2 border-dashed border-blue-300 rounded-xl flex flex-col items-center justify-center gap-3 transition-all duration-300 ${
           isAdding
             ? "cursor-default hover:shadow-none"
-            : "cursor-pointer hover:from-blue-100 hover:to-indigo-200 hover:border-blue-400 hover:shadow-md hover:scale-105 active:scale-100"
+            : "cursor-pointer hover:from-blue-100 hover:to-indigo-200 hover:border-blue-400 hover:shadow-md hover:scale-[1.01] active:scale-100"
         }`}
       >
         {isAdding ? (
