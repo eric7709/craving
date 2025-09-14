@@ -6,15 +6,7 @@ import FadeInContainer from "@/global/components/FadeInContainer";
 export default function CustomerList() {
   const { customers, isLoading } = useCustomerDataStore();
 
-  if (isLoading) {
-    return (
-      <div className="flex-1 grid place-content-center">
-        <div className="flex flex-col items-center">
-          <div className="animate-spin rounded-full h-6 w-6 border-2 border-blue-600 border-t-transparent"></div>
-        </div>
-      </div>
-    );
-  }
+  if (isLoading) return null;
 
   return (
     <FadeInContainer>

@@ -36,10 +36,12 @@ export default function AdminOrderList() {
   }
 
   return (
-    <div className="grid flex-1 overflow-y-auto grid-cols-1 auto-rows-max md:grid-cols-2 xl:grid-cols-3 gap-3">
-      {orders.map((order) => (
-        <AdminOrderCard order={order} key={order.id} />
-      ))}
-    </div>
+    <FadeInContainer>
+      <div className="grid flex-1 overflow-y-auto grid-cols-1 auto-rows-max md:grid-cols-2 xl:grid-cols-3 gap-3">
+        {orders.map((order) => (
+          <AdminOrderCard order={order} key={order.id} />
+        ))}
+      </div>
+    </FadeInContainer>
   );
 }

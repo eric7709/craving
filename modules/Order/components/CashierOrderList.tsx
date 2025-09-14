@@ -18,10 +18,12 @@ export default function CashierOrderList() {
   }
 
   return (
-    <div className="grid flex-1 overflow-y-auto scrollbar-none grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3 auto-rows-max">
-      {orders.map((order) => (
-        <CashierOrderCard order={order} key={order.id} />
-      ))}
-    </div>
+    <FadeInContainer>
+      <div className="grid flex-1 overflow-y-auto scrollbar-none grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3 auto-rows-max">
+        {orders.map((order) => (
+          <CashierOrderCard order={order} key={order.id} />
+        ))}
+      </div>
+    </FadeInContainer>
   );
 }
