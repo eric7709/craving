@@ -21,12 +21,12 @@ export default function TableCard(table: TTable) {
         setSelectedTable(table);
         openUpdateTableModal();
       }}
-      className={`h-56 cursor-pointer hover:scale-[1.01] duration-300 shadow-md rounded-xl flex flex-col items-center justify-center text-white font-semibold
+      className={`h-52 cursor-pointer hover:scale-[1.01] duration-300 shadow-md rounded-xl flex flex-col items-center justify-center text-white font-semibold
        bg-emerald-950 p-4`}
     >
-      <GiForkKnifeSpoon className="text-3xl mb-2" />
-      <p className="text-5xl">{table.tableNumber}</p>
-      <h2 className="text-lg">{table.name}</h2>
+      <GiForkKnifeSpoon className="text-3xl shrink-0 mb-2" />
+      <p className="text-3xl">{table.tableNumber}</p>
+      <h2 className="text-base">{table.name}</h2>
       <p
         className={`mt-2 ${
           hasWaiter ? "text-green-500" : "text-red-500"
