@@ -1,4 +1,5 @@
 "use client";
+import FadeInContainer from "@/global/components/FadeInContainer";
 import { useOrderDataStore } from "../store/useOrderDataStore";
 import WaiterOrderCard from "./WaiterOrderCard";
 import { useUser } from "@/global/hooks/useUser"; // 👈 hook to get logged in user
@@ -8,7 +9,6 @@ export default function WaiterOrderList() {
   const { userEmail, isLoading } = useUser(); // 👈 assume your hook gives these
 
   const today = new Date().toISOString().split("T")[0];
-
 
   if (isLoading) {
     return (
@@ -41,10 +41,12 @@ export default function WaiterOrderList() {
   }
 
   return (
-    <div className="grid flex-1 overflow-y-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-3 auto-rows-max">
-      {myOrders.map((order) => (
-        <WaiterOrderCard order={order} key={order.id} />
-      ))}
-    </div>
+    <FadeInContainer>
+      <div className="grid flex-1 overflow-y-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-3 auto-rows-max">
+        {myOrders.map((order) => (
+          <WaiterOrderCard order={order} key={order.id} />
+        ))}
+      </div>
+    </FadeInContainer>
   );
 }

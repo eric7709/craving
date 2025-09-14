@@ -16,7 +16,7 @@ export default function AdminHeader({ children, title }: Props) {
         ) : (
           <X size={17} onClick={toggleSidebar} className="lg:hidden shrink-0" />
         )}
-        <p className="text-base md:text-xl lg:text-xl font-semibold">{title}</p>
+        <p className="text-base md:text-lg  lg:text-lg  font-semibold">{title}</p>
       </div>
       <div className="flex-1">{children}</div>
     </div>

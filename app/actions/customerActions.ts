@@ -14,10 +14,15 @@ export async function getCustomerById(id: string): Promise<TCustomer | null> {
 
 // Get all customers
 export async function getAllCustomers(): Promise<TCustomer[]> {
-  const { data, error } = await supabaseAdmin.from("customers").select("*").order("created_at", { ascending: true });
+  const { data, error } = await supabaseAdmin
+    .from("customer_with_last_visit")
+    .select("*")
+    .order("last_visit", { ascending: false });
   if (error) throw error;
   return (data || []).map(snakeToCamel) as TCustomer[];
 }
+
+
 
 // Get or create customer
 export async function getOrCreateCustomer(customer: TCreateCustomer): Promise<TCustomer> {

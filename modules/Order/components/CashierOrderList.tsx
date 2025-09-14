@@ -2,10 +2,10 @@
 import { usePendingOrderAlarm } from "@/global/hooks/usePendingOrderAlarm";
 import { useOrderDataStore } from "../store/useOrderDataStore";
 import CashierOrderCard from "./CashierOrderCard";
+import FadeInContainer from "@/global/components/FadeInContainer";
 
 export default function CashierOrderList() {
   const { filteredOrders: orders, search } = useOrderDataStore();
-
 
   if (!orders.length) {
     return (

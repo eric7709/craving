@@ -6,6 +6,8 @@ import {
   LayoutList,
   Table,
   ChartArea,
+  PersonStanding,
+  User2Icon,
 } from "lucide-react";
 
 export const NAV_ITEMS = [
@@ -15,5 +17,5 @@ export const NAV_ITEMS = [
   { name: "Tables", icon: Table, href: "/admin/tables" },
   { name: "Menu Items", icon: Utensils, href: "/admin/menu-items" },
   { name: "Categories", icon: LayoutList, href: "/admin/categories" },
-  // { name: "Analytics", icon: ChartArea, href: "/admin/analytics" },
+  { name: "Customers", icon: User2Icon, href: "/admin/customers" },
 ];

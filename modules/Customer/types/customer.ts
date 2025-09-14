@@ -7,6 +7,7 @@ type TBaseCustomer = {
   discount?: number;
   discountType?: string | null;
   discountExpiry?: string | null;
+  lastVisit?: string | null
 };
 export type TCustomerDB = {
   id: string;
@@ -17,6 +18,7 @@ export type TCustomerDB = {
   discount: number;
   discount_type: string | null;
   discount_expiry: string | null;
+  last_visit: string | null
 };
 
 export type TCustomer = Omit<TBaseCustomer, "password">;

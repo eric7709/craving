@@ -2,9 +2,15 @@
 import { useEffect } from "react";
 import { useOrderDataStore } from "../store/useOrderDataStore";
 import AdminOrderCard from "./AdminOrderCard";
+import FadeInContainer from "@/global/components/FadeInContainer";
 
 export default function AdminOrderList() {
-  const { filteredOrders: orders, fetchOrders, search, isLoading } = useOrderDataStore();
+  const {
+    filteredOrders: orders,
+    fetchOrders,
+    search,
+    isLoading,
+  } = useOrderDataStore();
 
   useEffect(() => {
     fetchOrders();

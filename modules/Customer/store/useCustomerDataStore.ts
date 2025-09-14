@@ -6,7 +6,7 @@ import { getAllCustomers } from "@/app/actions/customerActions";
 export const useCustomerDataStore = create<TCustomerDataStore>((set, get) => ({
   allCustomers: [],
   customers: [],
-  isLoading: false,
+  isLoading: true,
   searchTerm: "",
   sortBy: "",
   setCustomers: (customers) => set({ allCustomers: customers, customers }),
