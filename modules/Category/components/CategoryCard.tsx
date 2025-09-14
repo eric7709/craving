@@ -57,7 +57,7 @@ export default function CategoryCard(category: TCategory) {
           setSelectedCategory(category);
           e.stopPropagation();
         }}
-        className="h-7 w-7 duration-300 active:scale-90 hover:scale-105 cursor-pointer hover:text-red-500 ml-auto rounded-full border-2 grid place-content-center"
+        className="h-7 w-7 duration-300 active:scale-90 hover:scale-105 cursor-pointer hover:text-red-500 ml-auto absolute top-2 right-2 rounded-full border-2 grid place-content-center"
       >
         <FaTrash className="text-sm" />
       </div>
