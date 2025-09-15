@@ -21,11 +21,11 @@ export default function DeallocateWaiter() {
   };
   return (
     <Modal isOpen={activeModal === "deallocate"} onClose={closeModal}>
-      <div className="p-6 w-[300px] bg-white rounded-xl mx-auto text-center">
+      <div className="p-6 w-[275px] bg-white rounded-xl mx-auto text-center">
         <h2 className="text-lg font-semibold text-gray-900 mb-3">
           Deallocate Waiter
         </h2>
-        <p className="text-sm text-gray-700 mb-6">
+        <p className="text-xs leading-relaxed text-gray-700 mb-6">
           Are you sure you want to deallocate{" "}
           <b>
             {selectedTable?.waiter?.firstname} {selectedTable?.waiter?.lastname}

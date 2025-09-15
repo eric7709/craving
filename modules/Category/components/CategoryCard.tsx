@@ -12,32 +12,17 @@ export default function CategoryCard(category: TCategory) {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(name);
   const { updateCategory } = useCategoryDataStore();
-  const { setSelectedCategory, openDeleteModal, closeModal } =
-    useCategoryUtilStore();
-  const { mutate, isPending } = useUpdateCategory();
+  const { setSelectedCategory, openDeleteModal } = useCategoryUtilStore();
+  const { mutate } = useUpdateCategory();
   const handleSave = () => {
     const trimmedValue = value.trim();
-    if (!trimmedValue) {
-      setValue(name);
+    if (trimmedValue) {
+      updateCategory({ name: trimmedValue, id: category.id });
+      setValue(trimmedValue);
       setIsEditing(false);
-      return;
+      mutate({ id, name: trimmedValue });
     }
-    mutate(
-      { id, name: trimmedValue },
-      {
-        onSuccess: (data) => {
-          setValue(data.name);
-          updateCategory(data);
-          setIsEditing(false);
-        },
-        onError: () => {
-          setValue(name);
-          setIsEditing(false);
-        },
-      }
-    );
   };
-
   const handleCancel = (e: React.MouseEvent) => {
     e.stopPropagation();
     setValue(name);
@@ -86,18 +71,9 @@ export default function CategoryCard(category: TCategory) {
                   e.stopPropagation();
                   handleSave();
                 }}
-                disabled={isPending}
-                className={`w-9 h-9 grid place-content-center rounded-full transition ${
-                  isPending
-                    ? "bg-green-400 cursor-not-allowed"
-                    : "bg-green-600 hover:bg-green-500 active:scale-90 cursor-pointer"
-                }`}
+                className={`w-9 h-9 grid place-content-center rounded-full transition bg-green-600 hover:bg-green-500 active:scale-90 cursor-pointer`}
               >
-                {isPending ? (
-                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                ) : (
-                  <Check size={16} className="text-white" />
-                )}
+                <Check size={16} className="text-white" />
               </button>
 
               {/* Cancel */}
