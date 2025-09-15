@@ -170,7 +170,7 @@ export default function DashboardPage({
       <Header children={<div />} title="Dashboard" />
       <AdminBodyContainer>
         {/* Stats Cards */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 mb-6">
           {stats.map(({ title, value, icon: Icon }, i) => (
             <div
               key={title}
