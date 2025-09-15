@@ -9,21 +9,33 @@ import { FaTimes } from "react-icons/fa";
 export default function AddCategory() {
   const [isAdding, setIsAdding] = useState(false);
   const [value, setValue] = useState("");
-  const { addCategory, categories } = useCategoryDataStore();
+  const { addCategory, categories, deleteCategory, replaceCategory } =
+    useCategoryDataStore();
   const { mutate, isPending } = useCreateCategory();
   const [error, setError] = useState("");
+
   const handleAdd = () => {
+    if (!value.trim()) return;
+
     if (CategoryDomain.hasDuplicateCreate(value, categories)) {
       setError("Name already exists");
+      return;
     }
-    if (!value.trim()) return;
+
+    const tempId = `temp-${Date.now()}`;
+    addCategory({ id: tempId, name: value.trim() });
+
+    setIsAdding(false);
+    setValue("");
+
     mutate(value, {
       onSuccess: (data) => {
-        addCategory(data);
-        setIsAdding(false);
+        replaceCategory(tempId, data);
+      },
+      onError: () => {
+        deleteCategory(tempId);
       },
     });
-    setValue("");
   };
 
   return (
@@ -57,16 +69,24 @@ export default function AddCategory() {
               >
                 {isPending ? (
                   <span className="w-4 h-4 border-2 border-white border-t-transparent border-r-transparent rounded-full animate-spin"></span>
-                ) : ( 
+                ) : (
                   "Add"
                 )}
               </button>
-              <div onClick={() => {
-                setIsAdding(false)
-              }} className="h-9 w-9 cursor-pointer active:scale-90  shrink-0 border-blue-500 rounded-full border-2 duration-300 grid place-content-center">
+              <div
+                onClick={() => {
+                  setIsAdding(false);
+                }}
+                className="h-9 w-9 cursor-pointer active:scale-90  shrink-0 border-blue-500 rounded-full border-2 duration-300 grid place-content-center"
+              >
                 <FaTimes />
               </div>
             </div>
+            {error && (
+              <p className="text-xs text-red-500 mt-1 text-left w-full">
+                {error}
+              </p>
+            )}
           </div>
         ) : (
           <>

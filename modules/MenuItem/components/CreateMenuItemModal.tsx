@@ -135,11 +135,7 @@ export default function CreateMenuItemModal() {
           <button
             type="submit"
             disabled={isPending}
-            className={`w-full h-10 rounded-md text-white text-sm font-medium transition ${
-              isPending
-                ? "bg-blue-400 cursor-not-allowed"
-                : "bg-blue-600 cursor-pointer hover:bg-blue-500 active:scale-90"
-            } flex items-center justify-center gap-2`}
+            className={`w-full h-10 rounded-md text-white text-sm font-medium transition bg-blue-600 cursor-pointer hover:bg-blue-500 active:scale-90 flex items-center justify-center gap-2`}
           >
             {isPending && (
               <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />

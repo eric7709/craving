@@ -82,6 +82,20 @@ export const useMenuItemDataStore = create<TMenuItemDataStore>((set, get) => ({
     set({ menuItems: filtered });
   },
 
+  replaceMenuItem: (tempId, realItem) =>
+  set((state) => {
+    const exists = state.menuItems.find((item) => item.id === tempId);
+    if (!exists) {
+      // Fallback: just add if optimistic item is missing
+      return { menuItems: [...state.menuItems, realItem] };
+    } 
+    return {
+      menuItems: state.menuItems.map((item) =>
+        item.id === tempId ? realItem : item
+      ),
+    };
+  }),
+
   // --- CRUD Actions ---
   addMenuItem: (item: TMenuItem) =>
     set((state) => ({

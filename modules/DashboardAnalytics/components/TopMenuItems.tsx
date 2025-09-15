@@ -1,14 +1,14 @@
 "use client";
-
-import { useEffect } from "react";
 import { useAnalyticsDataStore } from "../store/useAnalyticsDataStore";
 import TopTitle from "./TopTitle";
+import Loading from "@/app/loading";
 
 export default function TopMenuItems() {
-  const { isLoading, analytics, fetchAnalytics } = useAnalyticsDataStore();
+  const { isLoading, analytics } = useAnalyticsDataStore();
   const topMenuItems = analytics?.topMenuItems;
 
-
+  if(isLoading) return <Loading />
+  
   return (
     <div className="w-full mt-10 text-white">
       <TopTitle title="Top Menu Items" />

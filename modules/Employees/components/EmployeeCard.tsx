@@ -15,7 +15,7 @@ export default function EmployeeCard(employee: TEmployee) {
   const { allTables } = useTableDataStore();
 
   const assignedTables = allTables
-    .filter((el) => el.waiter.id == employee.id)
+    .filter((el) => el?.waiter?.id == employee.id)
     .map((el) => el.tableNumber);
 
   const handleCardClick = () => {
@@ -34,7 +34,7 @@ export default function EmployeeCard(employee: TEmployee) {
   return (
     <div
       onClick={handleCardClick}
-      className="relative flex flex-col items-center text-center h-52 p-4 rounded-xl border border-gray-200 bg-slate-900 text-white shadow-sm hover:shadow-md transition cursor-pointer"
+      className="relative flex flex-col justify-center items-center text-center h-52 p-4 rounded-xl border border-gray-200 bg-slate-900 text-white shadow-sm hover:shadow-md transition cursor-pointer"
     >
       {/* Delete button */}
       <button
@@ -54,7 +54,7 @@ export default function EmployeeCard(employee: TEmployee) {
       </div>
       {/* Name + Role */}
       <h3 className="text-sm font-semibold text-white">
-        {employee.firstname} {employee.lastname}
+        {employee?.firstname} {employee?.lastname}
       </h3>
       <span className="mt-1 mb-2 px-2 py-0.5 text-[11px] font-medium rounded-full text-emerald-200 capitalize">
         {employee.role}
@@ -63,7 +63,7 @@ export default function EmployeeCard(employee: TEmployee) {
       {/* Contact */}
       <div className="flex flex-col gap-2 text-xs text-blue-200">
         <Link
-          href={`mailto:${employee.email}`}
+          href={`mailto:${employee?.email}`}
           onClick={stopClickPropagation}
           className="flex items-center justify-center gap-1 hover:text-emerald-600 transition"
         >
@@ -81,7 +81,10 @@ export default function EmployeeCard(employee: TEmployee) {
         )}
         <div className="flex gap-2 justify-center">
           {assignedTables.map((tableNumber) => (
-            <div className="h-6 w-6 border-2 border-green-500 rounded-full grid place-content-center">
+            <div
+              key={tableNumber}
+              className="h-6 w-6 border-2 border-green-500 rounded-full grid place-content-center"
+            >
               <p>{tableNumber}</p>
             </div>
           ))}

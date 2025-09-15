@@ -23,6 +23,20 @@ export const useCategoryDataStore = create<TCategoryDataStore>((set, get) => ({
     }
   },
 
+  replaceCategory: (tempId, realItem) =>
+    set((state) => {
+      const exists = state.categories.find((item) => item.id === tempId);
+      if (!exists) {
+        // Fallback: just add if optimistic item is missing
+        return { categories: [...state.categories, realItem] };
+      }
+      return {
+        categories: state.categories.map((item) =>
+          item.id === tempId ? realItem : item
+        ),
+      };
+    }),
+
   updateCategory: (category) => {
     const { categories } = get();
     set({

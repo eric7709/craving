@@ -67,6 +67,7 @@ export type TMenuItemDataStore = {
   filterMenuItems: () => void;
 
   // --- CRUD Actions ---
+  replaceMenuItem: (tempId: string, realItem: TMenuItem) => void
   addMenuItem: (item: TMenuItem) => void;
   updateMenuItem: (item: TMenuItem) => void;
   deleteMenuItem: (id: string) => void;

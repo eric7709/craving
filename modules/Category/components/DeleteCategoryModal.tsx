@@ -7,27 +7,29 @@ import { useCategoryDataStore } from "../store/useCategoryDataStore";
 import Modal from "@/global/components/Modal";
 
 export default function DeleteCategoryModal() {
-  const { selectedCategory, activeModal, closeModal, clearSelectedCategory } = useCategoryUtilStore();
-  const { mutate, isPending, isSuccess } = useDeleteCategory();
+  const { selectedCategory, activeModal, closeModal, clearSelectedCategory } =
+    useCategoryUtilStore();
+  const { mutate, isPending } = useDeleteCategory();
   const { deleteCategory } = useCategoryDataStore();
 
   const handleDelete = () => {
+    if (isPending) return;
     if (selectedCategory?.id) {
-      mutate(selectedCategory.id);
-    }
-  };
-
-  useEffect(() => {
-    if (isSuccess && selectedCategory) {
       deleteCategory(selectedCategory.id);
       closeModal();
-      clearSelectedCategory()
+      clearSelectedCategory();
+     
+      mutate(selectedCategory.id, {
+        onError: (err) => {
+          alert(err.message)
+          // addCategory(selectedCategory);
+        },
+      });
     }
-  }, [isSuccess, isPending]);
-
+  };
   return (
     <Modal isOpen={activeModal == "delete"} onClose={closeModal}>
-      <div className="w-56 p-6 h-fit rounded-xl bg-slate-800 shadow-lg text-center space-y-3">
+      <div className="w-52 p-6 h-fit rounded-xl bg-slate-800 shadow-lg text-center space-y-3">
         <Trash2 className="w-8 h-8 text-red-500 mx-auto" />
         <p className="text-[13px] text-slate-300">
           Are you sure you want to delete this Category?
@@ -50,18 +52,10 @@ export default function DeleteCategoryModal() {
             onClick={handleDelete}
             disabled={isPending}
             className={`w-20 h-9 rounded-lg text-xs text-white 
-            ${
-              isPending
-                ? "bg-red-400 cursor-not-allowed"
-                : "bg-red-600 hover:bg-red-500 hover:scale-105"
-            } 
-            active:scale-95 cursor-pointer transition-transform duration-200 grid place-content-center`}
+            
+            active:scale-95 bg-red-600 hover:bg-red-500 hover:scale-105 cursor-pointer transition-transform duration-200 grid place-content-center`}
           >
-            {isPending ? (
-              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mx-auto" />
-            ) : (
-              "Delete"
-            )}
+            Delete
           </button>
         </div>
       </div>

@@ -29,12 +29,8 @@ export const useCategoryById = (id: string) => {
 
 // ----- Mutations -----
 export const useCreateCategory = () => {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (name: string) => createCategoryApi(name),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
-    },
   });
 };
 
@@ -46,11 +42,8 @@ export const useUpdateCategory = () => {
 };
 
 export const useDeleteCategory = () => {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: string) => deleteCategoryApi(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
-    },
+    
   });
 };

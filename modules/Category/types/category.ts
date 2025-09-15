@@ -33,7 +33,7 @@ export type TCategoryDataStore = {
   addCategory: (category: TCategory) => void;
   updateCategory: (category: TCategory) => void;
   deleteCategory: (id: string) => void;
-
+  replaceCategory: (tempId: string, realItem: TCategory) => void
   // Search
   setSearchTerm: (term: string) => void;
   filteredCategories: () => TCategory[];

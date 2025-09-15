@@ -49,20 +49,16 @@ export const useAnalyticsDataStore = create<TAnalyticsDataStore>((set, get) => (
         endDate,
         resultLimit
       );
-      
       console.log('fetchAnalyticsData response:', { data, error });
-      
       if (error) {
         console.error('Setting error in store:', error);
         set({ error, isLoading: false });
         return;
       }
-      
       console.log('Raw data from API:', data);
       console.log('Data type:', typeof data);
       console.log('Data keys:', data ? Object.keys(data) : 'no data');
       console.log('orderStats specifically:', data?.orderStats);
-      
       console.log('Setting analytics data in store:', data);
       set({ analytics: data, isLoading: false });
     } catch (error) {
