@@ -1,5 +1,4 @@
 export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 import Base from "@/allPages/menu/Base";
 import { getAllCategories } from "@/app/actions/categoryActions";
 import { getAllMenuItems } from "@/app/actions/menuItemActions";

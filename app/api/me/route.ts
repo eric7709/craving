@@ -56,7 +56,9 @@ export async function GET(): Promise<NextResponse<UserResponse>> {
       id: user.id,
       profileID: profile?.id,
       email: user.email,
-      name: profile?.firstname ? `${profile.firstname} ${profile.lastname}` : "Unknown User",
+      name: profile?.firstname
+        ? `${profile.firstname} ${profile.lastname}`
+        : "Unknown User",
       role: profile?.role ?? "User",
       userID: profile?.auth_user_id ?? null,
     },

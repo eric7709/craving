@@ -1,5 +1,5 @@
 export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+
 import { supabase } from "@/global/lib/supabase";
 import React from "react";
 import { fetchLast5Orders } from "@/app/actions/orderActions";

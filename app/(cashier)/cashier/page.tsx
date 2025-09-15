@@ -1,5 +1,5 @@
 export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+
 import Base from "@/allPages/cashier/orders/Base";
 import { fetchOrders } from "@/app/actions/orderActions";
 import { getAllTables } from "@/app/actions/tableActions";

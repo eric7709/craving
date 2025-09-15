@@ -1,73 +1,51 @@
+"use client";
+
+import { useEffect } from "react";
+import { useAnalyticsDataStore } from "../store/useAnalyticsDataStore";
+import TopTitle from "./TopTitle";
 
 export default function TopMenuItems() {
-  // dummyTopMenuItems.ts
-  const dummyTopMenuItems = [
-    {
-      id: "1",
-      name: "Jollof Rice with Chicken",
-      category: "Main Dish",
-      timesOrdered: 120,
-      revenueGenerated: 240000, // in Naira
-      imageUrl: "https://via.placeholder.com/100x100.png?text=Jollof",
-    },
-    {
-      id: "2",
-      name: "Shawarma",
-      category: "Snacks",
-      timesOrdered: 95,
-      revenueGenerated: 142500,
-      imageUrl: "https://via.placeholder.com/100x100.png?text=Shawarma",
-    },
-    {
-      id: "3",
-      name: "Fried Rice & Beef",
-      category: "Main Dish",
-      timesOrdered: 80,
-      revenueGenerated: 160000,
-      imageUrl: "https://via.placeholder.com/100x100.png?text=Fried+Rice",
-    },
-    {
-      id: "4",
-      name: "Pizza (Large)",
-      category: "Fast Food",
-      timesOrdered: 65,
-      revenueGenerated: 195000,
-      imageUrl: "https://via.placeholder.com/100x100.png?text=Pizza",
-    },
-    {
-      id: "5",
-      name: "Suya with Chips",
-      category: "Grill",
-      timesOrdered: 50,
-      revenueGenerated: 100000,
-      imageUrl: "https://via.placeholder.com/100x100.png?text=Suya",
-    },
-  ];
+  const { isLoading, analytics, fetchAnalytics } = useAnalyticsDataStore();
+  const topMenuItems = analytics?.topMenuItems;
+
 
   return (
-    <div className="p-4 bg-slate-900 w-full text-white rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4">Top Menu Items</h2>
-      <ul className="grid grid-cols-3 gap-3">
-        {dummyTopMenuItems.map((item) => (
-          <li
-            key={item.id}
-            className="bg-blue-500"
-          >
-            <div className="flex-1">
-              <p className="font-semibold text-sm">{item.name}</p>
-              <p className="text-xs text-gray-400">{item.category}</p>
-            </div>
-            <div className="text-right">
-              <p className="text-green-400 font-bold">
-                ₦{item.revenueGenerated.toLocaleString()}
-              </p>
-              <p className="text-xs text-gray-400">
-                {item.timesOrdered} orders
-              </p>
-            </div>
-          </li>
-        ))}
-      </ul>
+    <div className="w-full mt-10 text-white">
+      <TopTitle title="Top Menu Items" />
+      {isLoading ? (
+        <div className="flex justify-center items-center mt-4">
+          <div className="w-6 h-6 border-4 border-t-transparent border-blue-600 rounded-full animate-spin" />
+        </div>
+      ) : topMenuItems?.length === 0 ? (
+        <p className="text-gray-300 mt-4">No data available</p>
+      ) : (
+        <ul className="grid grid-cols-1 gap-3">
+          {topMenuItems?.map((item) => (
+            <li
+              key={item.id}
+              className="p-5 bg-blue-900 shadow-md rounded-xl shadow-blue-500"
+            >
+              <div className="flex-1">
+                <p className="font-semibold text-sm">{item.name}</p>
+                <p className="text-xs text-gray-200">{item.category}</p>
+              </div>
+              <div className="flex items-end justify-between">
+                <p className="text-amber-400 font-semibold">
+                  {item.percentageRevenue}%
+                </p>
+                <div className="">
+                  <p className="text-green-400 font-bold">
+                    ₦{item.revenueGenerated.toLocaleString()}
+                  </p>
+                  <p className="text-xs text-gray-200">
+                    {item.timesOrdered} orders
+                  </p>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
