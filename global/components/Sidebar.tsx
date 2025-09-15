@@ -1,14 +1,14 @@
 "use client";
-import Link from "next/link";
-import { LogOut, X, ChevronDown } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useUIStore } from "../store/useUIStore";
 import { useRouter, usePathname } from "next/navigation";
-import { useState } from "react";
-import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { LogOut, X, ChevronDown } from "lucide-react";
+import { useUIStore } from "../store/useUIStore";
+import { NAV_ITEMS } from "../constants/NAV";
 import { supabase } from "../lib/supabase";
 import { useUser } from "../hooks/useUser";
-import { NAV_ITEMS } from "../constants/NAV";
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Sidebar() {
   const { sidebarOpened, closeSideBar } = useUIStore();
@@ -17,7 +17,6 @@ export default function Sidebar() {
   const [loading, setLoading] = useState(false);
   const { userName, userRole, isLoading } = useUser();
   const [profileOpen, setProfileOpen] = useState(false);
-
   const handleLogout = async () => {
     try {
       setLoading(true);
@@ -30,18 +29,14 @@ export default function Sidebar() {
       setLoading(false);
     }
   };
-
   const SidebarContent = () => (
     <>
-      {/* Header */}
       <div className="h-14 px-6 py-4 border-b border-slate-700 flex items-center justify-between">
         <h1 className="text-lg font-bold">Cravings</h1>
         <button className="lg:hidden" onClick={closeSideBar}>
           <X className="w-6 h-6 text-gray-300" />
         </button>
       </div>
-
-      {/* Nav Items */}
       <nav className="flex-1 px-3 py-4 space-y-2">
         {NAV_ITEMS.map(({ name, icon: Icon, href }) => {
           const isActive = pathname === href;
@@ -62,8 +57,6 @@ export default function Sidebar() {
           );
         })}
       </nav>
-
-      {/* User Profile (bottom) */}
       <div className="relative">
         <button
           className="w-full flex items-center gap-2 px-6 py-2 border-t border-slate-700 hover:bg-slate-800"
@@ -84,7 +77,6 @@ export default function Sidebar() {
             }`}
           />
         </button>
-
         {/* Dropdown */}
         <AnimatePresence>
           {profileOpen && (
@@ -111,7 +103,6 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile Sidebar */}
       <AnimatePresence>
         {sidebarOpened && (
           <>
@@ -134,8 +125,6 @@ export default function Sidebar() {
           </>
         )}
       </AnimatePresence>
-
-      {/* Desktop Sidebar */}
       <aside className="hidden lg:flex lg:w-60 lg:h-screen lg:bg-slate-900 lg:text-white lg:flex-col lg:shadow-lg">
         <SidebarContent />
       </aside>
