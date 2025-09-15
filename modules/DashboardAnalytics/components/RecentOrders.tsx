@@ -39,10 +39,10 @@ export default function RecentOrders({ orders }: Props) {
                   <td className="py-3 font-mono text-xs text-slate-600">
                     {order?.orderNumber}
                   </td>
-                  <td className="py-3 text-sm font-medium text-slate-800 capitalize">
+                  <td className="py-3 text-[13px] font-medium text-slate-800 capitalize">
                     {order.customer.name}
                   </td>
-                  <td className="py-3 text-sm font-semibold text-slate-800">
+                  <td className="py-3 text-[13px] font-semibold text-slate-800">
                     {formatPrice(order.total)}
                   </td>
                   <td className="py-3">
