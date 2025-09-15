@@ -68,8 +68,7 @@ export async function getTableByUrl(url: string): Promise<TTable | null> {
       `
       )
       .eq("url", url)
-      .single();
-
+      .maybeSingle();
     if (error) {
       if (error.code === "PGRST116") {
         // row not found

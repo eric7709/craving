@@ -10,16 +10,21 @@ import UpdateMenuItemModal from "@/modules/MenuItem/components/UpdateMenuItemMod
 import Header from "@/modules/Order/components/AdminHeader";
 import React, { useEffect } from "react";
 import UpdateEmployeeModal from "@/modules/Employees/components/UpdateEmployeeModal";
+import { TTable } from "@/modules/Tables/types/table";
+import { useTableDataStore } from "@/modules/Tables/store/useTableDataStore";
 
 type Props = {
   employees: TEmployee[];
+  tables: TTable[]
 };
 
 export default function Base(props: Props) {
-  const { employees } = props;
+  const { employees, tables } = props;
+  const {setTables} = useTableDataStore()
   const { setEmployees } = useEmployeeDataStore();
   useEffect(() => {
     setEmployees(employees);
+    setTables(tables)
   }, []);
   return (
     <div className="">

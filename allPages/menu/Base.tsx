@@ -29,7 +29,6 @@ export default function Base(props: Props) {
   const { initializeMenuItems, subscribeToMenuItems } = useMenuItemDataStore();
   const { setSelectedTable } = useOrderUtilStore();
   const [tables, setTables] = useState<TTable[]>([]);
-
   useEffect(() => {
     const testConnection = async () => {
       try {

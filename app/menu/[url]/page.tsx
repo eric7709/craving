@@ -13,10 +13,8 @@ export default async function page({ params }: PageProps) {
   const menuItems = await getAllMenuItems();
   const categories = await getAllCategories();
   const table = await getTableByUrl(params.url);
-
   if (!table) redirect("/no-table-found");
-  if (!table.waiter?.id) redirect("/no-waiter-found");
-
+  if (!table?.waiter?.id) redirect("/no-waiter-found");
   return <Base {...{ menuItems, categories, table }} />;
 }
 

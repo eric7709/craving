@@ -5,14 +5,16 @@ import { Check, X } from "lucide-react";
 import { TCategory } from "../types/category";
 import { useCategoryUtilStore } from "../store/useCategoryUtilStore";
 import { useUpdateCategory } from "../hooks/useCategoryServices";
+import { useCategoryDataStore } from "../store/useCategoryDataStore";
 
 export default function CategoryCard(category: TCategory) {
   const { name, id } = category;
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(name);
-  const { setSelectedCategory , activeModal, openDeleteModal, closeModal} = useCategoryUtilStore();
+  const { updateCategory } = useCategoryDataStore();
+  const { setSelectedCategory, openDeleteModal, closeModal } =
+    useCategoryUtilStore();
   const { mutate, isPending } = useUpdateCategory();
-
   const handleSave = () => {
     const trimmedValue = value.trim();
     if (!trimmedValue) {
@@ -20,12 +22,12 @@ export default function CategoryCard(category: TCategory) {
       setIsEditing(false);
       return;
     }
-
     mutate(
       { id, name: trimmedValue },
       {
         onSuccess: (data) => {
           setValue(data.name);
+          updateCategory(data);
           setIsEditing(false);
         },
         onError: () => {
@@ -53,7 +55,7 @@ export default function CategoryCard(category: TCategory) {
       {/* Delete button */}
       <div
         onClick={(e) => {
-          openDeleteModal()
+          openDeleteModal();
           setSelectedCategory(category);
           e.stopPropagation();
         }}
@@ -61,7 +63,6 @@ export default function CategoryCard(category: TCategory) {
       >
         <FaTrash className="text-sm" />
       </div>
-
       {/* Name / Input */}
       <div
         className={`absolute left-1/2 -translate-x-1/2 w-full flex justify-center transition-all duration-300 ${

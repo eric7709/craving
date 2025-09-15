@@ -45,7 +45,7 @@ export function AddCard({
   return (
     <div
       onClick={onClick}
-      className={`group h-48 bg-gradient-to-br ${colorMap[color].bgFrom} ${colorMap[color].bgTo} ${colorMap[color].hoverFrom} ${colorMap[color].hoverTo} border-2 border-dashed ${colorMap[color].border} rounded-xl cursor-pointer transition-all duration-300 flex flex-col items-center justify-center gap-3 hover:shadow-md active:scale-100`}
+      className={`group h-52 bg-gradient-to-br ${colorMap[color].bgFrom} ${colorMap[color].bgTo} ${colorMap[color].hoverFrom} ${colorMap[color].hoverTo} border-2 border-dashed ${colorMap[color].border} rounded-xl cursor-pointer transition-all duration-300 flex flex-col items-center justify-center gap-3 hover:shadow-md active:scale-100`}
     >
       <div
         className={`w-12 h-12 ${colorMap[color].circle} rounded-full flex items-center justify-center transition-colors duration-300`}

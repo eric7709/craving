@@ -18,7 +18,7 @@ export default function AdminOrderList() {
 
   if (isLoading) {
     return (
-      <div className="flex-1   flex flex-col items-center justify-center gap-3 text-gray-500">
+      <div className="flex-1 flex flex-col items-center justify-center gap-3 text-gray-500">
         <div className="h-8 w-8 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
         <p className="text-sm">Loading orders...</p>
       </div>
@@ -37,7 +37,7 @@ export default function AdminOrderList() {
 
   return (
     <FadeInContainer>
-      <div className="grid flex-1 overflow-y-auto grid-cols-1 auto-rows-max md:grid-cols-2 xl:grid-cols-3 gap-3">
+      <div className="grid flex-1 overflow-y-auto grid-cols-1 auto-rows-max md:grid-cols-2 xl:grid-cols-3 gap-2">
         {orders.map((order) => (
           <AdminOrderCard order={order} key={order.id} />
         ))}

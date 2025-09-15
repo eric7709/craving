@@ -5,11 +5,18 @@ import { TEmployee } from "../types/employee";
 import { User, Mail, Phone, Trash2, Loader2 } from "lucide-react";
 import { useEmployeeUtilStore } from "../store/useEmployeeUtilStore";
 import { useDeleteEmployee } from "../hooks/useEmployeeServices";
+import { useTableDataStore } from "@/modules/Tables/store/useTableDataStore";
 
 export default function EmployeeCard(employee: TEmployee) {
   const { openUpdateModal, openDeleteModal, setSelectedEmployee } =
     useEmployeeUtilStore();
   const { isPending } = useDeleteEmployee();
+
+  const { allTables } = useTableDataStore();
+
+  const assignedTables = allTables
+    .filter((el) => el.waiter.id == employee.id)
+    .map((el) => el.tableNumber);
 
   const handleCardClick = () => {
     setSelectedEmployee(employee);
@@ -27,7 +34,7 @@ export default function EmployeeCard(employee: TEmployee) {
   return (
     <div
       onClick={handleCardClick}
-      className="relative flex flex-col items-center text-center h-48 p-4 rounded-xl border border-gray-200 bg-slate-900 text-white shadow-sm hover:shadow-md transition cursor-pointer"
+      className="relative flex flex-col items-center text-center h-52 p-4 rounded-xl border border-gray-200 bg-slate-900 text-white shadow-sm hover:shadow-md transition cursor-pointer"
     >
       {/* Delete button */}
       <button
@@ -72,6 +79,13 @@ export default function EmployeeCard(employee: TEmployee) {
             <Phone size={12} /> {employee.phoneNumber}
           </Link>
         )}
+        <div className="flex gap-2 justify-center">
+          {assignedTables.map((tableNumber) => (
+            <div className="h-6 w-6 border-2 border-green-500 rounded-full grid place-content-center">
+              <p>{tableNumber}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

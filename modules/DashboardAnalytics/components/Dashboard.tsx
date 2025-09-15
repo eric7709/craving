@@ -317,7 +317,6 @@ export default function DashboardPage({
               )}
             </div>
           </div>
-          {/* Recent Orders */}
           <RecentOrders orders={orders} />
         </AdminBodyContainer>
       </div>
