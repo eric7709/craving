@@ -1,9 +1,7 @@
-export const dynamic = 'force-dynamic';
-
-import { supabase } from "@/global/lib/supabase";
-import React from "react";
-import { fetchLast5Orders } from "@/app/actions/orderActions";
+export const dynamic = "force-dynamic";
 import DashboardPage from "@/modules/DashboardAnalytics/components/Dashboard";
+import { fetchLast5Orders } from "@/app/actions/orderActions";
+import { supabase } from "@/global/lib/supabase";
 
 export default async function page() {
   const { data, error } = await supabase.rpc("get_restaurant_dashboard");

@@ -3,10 +3,10 @@ import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { LogOut, X, ChevronDown } from "lucide-react";
 import { useUIStore } from "../store/useUIStore";
-import { NAV_ITEMS } from "../constants/NAV";
+import { NAV_ITEMS } from "../constants/NAV_ITEMS";
 import { supabase } from "../lib/supabase";
 import { useUser } from "../hooks/useUser";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,6 +17,9 @@ export default function Sidebar() {
   const [loading, setLoading] = useState(false);
   const { userName, userRole, isLoading } = useUser();
   const [profileOpen, setProfileOpen] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
+
+  // Logout
   const handleLogout = async () => {
     try {
       setLoading(true);
@@ -29,14 +32,41 @@ export default function Sidebar() {
       setLoading(false);
     }
   };
+
+  // Close dropdown when clicking outside or pressing ESC
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target as Node)
+      ) {
+        setProfileOpen(false);
+      }
+    }
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setProfileOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+
   const SidebarContent = () => (
     <>
+      {/* Header */}
       <div className="h-14 px-6 py-4 border-b border-slate-700 flex items-center justify-between">
         <h1 className="text-lg font-bold">Cravings</h1>
         <button className="lg:hidden" onClick={closeSideBar}>
           <X className="w-6 h-6 text-gray-300" />
         </button>
       </div>
+
+      {/* Navigation */}
       <nav className="flex-1 px-3 py-4 space-y-2">
         {NAV_ITEMS.map(({ name, icon: Icon, href }) => {
           const isActive = pathname === href;
@@ -57,7 +87,9 @@ export default function Sidebar() {
           );
         })}
       </nav>
-      <div className="relative">
+
+      {/* Profile Section */}
+      <div className="relative" ref={profileRef}>
         <button
           className="w-full flex items-center gap-2 px-6 py-2 border-t border-slate-700 hover:bg-slate-800"
           onClick={() => setProfileOpen((prev) => !prev)}
@@ -77,6 +109,7 @@ export default function Sidebar() {
             }`}
           />
         </button>
+
         {/* Dropdown */}
         <AnimatePresence>
           {profileOpen && (
@@ -85,11 +118,11 @@ export default function Sidebar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -5 }}
               transition={{ duration: 0.2 }}
-              className="absolute bottom-14 left-4 right-4 bg-slate-800 border border-slate-700 rounded-md shadow-lg overflow-hidden z-50"
+              className="absolute bottom-14 cursor-pointer left-4 right-4 bg-red-600 border border-red-700 rounded-md shadow-lg overflow-hidden z-50"
             >
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-2 w-full px-3 py-2 text-sm hover:bg-slate-700"
+                className="flex cursor-pointer items-center gap-2 w-full px-3 py-2 text-sm hover:bg-red-700"
               >
                 <LogOut className="w-4 h-4" />
                 {loading ? "Logging out..." : "Logout"}
@@ -103,6 +136,7 @@ export default function Sidebar() {
 
   return (
     <>
+      {/* Mobile Sidebar */}
       <AnimatePresence>
         {sidebarOpened && (
           <>
@@ -125,6 +159,8 @@ export default function Sidebar() {
           </>
         )}
       </AnimatePresence>
+
+      {/* Desktop Sidebar */}
       <aside className="hidden lg:flex lg:w-60 lg:h-screen lg:bg-slate-900 lg:text-white lg:flex-col lg:shadow-lg">
         <SidebarContent />
       </aside>

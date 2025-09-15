@@ -20,12 +20,7 @@ export default function Base({ customers }: Props) {
   }, []);
 
   return (
-    <motion.div
-      className="h-screen flex-col flex"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1.2, ease: "easeInOut" }}
-    >
+    <div className="h-screen flex-col flex">
       <AdminHeader
         children={<CustomerHeader />}
         title={`Customers (${customers.length})`}
@@ -33,6 +28,6 @@ export default function Base({ customers }: Props) {
       <AdminBodyContainer>
         <CustomerList />
       </AdminBodyContainer>
-    </motion.div>
+    </div>
   );
 }
