@@ -1,7 +1,6 @@
 export const dynamic = "force-dynamic";
-
-import AnanlyticsBase from "@/modules/DashboardAnalytics/components/AnanlyticsBase";
+import Base from "@/allPages/admin/analytics/Base";
 
 export default function page() {
-  return <AnanlyticsBase />;
+  return <Base />;
 }

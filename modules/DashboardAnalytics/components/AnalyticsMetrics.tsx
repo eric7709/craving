@@ -3,18 +3,9 @@ import { useAnalyticsDataStore } from "../store/useAnalyticsDataStore";
 import { CheckCircle, XCircle, UserPlus, ShoppingCart } from "lucide-react";
 import { FaMoneyBill } from "react-icons/fa";
 import { formatPrice } from "@/global/utils/formatPrice";
-import { useEffect } from "react";
 
-export default function AnalyticsTotal() {
+export default function AnalyticsMetrics() {
   const { analytics, isLoading } = useAnalyticsDataStore();
-
-  useEffect(() => {
-    // In your AnalyticsTotal component, add this:
-    console.log("=== FULL DEBUG ===");
-    console.log("Full analytics object:", JSON.stringify(analytics, null, 2));
-    console.log("orderStats specifically:", analytics?.orderStats);
-    console.log("orderStats as JSON:", JSON.stringify(analytics?.orderStats));
-  }, [isLoading]);
 
   const statistics = analytics?.orderStats;
 
@@ -48,7 +39,6 @@ export default function AnalyticsTotal() {
       shadow: "shadow-amber-500",
     },
   ];
-
   return (
     <div className="p-6 bg-slate-900 shadow-slate-700 rounded-2xl shadow-md text-white">
       <h2 className="text-xl mb-5 font-semibold">Analytics Overview</h2>
