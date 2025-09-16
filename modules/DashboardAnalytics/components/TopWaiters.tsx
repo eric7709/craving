@@ -26,8 +26,9 @@ export default function TopWaiters() {
             >
               <div className="flex-1">
                 <p className="font-semibold text-sm">{waiter.name}</p>
-                <p className="text-xs text-gray-200">
-                  {waiter.tablesServed} tables served
+                <p className="text-xs mt-1 text-gray-200">
+                  {waiter.tablesServed}{" "}
+                  {waiter.tablesServed == 1 ? "table" : "tables"} served
                 </p>
                 <p className="text-xs text-gray-200">
                   {waiter.ordersTaken} orders

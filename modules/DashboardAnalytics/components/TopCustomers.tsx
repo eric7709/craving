@@ -1,6 +1,7 @@
 "use client";
 import TopTitle from "./TopTitle";
 import { useAnalyticsDataStore } from "../store/useAnalyticsDataStore";
+import { formatRelativeDate } from "@/global/utils/formatRelativeDate";
 
 export default function TopCustomers() {
   const { isLoading, analytics } = useAnalyticsDataStore();
@@ -32,7 +33,7 @@ export default function TopCustomers() {
                   {customer.ordersPlaced} orders
                 </p>
                 <p className="text-xs text-gray-400 italic">
-                  Last visit: {customer.lastVisit}
+                  Last visit: {formatRelativeDate(customer.lastVisit)}
                 </p>
               </div>
               <div className="flex items-end justify-between mt-2">
