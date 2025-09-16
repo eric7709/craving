@@ -39,22 +39,18 @@ export default function AnalyticsDateDropdown() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
 
-  // Simplified - no manual fetchAnalytics calls needed
   const handleApply = () => {
-    console.log("Applying date range:", { localStart, localEnd });
-    setDateRange(localStart, localEnd); // Auto-fetch will trigger
+    setDateRange(localStart, localEnd); // Auto-fetch triggers
     setOpen(false);
   };
 
   const handleQuickSelect = (action: () => void) => {
-    console.log("Quick select triggered");
-    action(); // Auto-fetch will trigger
+    action(); // Auto-fetch triggers
     setOpen(false);
   };
 
   const handleClear = () => {
-    console.log("Clearing/resetting date range");
-    reset(); // Auto-fetch will trigger
+    reset(); // Auto-fetch triggers
     setOpen(false);
   };
 
@@ -62,18 +58,11 @@ export default function AnalyticsDateDropdown() {
     try {
       const start = dayjs(startDate);
       const end = dayjs(endDate);
-
       if (!start.isValid() || !end.isValid()) return "Invalid Date Range";
-
       const formatStr = "DD/MM/YYYY";
-
-      if (start.isSame(end, "day")) {
-        return start.format(formatStr);
-      }
-
+      if (start.isSame(end, "day")) return start.format(formatStr);
       return `${start.format(formatStr)} - ${end.format(formatStr)}`;
-    } catch (error) {
-      console.error("Date formatting error:", error);
+    } catch {
       return "Invalid Date Range";
     }
   };
@@ -82,11 +71,7 @@ export default function AnalyticsDateDropdown() {
     if (!localStart || !localEnd) return false;
     const start = dayjs(localStart);
     const end = dayjs(localEnd);
-    return (
-      start.isValid() &&
-      end.isValid() &&
-      (start.isSame(end) || start.isBefore(end))
-    );
+    return start.isValid() && end.isValid() && (start.isSame(end) || start.isBefore(end));
   };
 
   return (
@@ -102,50 +87,34 @@ export default function AnalyticsDateDropdown() {
       {open && (
         <div className="absolute mt-2 w-80 rounded-lg overflow-hidden bg-white shadow-lg border border-gray-300 z-50 right-0 p-4">
           <div className="flex flex-col gap-4">
-            {/* Quick select buttons - much cleaner without async/await */}
+            {/* Quick select buttons */}
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() =>
-                  handleQuickSelect(() =>
-                    setDateRange("2025-09-01", "2025-09-30")
-                  )
+                  handleQuickSelect(() => {
+                    const today = dayjs().format("YYYY-MM-DD");
+                    setDateRange(today, today);
+                  })
                 }
-                className="px-3 py-2 text-xs rounded-md border border-green-300 bg-green-50 hover:bg-green-100 duration-300 active:scale-95"
+                className="px-3 py-2 text-xs rounded-md border border-blue-300 bg-blue-50 hover:bg-blue-100 duration-300 active:scale-95"
               >
-                Test Range (Sept)
+                Today
               </button>
-              <button
-                onClick={() => handleQuickSelect(setThisWeek)}
-                className="px-3 py-2 text-xs rounded-md border border-gray-300 hover:bg-gray-50 duration-300 active:scale-95"
-              >
-                This Week
-              </button>
-              <button
-                onClick={() => handleQuickSelect(setLastWeek)}
-                className="px-3 py-2 text-xs rounded-md border border-gray-300 hover:bg-gray-50 duration-300 active:scale-95"
-              >
-                Last Week
-              </button>
-              <button
-                onClick={() => handleQuickSelect(setThisMonth)}
-                className="px-3 py-2 text-xs rounded-md border border-gray-300 hover:bg-gray-50 duration-300 active:scale-95"
-              >
-                This Month
-              </button>
-              <button
-                onClick={() => handleQuickSelect(setLastMonth)}
-                className="px-3 py-2 text-xs rounded-md border border-gray-300 hover:bg-gray-50 duration-300 active:scale-95"
-              >
-                Last Month
-              </button>
-
-              {/* Additional quick selectors */}
               <button
                 onClick={() =>
                   handleQuickSelect(() => {
-                    const start = dayjs()
-                      .subtract(7, "days")
-                      .format("YYYY-MM-DD");
+                    const yesterday = dayjs().subtract(1, "day").format("YYYY-MM-DD");
+                    setDateRange(yesterday, yesterday);
+                  })
+                }
+                className="px-3 py-2 text-xs rounded-md border border-blue-300 bg-blue-50 hover:bg-blue-100 duration-300 active:scale-95"
+              >
+                Yesterday
+              </button>
+              <button
+                onClick={() =>
+                  handleQuickSelect(() => {
+                    const start = dayjs().subtract(7, "days").format("YYYY-MM-DD");
                     const end = dayjs().format("YYYY-MM-DD");
                     setDateRange(start, end);
                   })
@@ -157,9 +126,7 @@ export default function AnalyticsDateDropdown() {
               <button
                 onClick={() =>
                   handleQuickSelect(() => {
-                    const start = dayjs()
-                      .subtract(30, "days")
-                      .format("YYYY-MM-DD");
+                    const start = dayjs().subtract(30, "days").format("YYYY-MM-DD");
                     const end = dayjs().format("YYYY-MM-DD");
                     setDateRange(start, end);
                   })
@@ -168,48 +135,46 @@ export default function AnalyticsDateDropdown() {
               >
                 Last 30 Days
               </button>
+              <button onClick={() => handleQuickSelect(setThisWeek)} className="px-3 py-2 text-xs rounded-md border border-gray-300 hover:bg-gray-50 duration-300 active:scale-95">
+                This Week
+              </button>
+              <button onClick={() => handleQuickSelect(setLastWeek)} className="px-3 py-2 text-xs rounded-md border border-gray-300 hover:bg-gray-50 duration-300 active:scale-95">
+                Last Week
+              </button>
+              <button onClick={() => handleQuickSelect(setThisMonth)} className="px-3 py-2 text-xs rounded-md border border-gray-300 hover:bg-gray-50 duration-300 active:scale-95">
+                This Month
+              </button>
+              <button onClick={() => handleQuickSelect(setLastMonth)} className="px-3 py-2 text-xs rounded-md border border-gray-300 hover:bg-gray-50 duration-300 active:scale-95">
+                Last Month
+              </button>
             </div>
 
             <div className="border-t border-gray-200"></div>
 
             {/* Custom date range */}
             <div className="flex flex-col gap-3">
-              <h3 className="text-xs font-medium text-gray-700">
-                Custom Range
-              </h3>
+              <h3 className="text-xs font-medium text-gray-700">Custom Range</h3>
               <div className="flex flex-col text-xs">
-                <label className="mb-1 font-medium text-gray-600">
-                  Start Date
-                </label>
+                <label className="mb-1 font-medium text-gray-600">Start Date</label>
                 <input
                   type="date"
                   value={localStart}
-                  onChange={(e) => {
-                    console.log("Start date changed to:", e.target.value);
-                    setLocalStart(e.target.value);
-                  }}
+                  onChange={(e) => setLocalStart(e.target.value)}
                   className="border border-gray-300 rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
               <div className="flex flex-col text-xs">
-                <label className="mb-1 font-medium text-gray-600">
-                  End Date
-                </label>
+                <label className="mb-1 font-medium text-gray-600">End Date</label>
                 <input
                   type="date"
                   value={localEnd}
-                  onChange={(e) => {
-                    console.log("End date changed to:", e.target.value);
-                    setLocalEnd(e.target.value);
-                  }}
+                  onChange={(e) => setLocalEnd(e.target.value)}
                   min={localStart}
                   className="border border-gray-300 rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
               {!isValidDateRange() && (
-                <p className="text-red-500 text-xs">
-                  Please select a valid date range
-                </p>
+                <p className="text-red-500 text-xs">Please select a valid date range</p>
               )}
             </div>
 

@@ -27,7 +27,7 @@ export default function TopCustomers() {
               className="p-5 bg-teal-900 shadow-md rounded-xl shadow-teal-500"
             >
               <div className="flex-1">
-                <p className="font-semibold text-sm">{customer.name}</p>
+                <p className="font-semibold capitalize text-sm">{customer.name}</p>
                 <p className="text-xs text-gray-200">
                   {customer.ordersPlaced} orders
                 </p>
