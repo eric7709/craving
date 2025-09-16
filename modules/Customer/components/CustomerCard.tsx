@@ -9,7 +9,7 @@ type Props = {
 
 export default function CustomerCard({ customer }: Props) {
   return (
-    <div className="w-full h-56 p-5 rounded-2xl shadow-md bg-neutral-900 flex flex-col items-center gap-3 text-white hover:bg-neutral-800 transition">
+    <div className="w-full h-56 p-5 rounded-2xl shadow-md bg-teal-900 shadow-blue-900 flex flex-col items-center gap-3 text-white hover:bg-neutral-800 transition">
       {/* Avatar */}
       <div className="p-3 rounded-full bg-neutral-700 shadow-inner">
         <UserCircle size={34} className="text-blue-400" />

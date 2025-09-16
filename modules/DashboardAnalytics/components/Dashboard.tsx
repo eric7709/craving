@@ -210,7 +210,7 @@ export default function DashboardPage({
             {/* Pie Chart - Categories */}
             <div className="bg-white rounded-xl shadow-sm p-5 border border-slate-100">
               <h2 className="text-sm font-semibold mb-4 text-slate-700">
-                Category Sales (Top 5)
+                Category Sales 
               </h2>
               {categorySales.length > 0 ? (
                 <>
