@@ -14,8 +14,6 @@ export default function UpdateTableModal() {
     values,
     loading,
   } = useUpdateTable();
-      const {waitersOptions} = useEmployeeDataStore()
-  
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
@@ -23,10 +21,7 @@ export default function UpdateTableModal() {
         onSubmit={handleSubmit}
         className="p-5 w-[320px] rounded-2xl bg-white flex flex-col space-y-4"
       >
-        <h2 className="text-lg font-semibold text-gray-900">
-          Update Table
-        </h2>
-        {/* Table Number */}
+        <h2 className="text-lg font-semibold text-gray-900">Update Table</h2>
         <Field
           label="Table Number"
           name="tableNumber"

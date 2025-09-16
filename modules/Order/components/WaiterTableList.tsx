@@ -7,8 +7,6 @@ import React from "react";
 export default function WaiterTableList() {
   const { allTables, isLoading: APILoading } = useTableDataStore();
   const { profileID } = useUser();
-
-  // Show loading while API is loading OR if we don't have profileID yet OR if allTables is empty but still loading
   if (
     APILoading ||
     !profileID ||
@@ -20,11 +18,7 @@ export default function WaiterTableList() {
       </div>
     );
   }
-
-  // Filter tables only after we're sure data has loaded
   const myTables = allTables.filter((el) => el.waiter?.id === profileID);
-
-  // Show "no tables" only when we have data but no matches
   if (allTables.length > 0 && myTables.length === 0) {
     return (
       <div className="flex items-center justify-center h-32 text-gray-500 text-sm italic">

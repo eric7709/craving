@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { Home } from "lucide-react";
 import { TOrder } from "@/modules/Order/types/order";
@@ -10,10 +9,9 @@ import { useOrderStatus } from "../hooks/useOrderStatus";
 export default function AdminOrderCard({ order }: { order: TOrder }) {
   const { statusConfig, cancelOrder, isCancelling } = useOrderStatus(order);
   const [showDeleteBtn, setShowDeleteBtn] = useState(false);
-  const [time, setTime] = useState(Date.now());
-
+  const [_, setTime] = useState(Date.now());
   useEffect(() => {
-    const interval = setInterval(() => setTime(Date.now()), 10000); // Update every 10 second
+    const interval = setInterval(() => setTime(Date.now()), 10000);
     return () => clearInterval(interval);
   }, []);
 
@@ -36,7 +34,6 @@ export default function AdminOrderCard({ order }: { order: TOrder }) {
           {order.status}
         </p>
       </div>
-
       {/* Table & Waiter */}
       <div className="grid grid-cols-2 relative gap-2 text-xs">
         <div

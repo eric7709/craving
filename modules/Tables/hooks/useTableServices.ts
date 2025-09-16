@@ -1,6 +1,4 @@
-// modules/Tables/hooks/useTableServices.ts
 "use client";
-
 import { useQuery, useMutation } from "@tanstack/react-query";
 import {
   getAllTables,
@@ -14,7 +12,6 @@ import {
   getAllocationHistory,
 } from "@/app/actions/tableActions";
 
-// Fetch all tables
 export function useTables() {
   return useQuery({
     queryKey: ["tables"],

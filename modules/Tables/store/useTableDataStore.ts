@@ -17,6 +17,16 @@ export const useTableDataStore = create<TTableDataStore>((set, get) => ({
     get().filterTables();
   },
 
+  replaceTable: (tempId, newData) => {
+    const newTables = get().allTables.map((el) =>
+      el.id == tempId ? newData : el
+    );
+    set({
+      tables: newTables,
+      allTables: newTables,
+    });
+  },
+
   // Set search term and filter
   setSearchTerm: (searchTerm: string) => {
     set({ searchTerm });

@@ -1,15 +1,12 @@
 "use client";
-
 import { useEffect, useRef, useState } from "react";
 import { Check, Home, Printer } from "lucide-react";
 import { useReactToPrint } from "react-to-print";
 import { FaTimes } from "react-icons/fa";
-
 import { TOrder } from "@/modules/Order/types/order";
 import { formatPrice } from "@/global/utils/formatPrice";
 import { formatRelativeDate } from "@/global/utils/formatRelativeDate";
 import { getCurrentDateTime } from "@/global/utils/getCurrentTime";
-
 import Invoice from "@/modules/Order/components/Invoice";
 import { useOrderStatus } from "../hooks/useOrderStatus";
 
@@ -17,14 +14,10 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
   const { statusConfig, getButtonText, changeStatus, isPending } =
     useOrderStatus(order);
   const [time, setTime] = useState(Date.now());
-
-  // update relative time every 10s
   useEffect(() => {
     const interval = setInterval(() => setTime(Date.now()), 10000);
     return () => clearInterval(interval);
   }, []);
-
-  // printing setup
   const invoiceRef = useRef<HTMLDivElement>(null);
   const handlePrint = useReactToPrint({
     contentRef: invoiceRef,
@@ -35,7 +28,6 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
     <div
       className={`p-3 shadow-md  flex border rounded-lg flex-col gap-3 text-sm ${statusConfig.border} bg-gradient-to-br ${statusConfig.bg}`}
     >
-      {/* Header */}
       <div className="flex items-center gap-3">
         <div className="text-xs">
           <p className="font-semibold capitalize">{order.customer.name}</p>
@@ -47,8 +39,6 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
           {order.status}
         </p>
       </div>
-
-      {/* Table + Waiter + Print */}
       <div className="grid grid-cols-2 relative gap-2 text-xs">
         <div
           className={`flex flex-col py-2 justify-center items-center bg-white/80 border ${statusConfig.border} rounded-lg shadow-md`}
@@ -56,7 +46,6 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
           <p className="text-gray-600">Table Number</p>
           <p className="font-semibold">{order.table.tableNumber}</p>
         </div>
-
         {order.status !== "cancelled" && order.status !== "new" && (
           <div
             onClick={handlePrint}
@@ -65,7 +54,6 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
             <Printer size={15} />
           </div>
         )}
-
         <div
           className={`flex flex-col py-2 justify-center items-center bg-white/80 border ${statusConfig.border} rounded-lg shadow-md`}
         >
@@ -73,7 +61,6 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
           <p className="font-semibold">{order.waiter.firstname}</p>
         </div>
       </div>
-
       {/* Order Items */}
       <div className="flex flex-col text-xs my-2 gap-4">
         {order.items.map((item) => (

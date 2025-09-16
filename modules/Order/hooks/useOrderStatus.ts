@@ -2,7 +2,6 @@ import { TOrder, TOrderStatus } from "../types/order";
 import { OrderDomain } from "../services/orderDomain";
 import { updateOrderStatus } from "@/app/actions/orderActions";
 import { useState } from "react";
-
 export function useOrderStatus(order: TOrder) {
   const [isCancelling, setIsCancelling] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);

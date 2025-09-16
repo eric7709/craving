@@ -6,7 +6,10 @@ export default function OrderButton() {
   const { formattedTotal, selectedItems, openOrderSummaryModal } =
     useOrderUtilStore();
 
-  const totalItems = selectedItems.reduce((sum, item) => sum + item.quantity, 0);
+  const totalItems = selectedItems.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
   const hasItems = totalItems > 0;
 
   return (

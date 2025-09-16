@@ -1,4 +1,4 @@
-import React from "react";
+"use client"
 import { useOrderDataStore } from "../store/useOrderDataStore";
 
 export default function OrderSort() {

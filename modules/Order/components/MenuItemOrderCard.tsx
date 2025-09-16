@@ -30,12 +30,12 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
     <div
       className={`relative duration-300 rounded-xl transition ${
         isAvailable
-          ? `shadow-md border-2 ${
+          ? `shadow-md bg-white border-2 ${
               isSelected
-                ? "bg-blue-50 border-blue-400"
-                : "bg-gray-100 border-gray-200"
+                ? " border-blue-400"
+                : " border-gray-200"
             }`
-          : ""
+          : "bg-white"
       }`}
     >
       {!isAvailable && (
@@ -56,10 +56,9 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
         )}
         <Image
           alt="Menu item"
-          src={menuItem.imageUrl || "/placeholder.jpg"}
-          height={20}
-          width={20}
-          className="z-20 object-contain relative rounded-t-2xl h-full w-full"
+          src={menuItem.imageUrl || "/image.png"}
+          fill
+          className="z-20 object-contain relative rounded-t-2xl "
         />
       </div>
 

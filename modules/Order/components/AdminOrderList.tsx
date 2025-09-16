@@ -11,7 +11,6 @@ export default function AdminOrderList() {
     search,
     isLoading,
   } = useOrderDataStore();
-
   useEffect(() => {
     fetchOrders();
   }, [fetchOrders]);
@@ -24,7 +23,6 @@ export default function AdminOrderList() {
       </div>
     );
   }
-
   if (!orders.length) {
     return (
       <div className="flex-1 flex items-center justify-center text-gray-500 text-sm p-4">
@@ -34,7 +32,6 @@ export default function AdminOrderList() {
       </div>
     );
   }
-
   return (
     <FadeInContainer>
       <div className="grid flex-1 overflow-y-auto grid-cols-1 auto-rows-max md:grid-cols-2 xl:grid-cols-3 gap-2">

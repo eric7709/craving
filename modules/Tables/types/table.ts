@@ -92,11 +92,10 @@ export type TTableDataStore = {
   searchTerm: string;
   sortBy: string;
   isLoading: boolean;
-
   // Loading
   startLoading: () => void;
   stopLoading: () => void;
-
+  replaceTable: (tempId: string, data: TTable) => void
   setTables: (tables: TTable[]) => void;
   setSearchTerm: (searchTerm: string) => void;
   changeSortBy: (sortBy: string) => void;

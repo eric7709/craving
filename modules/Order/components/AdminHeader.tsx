@@ -1,11 +1,9 @@
 import { useUIStore } from "@/global/store/useUIStore";
 import { MenuIcon, X } from "lucide-react";
-
 type Props = {
   children: React.ReactNode;
   title: string;
 };
-
 export default function AdminHeader({ children, title }: Props) {
   const { sidebarOpened, toggleSidebar } = useUIStore();
   return (

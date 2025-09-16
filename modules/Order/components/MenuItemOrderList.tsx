@@ -1,8 +1,6 @@
 import { useMenuItemDataStore } from "@/modules/MenuItem/store/useMenuItemDataStore";
 import MenuItemOrderCard from "./MenuItemOrderCard";
 import NoMenuItemsFound from "./NoMenuItemsFound";
-import FadeInContainer from "@/global/components/FadeInContainer";
-
 export default function MenuItemOrderList() {
   const { menuItems } = useMenuItemDataStore();
   return (

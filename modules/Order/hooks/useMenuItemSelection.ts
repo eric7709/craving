@@ -109,7 +109,6 @@ export const useMenuItemSelection = () => {
     increaseQty,
     removeFromCart,
     reset,
-
     decreaseQty,
     toggleTakeOut,
     totalPrice,

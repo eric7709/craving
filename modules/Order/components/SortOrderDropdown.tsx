@@ -2,38 +2,25 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, ArrowUp, ArrowDown } from "lucide-react";
 import { useOrderDataStore } from "../store/useOrderDataStore";
-
-const sortOptions = [
-  { key: "customerName", label: "Customer Name" },
-  { key: "waiterName", label: "Waiter Name" },
-  { key: "createdAt", label: "Date Created" },
-  { key: "total", label: "Total Amount" },
-];
-
+import { SORT_OPTIONS } from "../constants/SORT_OPTIONS";
 
 type Props = {
   width?: string;
 };
 
-
 export default function SortOrderDropdown(width: Props) {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // ✅ Zustand store
   const { sortBy, sortDirection, setSortBy, setSortDirection } =
     useOrderDataStore();
-
   const handleSelect = (
-    option: (typeof sortOptions)[0],
+    option: (typeof SORT_OPTIONS)[0],
     direction: "asc" | "desc"
   ) => {
     setSortBy(option.key as any);
     setSortDirection(direction);
     setOpen(false);
   };
-
-  // Close when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -50,9 +37,7 @@ export default function SortOrderDropdown(width: Props) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [open]);
-
-  // Label for current selection
-  const selectedOption = sortOptions.find((opt) => opt.key === sortBy);
+  const selectedOption = SORT_OPTIONS.find((opt) => opt.key === sortBy);
   const selectedLabel = selectedOption
     ? `${selectedOption.label} (${sortDirection === "asc" ? "ASC" : "DESC"})`
     : "Sort by";
@@ -66,17 +51,13 @@ export default function SortOrderDropdown(width: Props) {
       >
         {selectedLabel}
         <ChevronDown
-          className={`h-4 w-4 transition-transform ${
-            open ? "rotate-180" : ""
-          }`}
+          className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`}
         />
       </button>
-
-      {/* Dropdown */}
       {open && (
         <div className="absolute mt-2 overflow-hidden right-0 w-56 rounded-lg bg-white shadow-lg border-gray-300 border z-50">
           <ul>
-            {sortOptions.map((option) => (
+            {SORT_OPTIONS.map((option) => (
               <React.Fragment key={option.key}>
                 <li>
                   <button

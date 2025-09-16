@@ -32,7 +32,7 @@ export default function OrderSummary() {
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [customerName, setCustomerName] = useState("");
 
-  const { mutate, isPending, error } = useCreateOrder();
+  const { mutate, isPending } = useCreateOrder();
 
   // Auto-close if no items
   useEffect(() => {
@@ -197,19 +197,21 @@ export default function OrderSummary() {
                       : "bg-gray-50 border-gray-200"
                   }`}
                 >
-                  <div className="flex flex-col">
-                    <span className="text-sm font-semibold text-gray-900 truncate">
+                  {/* ✅ Name smaller, Quantity bold */}
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-medium text-gray-700 capitalize truncate">
                       {item.name}
                     </span>
-                    <span className="text-xs text-gray-500">
-                      x{item.quantity}
-                      {isUnavailable && (
-                        <span className="ml-2 text-red-600 font-medium">
-                          Unavailable
-                        </span>
-                      )}
+                    <span className="text-sm font-bold text-gray-900">
+                      ×{item.quantity}
                     </span>
+                    {isUnavailable && (
+                      <span className="ml-2 text-red-600 font-medium text-xs">
+                        Unavailable
+                      </span>
+                    )}
                   </div>
+
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-bold text-gray-800">
                       {formatPrice(item.price * item.quantity)}
@@ -219,7 +221,7 @@ export default function OrderSummary() {
                         removeFromCart(item.id);
                         setUnavailableItems([]);
                       }}
-                      className="p-1 text-gray-400 hover:text-red-500 rounded-full"
+                      className="p-1 text-red-500 hover:text-red-700 rounded-full"
                     >
                       <FaTrash className="w-3 h-3" />
                     </button>

@@ -1,0 +1,131 @@
+// 👥 User & Teams
+// User
+// User {
+//   id: string;
+//   username: string;
+//   email: string;
+//   passwordHash: string;
+//   role: "player" | "admin" | "referee";
+//   createdAt: Date;
+// }
+
+// Team
+// Team {
+//   id: string;
+//   name: string;
+//   ownerId: string;   // links to User
+//   members: User[];   // many-to-many
+//   createdAt: Date;
+// }
+
+// TeamMember
+// TeamMember {
+//   id: string;
+//   teamId: string;   // Team.id
+//   userId: string;   // User.id
+//   role: "captain" | "player"; // captain = owner, player = normal member
+//   joinedAt: Date;
+// }
+
+// 🏆 Tournament & Matches
+// Tournament
+//Tournament {
+//   id: string;
+//   name: string;
+//   type: "single_elim" | "double_elim" | "round_robin";
+//   // Tournament lifecycle
+//   status: "draft" | "registration_open" | "registration_closed" | "active" | "finished";
+//   registrationStart: Date;  // when players can start joining
+//   registrationEnd: Date;    // last date to register
+//   startDate: Date;          // when matches officially start
+//   endDate: Date;            // when tournament finishes
+//   createdBy: string;        // UserId (organizer)
+//   maxParticipants?: number; // optional cap, e.g. 16 teams only
+// }
+
+// Participant
+// Participant {
+//   id: string;
+//   tournamentId: string;
+//   teamId: string;
+//   joinedAt: Date;
+// }
+
+// Match
+// Match {
+//   id: string;
+//   tournamentId: string;
+//   round: number;
+//   matchNumber: number;
+//   teamAId: string;
+//   teamBId: string;
+//   winnerId?: string;
+//   status: "pending" | "completed" | "disputed";
+//   scheduledAt?: Date;
+// }
+
+// 📊 Result Handling & Verification
+// ScoreSubmission
+// ScoreSubmission {
+//   id: string;
+//   matchId: string;
+//   submittedBy: string;  // UserId or TeamId
+//   scoreA: number;
+//   scoreB: number;
+//   proofUrl?: string;    // screenshot/video
+//   createdAt: Date;
+// }
+
+// Verification
+// Verification {
+//   id: string;
+//   matchId: string;
+//   verifiedBy?: string;  // UserId (admin/ref)
+//   method: "auto" | "dual_confirm" | "admin_override" | "community_vote";
+//   status: "verified" | "rejected" | "disputed";
+//   notes?: string;
+//   createdAt: Date;
+// }
+
+// 💳 Payments & Monetization
+// Plan
+// Plan {
+//   id: string;
+//   name: string;       // Free, Pro, Enterprise
+//   price: number;
+//   currency: string;
+//   features: string[]; // JSON
+// }
+
+// Subscription
+// Subscription {
+//   id: string;
+//   userId: string;
+//   planId: string;
+//   status: "active" | "expired" | "canceled";
+//   startDate: Date;
+//   endDate: Date;
+//   autoRenew: boolean;
+// }
+
+// Payment
+// Payment {
+//   id: string;
+//   userId: string;
+//   amount: number;
+//   currency: string;
+//   method: "paystack" | "stripe" | "paypal";
+//   status: "pending" | "successful" | "failed";
+//   reference: string;   // gateway reference
+//   createdAt: Date;
+// }
+
+// TournamentEntryFee
+// TournamentEntryFee {
+//   id: string;
+//   tournamentId: string;
+//   teamId: string;
+//   amountPaid: number;
+//   paymentId: string; // links to Payment
+// }
+    Q7821`  

@@ -12,7 +12,6 @@ type Props = {
 };
 const Invoice = forwardRef<HTMLDivElement, Props>(({ order, waiterName, currentDateTime }, ref) => {
   
-  
   const [table, setTable] = useState<TTable | null>(null);
   const { tables } = useTableDataStore();
   useEffect(() => {
@@ -74,13 +73,10 @@ const Invoice = forwardRef<HTMLDivElement, Props>(({ order, waiterName, currentD
             </div>
           ))}
         </div>
-
         {/* Total */}
         <div className="text-right text-sm font-semibold">
           Total: {formatPrice(order.total)}
-
         </div>
-
         {/* Footer */}
         <p className="text-center text-[10px] mt-2">
           ⭐ Thanks for dining with us! ⭐
@@ -90,7 +86,6 @@ const Invoice = forwardRef<HTMLDivElement, Props>(({ order, waiterName, currentD
   );
 });
 
-// Set display name for better debugging
 Invoice.displayName = 'Invoice';
 
 export default Invoice;

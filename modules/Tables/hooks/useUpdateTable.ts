@@ -1,12 +1,9 @@
-import { TUpdateTable, TTableError} from "../types/table";
+import { TUpdateTable, TTableError } from "../types/table";
 import { TableDomain } from "../services/tableDomain";
 import { useState, useEffect } from "react";
 import { useTableUtilStore } from "../store/useTableUtilStore";
 import { useUpdateTable as useUpdateTableAPI } from "./useTableServices";
-import {
-  tableErrorInitials,
-  updateTableInitials,
-} from "../form/tables";
+import { tableErrorInitials, updateTableInitials } from "../form/tables";
 import { useTableDataStore } from "../store/useTableDataStore";
 import { TForm } from "@/global/types/form";
 
@@ -39,13 +36,13 @@ export const useUpdateTable = () => {
     e.preventDefault();
     const { data, errors, isValid } = TableDomain.validateUpdateTable(
       values,
-      allTables,
+      allTables
     );
     if (!isValid) {
       setErrors(errors);
       return;
     }
-    try {
+          try {
       mutate(data, {
         onSuccess: (data) => {
           updateTable(data);

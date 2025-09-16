@@ -1,5 +1,4 @@
 "use server";
-
 import { supabaseAdmin } from "@/global/lib/supabaseAdmin";
 import {
   TCreateTable,

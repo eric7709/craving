@@ -1,19 +1,18 @@
- "use client"
-import { Home } from "lucide-react";
-import { TOrder } from "@/modules/Order/types/order";
-import { formatPrice } from "@/global/utils/formatPrice";
+"use client";
 import { formatRelativeDate } from "@/global/utils/formatRelativeDate";
+import { formatPrice } from "@/global/utils/formatPrice";
 import { useOrderStatus } from "../hooks/useOrderStatus";
+import { TOrder } from "@/modules/Order/types/order";
 import { useEffect, useState } from "react";
+import { Home } from "lucide-react";
 
 export default function WaiterOrderCard({ order }: { order: TOrder }) {
-  const {  statusConfig } = useOrderStatus(order);
-  const [time, setTime] = useState(Date.now());
-
+  const { statusConfig } = useOrderStatus(order);
+  const [_, setTime] = useState(Date.now());
   useEffect(() => {
-      const interval = setInterval(() => setTime(Date.now()), 10000); // Update every 10 second
-      return () => clearInterval(interval);
-    }, []);
+    const interval = setInterval(() => setTime(Date.now()), 10000); 
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div
       className={`p-3 shadow-md flex border rounded-lg flex-col gap-3 text-sm ${statusConfig.border}`}

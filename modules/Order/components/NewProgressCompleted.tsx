@@ -4,16 +4,12 @@ import { useOrderDataStore } from "../store/useOrderDataStore";
 
 export default function NewProgressCompleted() {
   const orders = useOrderDataStore((state) => state.orders);
-
-  // Count orders by status
   const newCount = orders.filter((o) => o.status === "new").length;
   const inProgressCount = orders.filter(
     (o) => o.status === "in progress"
   ).length;
   const completedCount = orders.filter((o) => o.status === "completed").length;
-
   const { setStatus } = useOrderDataStore();
-
   const circles = [
     { color: "bg-yellow-400", label: "New", count: newCount },
     { color: "bg-blue-500", label: "In Progress", count: inProgressCount },
