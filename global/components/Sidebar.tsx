@@ -152,7 +152,7 @@ export default function Sidebar() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ duration: 0.3 }}
-              className="fixed top-0 left-0 w-56 h-full bg-slate-900 text-white flex flex-col shadow-lg z-50 lg:hidden"
+              className="fixed top-0 left-0 w-56 h-full bg-gray-900 text-white flex flex-col shadow-lg z-50 lg:hidden"
             >
               <SidebarContent />
             </motion.aside>
@@ -161,7 +161,7 @@ export default function Sidebar() {
       </AnimatePresence>
 
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex lg:w-60 lg:h-screen lg:bg-slate-900 lg:text-white lg:flex-col lg:shadow-lg">
+      <aside className="hidden lg:flex lg:w-60 lg:h-screen lg:bg-gray-950 lg:text-white lg:flex-col lg:shadow-lg">
         <SidebarContent />
       </aside>
     </>
