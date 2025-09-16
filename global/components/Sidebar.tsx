@@ -159,7 +159,6 @@ export default function Sidebar() {
           </>
         )}
       </AnimatePresence>
-
       {/* Desktop Sidebar */}
       <aside className="hidden lg:flex lg:w-60 lg:h-screen lg:bg-gray-950 lg:text-white lg:flex-col lg:shadow-lg">
         <SidebarContent />

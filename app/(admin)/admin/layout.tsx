@@ -6,7 +6,7 @@ type Props = {
 export default async function layout({ children }: Props) {
   
   return (
-    <div className="grid lg:grid-cols-[auto_1fr]">
+    <div className="grid bg-white lg:grid-cols-[auto_1fr]">
       <Sidebar />
       {children}
     </div>

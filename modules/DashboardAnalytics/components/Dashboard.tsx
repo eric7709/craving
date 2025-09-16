@@ -180,7 +180,7 @@ export default function DashboardPage({
 
   return (
     <FadeInContainer>
-      <div className="flex flex-col h-screen bg-slate-50">
+      <div className="flex flex-col h-screen ">
         <Header children={<div />} title="Dashboard" />
         <AdminBodyContainer>
           {/* Stats Cards */}
