@@ -31,9 +31,7 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
       className={`relative duration-300 rounded-xl transition ${
         isAvailable
           ? `shadow-md bg-white border-2 ${
-              isSelected
-                ? " border-blue-400"
-                : " border-gray-200"
+              isSelected ? " border-blue-400" : " border-gray-200"
             }`
           : "bg-white"
       }`}

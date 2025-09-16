@@ -32,9 +32,7 @@ export default function Base(props: Props) {
   useEffect(() => {
     const testConnection = async () => {
       try {
-        const { data, error } = await supabase
-          .from("tables")
-          .select("*");
+        const { data, error } = await supabase.from("tables").select("*");
         if (data) setTables(data);
         console.log("Connection test:", { data, error });
       } catch (err) {
@@ -52,7 +50,14 @@ export default function Base(props: Props) {
     initializeMenuItems(menuItems);
     setCategories(categories);
     setSelectedTable(table);
-  }, [categories, table, menuItems, setCategories, initializeMenuItems, setSelectedTable]);
+  }, [
+    categories,
+    table,
+    menuItems,
+    setCategories,
+    initializeMenuItems,
+    setSelectedTable,
+  ]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -70,9 +75,9 @@ export default function Base(props: Props) {
   return (
     <div className="h-screen bg-blue-100 flex flex-col">
       <MenuHeader />
+      <Search />
+      <Categories />
       <div className="flex-1 scrollbar-none overflow-y-auto">
-        <Search />
-        <Categories />
         <MenuItemOrderList />
       </div>
       <CreateCustomerModal />
