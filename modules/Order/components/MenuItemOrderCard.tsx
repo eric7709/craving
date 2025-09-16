@@ -65,7 +65,7 @@ export default function MenuItemOrderCard({ menuItem }: Props) {
         {/* Title + Remove */}
         <div className="flex justify-between items-center">
           <p
-            className={`text-lg font-semibold ${
+            className={`text-lg capitalize font-semibold ${
               !isAvailable ? "text-gray-400" : "text-gray-900"
             }`}
           >
