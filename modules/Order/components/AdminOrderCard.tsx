@@ -59,7 +59,7 @@ export default function AdminOrderCard({ order }: { order: TOrder }) {
               <div className="h-5 w-5 grid place-content-center rounded-full shadow bg-blue-600 text-white">
                 <p className="font-semibold">{item.quantity}</p>
               </div>
-              <p className="font-semibold">{item.name}</p>
+              <p className="font-semibold capitalizep">{item.name}</p>
               {item.takeOut && (
                 <Home color="oklch(72.3% 0.219 149.579)" size={15} />
               )}

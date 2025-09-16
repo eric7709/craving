@@ -24,7 +24,7 @@ export default function TopMenuItems() {
               className="p-5 bg-blue-900 shadow-md rounded-xl shadow-blue-500"
             >
               <div className="flex-1">
-                <p className="font-semibold text-sm">{item.name}</p>
+                <p className="font-semibold capitalize text-sm">{item.name}</p>
                 <p className="text-xs text-gray-200">{item.category}</p>
               </div>
               <div className="flex items-end justify-between">
