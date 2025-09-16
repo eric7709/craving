@@ -8,16 +8,10 @@ import TopTables from "./TopTables";
 import TopWaiters from "./TopWaiters";
 import TopCustomers from "./TopCustomers";
 import AnalyticsTotal from "./AnalyticsTotal";
-import { useAnalyticsDataStore } from "../store/useAnalyticsDataStore";
-import { useEffect } from "react";
+import { useAnalyticsAutoFetch } from "../hooks/useAutoFetch";
 
 export default function AnanlyticsBase() {
-  const { fetchAnalytics } = useAnalyticsDataStore();
-
-  useEffect(() => {
-    fetchAnalytics();
-  }, []);
-
+  useAnalyticsAutoFetch();
   return (
     <div className="h-screen flex flex-col overflow-y-auto ">
       <AdminHeader children={<AnalyticsHeader />} title="Analytics" />

@@ -1,129 +1,113 @@
 import { create } from "zustand";
-import { TAnalyticsDataStore, TRestaurantAnalytics } from "../types/analytics";
+import dayjs from 'dayjs';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
+import isoWeek from 'dayjs/plugin/isoWeek';
+import { TAnalyticsDataStore } from "../types/analytics";
 import { fetchAnalyticsData } from "@/app/actions/analyticActions";
 
-function getStartOfWeek(date: Date = new Date()): Date {
-  const d = new Date(date);
-  const day = d.getDay();
-  const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Adjust for Sunday
-  return new Date(d.setDate(diff));
-}
-function getEndOfWeek(date: Date = new Date()): Date {
-  const startOfWeek = getStartOfWeek(date);
-  const endOfWeek = new Date(startOfWeek);
-  endOfWeek.setDate(startOfWeek.getDate() + 6);
-  return endOfWeek;
-}
-function formatDate(date: Date): string {
-  return date.toISOString().split("T")[0];
-}
+// Enable plugins for better week handling
+dayjs.extend(weekOfYear);
+dayjs.extend(isoWeek);
 
-export const useAnalyticsDataStore = create<TAnalyticsDataStore>((set, get) => ({
-  // Initial state
-  analytics: null,
-  startDate: formatDate(getStartOfWeek()),
-  endDate: formatDate(getEndOfWeek()),
-  isLoading: false,
-  error: null,
-  resultLimit: 10,
+export const useAnalyticsDataStore = create<TAnalyticsDataStore>((set, get) => {
+  // Initialize dates with Day.js - much cleaner!
+  const initialStartDate = dayjs().startOf('isoWeek').format('YYYY-MM-DD'); // Monday start
+  const initialEndDate = dayjs().endOf('isoWeek').format('YYYY-MM-DD'); // Sunday end
+  
+  console.log("Initial date range:", { initialStartDate, initialEndDate });
 
-  // Actions
-  setDateRange: (startDate: string, endDate: string) => {
-    set({ startDate, endDate });
-  },
+  return {
+    // Initial state
+    analytics: null,
+    startDate: initialStartDate,
+    endDate: initialEndDate,
+    isLoading: false,
+    error: null,
+    resultLimit: 10,
 
-  setResultLimit: (limit: number) => {
-    set({ resultLimit: limit });
-  },
+    // Actions
+    setDateRange: (startDate: string, endDate: string) => {
+      console.log("Setting date range:", { startDate, endDate });
+      set({ startDate, endDate });
+    },
 
-  fetchAnalytics: async () => {
-    const { startDate, endDate, resultLimit } = get();
-    console.log('=== STORE FETCH DEBUG ===');
-    console.log('Store state during fetch:', { startDate, endDate, resultLimit });
-    
-    set({ isLoading: true, error: null });
-    try {
-      console.log('Calling fetchAnalyticsData with:', { startDate, endDate, resultLimit });
-      const { data, error } = await fetchAnalyticsData(
-        startDate,
-        endDate,
-        resultLimit
-      );
-      console.log('fetchAnalyticsData response:', { data, error });
-      if (error) {
-        console.error('Setting error in store:', error);
-        set({ error, isLoading: false });
-        return;
+    setResultLimit: (limit: number) => set({ resultLimit: limit }),
+
+    fetchAnalytics: async () => {
+      const { startDate, endDate, resultLimit } = get();
+      console.log("Fetching analytics with:", { startDate, endDate, resultLimit });
+      set({ isLoading: true, error: null });
+      try {
+        const { data, error } = await fetchAnalyticsData(startDate, endDate, resultLimit);
+        if (error) {
+          console.error("Analytics fetch error:", error);
+          set({ error, isLoading: false });
+          return;
+        }
+        console.log("Analytics data received:", data);
+        set({ analytics: data, isLoading: false });
+      } catch (error) {
+        console.error("Analytics fetch exception:", error);
+        set({
+          error: error instanceof Error ? error.message : "Failed to fetch analytics",
+          isLoading: false,
+        });
       }
-      console.log('Raw data from API:', data);
-      console.log('Data type:', typeof data);
-      console.log('Data keys:', data ? Object.keys(data) : 'no data');
-      console.log('orderStats specifically:', data?.orderStats);
-      console.log('Setting analytics data in store:', data);
-      set({ analytics: data, isLoading: false });
-    } catch (error) {
-      console.error('Caught error in fetchAnalytics:', error);
-      set({
-        error:
-          error instanceof Error ? error.message : "Failed to fetch analytics",
-        isLoading: false,
+    },
+
+    clearError: () => set({ error: null }),
+
+    reset: async () => {
+      const startDate = dayjs().startOf('isoWeek').format('YYYY-MM-DD');
+      const endDate = dayjs().endOf('isoWeek').format('YYYY-MM-DD');
+      console.log("Resetting to:", { startDate, endDate });
+      
+      set({ 
+        startDate, 
+        endDate, 
+        analytics: null, 
+        isLoading: false, 
+        error: null, 
+        resultLimit: 10 
       });
-    }
-  },
+      await get().fetchAnalytics();
+    },
 
-  clearError: () => {
-    set({ error: null });
-  },
+    // Quick select helpers - much cleaner with Day.js!
+    setThisWeek: async () => {
+      const startDate = dayjs().startOf('isoWeek').format('YYYY-MM-DD');
+      const endDate = dayjs().endOf('isoWeek').format('YYYY-MM-DD');
+      console.log("Setting this week:", { startDate, endDate });
+      
+      set({ startDate, endDate });
+      await get().fetchAnalytics();
+    },
 
-  reset: async () => {
-    const startDate = formatDate(getStartOfWeek());
-    const endDate = formatDate(getEndOfWeek());
-    set({
-      analytics: null,
-      startDate,
-      endDate,
-      isLoading: false,
-      error: null,
-      resultLimit: 10,
-    });
-    // Fetch analytics with the reset dates
-    await get().fetchAnalytics();
-  },
+    setLastWeek: async () => {
+      const startDate = dayjs().subtract(1, 'week').startOf('isoWeek').format('YYYY-MM-DD');
+      const endDate = dayjs().subtract(1, 'week').endOf('isoWeek').format('YYYY-MM-DD');
+      console.log("Setting last week:", { startDate, endDate });
+      
+      set({ startDate, endDate });
+      await get().fetchAnalytics();
+    },
 
-  // Convenience methods for common date ranges - now with auto-fetch
-  setThisWeek: async () => {
-    const startDate = formatDate(getStartOfWeek());
-    const endDate = formatDate(getEndOfWeek());
-    set({ startDate, endDate });
-    await get().fetchAnalytics();
-  },
+    setThisMonth: async () => {
+      const startDate = dayjs().startOf('month').format('YYYY-MM-DD');
+      const endDate = dayjs().endOf('month').format('YYYY-MM-DD');
+      console.log("Setting this month:", { startDate, endDate });
+      
+      set({ startDate, endDate });
+      await get().fetchAnalytics();
+    },
 
-  setLastWeek: async () => {
-    const today = new Date();
-    const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-    const startDate = formatDate(getStartOfWeek(lastWeek));
-    const endDate = formatDate(getEndOfWeek(lastWeek));
-    set({ startDate, endDate });
-    await get().fetchAnalytics();
-  },
-
-  setThisMonth: async () => {
-    // Use September 2025 since that's where the test data is
-    const startDate = '2025-09-01';
-    const endDate = '2025-09-30';
-    
-    console.log('Setting This Month to:', { startDate, endDate });
-    set({ startDate, endDate });
-    await get().fetchAnalytics();
-  },
-
-  setLastMonth: async () => {
-    const now = new Date();
-    const startDate = formatDate(
-      new Date(now.getFullYear(), now.getMonth() - 1, 1)
-    );
-    const endDate = formatDate(new Date(now.getFullYear(), now.getMonth(), 0));
-    set({ startDate, endDate });
-    await get().fetchAnalytics();
-  },
-}));
+    setLastMonth: async () => {
+      const startDate = dayjs().subtract(1, 'month').startOf('month').format('YYYY-MM-DD');
+      const endDate = dayjs().subtract(1, 'month').endOf('month').format('YYYY-MM-DD');
+      console.log("Setting last month:", { startDate, endDate });
+      
+      set({ startDate, endDate });
+      await get().fetchAnalytics();
+    },
+  };
+});
