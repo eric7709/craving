@@ -29,12 +29,14 @@ export default function TableQRCodeModal() {
                 font-family: sans-serif;
               }
               .qr-card {
-                padding: 2rem;
-                border: 2px solid #000;
-                border-radius: 1rem;
+                padding: 1rem;
+                border: 1px solid #000;
+                border-radius: 0.75rem;
                 text-align: center;
               }
-              h2 { margin: 0 0 1rem; font-size: 1.5rem; }
+              h2 { margin: 0 0 0.5rem; font-size: 0.9rem; font-weight: 600; }
+              p { margin: 0; font-size: 0.8rem; }
+              a { display: inline-block; margin-top: 0.5rem; font-size: 0.8rem; color: blue; text-decoration: underline; }
             </style>
           </head>
           <body>
@@ -54,41 +56,42 @@ export default function TableQRCodeModal() {
 
   return (
     <Modal isOpen={activeModal === "qrcode"} onClose={closeModal}>
-      <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-b from-white to-gray-50 rounded-2xl shadow-lg space-y-5 min-w-[320px]">
+      <div className="flex flex-col items-center justify-center p-4 bg-gradient-to-b from-white to-gray-50 rounded-xl shadow-md space-y-4 min-w-[240px]">
         {/* Title */}
-        <h2 className="text-2xl font-bold text-gray-800">QR Code</h2>
+        <h2 className="text-sm font-semibold text-gray-700">QR Code</h2>
 
         {/* Table Info */}
         <div className="text-center text-gray-700">
-          <p className="text-lg font-semibold">
+          <p className="text-sm font-medium">
             Table #{selectedTable?.tableNumber}
           </p>
-          <p className="text-sm">{selectedTable?.name}</p>
+          <p className="text-xs text-gray-500">{selectedTable?.name}</p>
         </div>
 
         {/* QR Code */}
         <div ref={qrRef} className="flex flex-col items-center">
-          <div className="bg-white p-6 rounded-2xl shadow-md">
-            <QRCode value={qrValue} size={220} />
+          <div className="bg-white p-3 rounded-lg shadow">
+            <QRCode value={qrValue} size={200} />
           </div>
           {qrValue && (
             <a
               href={qrValue}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 text-sm text-blue-600 hover:underline break-all text-center max-w-[260px]"
+              className="mt-2 text-xs text-blue-600 hover:underline text-center"
             >
-              {qrValue}
+              Go to Menu
             </a>
           )}
         </div>
+
         {/* Print Button */}
         <button
           onClick={handlePrint}
-          className="flex items-center gap-2 px-6 py-2.5 bg-green-600 text-white rounded-xl shadow hover:bg-green-700 transition font-medium"
+          className="flex items-center gap-1.5 px-4 py-1.5 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition text-xs font-medium"
         >
-          <Printer size={18} />
-          Print QR
+          <Printer size={14} />
+          Print
         </button>
       </div>
     </Modal>
