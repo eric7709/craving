@@ -16,17 +16,11 @@ export const useCreateTable = () => {
   const { mutate, isPending } = useCreateTableAPI();
   const handleChange = (e: TForm) => {
     const { name, value } = e.target;
-    setValues((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => {
-      if (!prev[name as keyof TTableError]) return prev;
-      const next = { ...prev };
-      delete next[name as keyof TTableError];
-      return next;
-    });
+    setValues((prev) => ({ ...prev, [name]: value}));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const { tableNumber, name } = values;
     const {
       data,
       isValid,

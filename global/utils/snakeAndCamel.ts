@@ -17,7 +17,7 @@ export function camelToSnake<T extends Record<string, any>>(obj: T): any {
       key
         .replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`)
         .replace(/^_/, ""),
-      value,
+      value === null ? null : value, // Ensure null is preserved
     ])
   );
 }

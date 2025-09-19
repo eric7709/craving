@@ -13,7 +13,7 @@ export type TBaseTable = {
   capacity: number;
   isAvailable: boolean;
   waiter: TWaiter;
-  waiterId: string
+  waiterId: string | null
   url: string | null;
   createdAt: string;
 };

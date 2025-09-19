@@ -5,7 +5,7 @@ export const createTableInitials: TCreateTable = {
   tableNumber: 0,
   capacity: 1,
   isAvailable: true,
-  waiterId: "",
+  waiterId: null,
   url: null,
 };
 
