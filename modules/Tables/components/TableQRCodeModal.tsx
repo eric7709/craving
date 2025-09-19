@@ -56,7 +56,7 @@ export default function TableQRCodeModal() {
 
   return (
     <Modal isOpen={activeModal === "qrcode"} onClose={closeModal}>
-      <div className="flex flex-col items-center justify-center p-4 bg-gradient-to-b from-white to-gray-50 rounded-xl shadow-md space-y-4 min-w-[240px]">
+      <div className="flex flex-col items-center justify-center p-4 bg-gradient-to-b from-white to-gray-50 rounded-xl shadow-md space-y-4 min-w-[270px]">
         {/* Title */}
         <h2 className="text-sm font-semibold text-gray-700">QR Code</h2>
 
