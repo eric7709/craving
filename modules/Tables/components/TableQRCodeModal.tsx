@@ -1,14 +1,16 @@
 'use client';
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useTableUtilStore } from "../store/useTableUtilStore";
 import Modal from "@/global/components/Modal";
 import QRCode from "react-qr-code";
+import { Printer } from "lucide-react";
 
 export default function TableQRCodeModal() {
   const { activeModal, closeModal, selectedTable } = useTableUtilStore();
   const qrRef = useRef<HTMLDivElement>(null);
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
   const qrValue = `${baseUrl}/menu/${selectedTable?.url}`;
+
   const handlePrint = () => {
     if (qrRef.current) {
       const printWindow = window.open("", "_blank");
@@ -17,9 +19,29 @@ export default function TableQRCodeModal() {
         <html>
           <head>
             <title>Print QR Code</title>
+            <style>
+              body { 
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                height: 100vh; 
+                margin: 0;
+                font-family: sans-serif;
+              }
+              .qr-card {
+                padding: 2rem;
+                border: 2px solid #000;
+                border-radius: 1rem;
+                text-align: center;
+              }
+              h2 { margin: 0 0 1rem; font-size: 1.5rem; }
+            </style>
           </head>
-          <body style="display:flex; justify-content:center; align-items:center; height:100vh;">
-            ${qrRef.current.innerHTML}
+          <body>
+            <div class="qr-card">
+              <h2>Table #${selectedTable?.tableNumber} - ${selectedTable?.name}</h2>
+              ${qrRef.current.innerHTML}
+            </div>
           </body>
         </html>
       `);
@@ -31,38 +53,42 @@ export default function TableQRCodeModal() {
   };
 
   return (
-    <Modal isOpen={activeModal == "qrcode"} onClose={closeModal}>
-      <div className="flex flex-col items-center justify-center p-6 bg-white rounded-lg shadow-md space-y-4 min-w-[300px]">
-        <h2 className="text-xl font-semibold">Table QR Code</h2>
-        <b>#{selectedTable?.tableNumber} {selectedTable?.name}</b>
+    <Modal isOpen={activeModal === "qrcode"} onClose={closeModal}>
+      <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-b from-white to-gray-50 rounded-2xl shadow-lg space-y-5 min-w-[320px]">
+        {/* Title */}
+        <h2 className="text-2xl font-bold text-gray-800">QR Code</h2>
 
+        {/* Table Info */}
+        <div className="text-center text-gray-700">
+          <p className="text-lg font-semibold">
+            Table #{selectedTable?.tableNumber}
+          </p>
+          <p className="text-sm">{selectedTable?.name}</p>
+        </div>
+
+        {/* QR Code */}
         <div ref={qrRef} className="flex flex-col items-center">
-          <div className="bg-white p-4 rounded-lg shadow">
-            <QRCode
-              value={qrValue}
-              size={200}
-              bgColor="#ffffff"
-              fgColor="#000000"
-            />
+          <div className="bg-white p-6 rounded-2xl shadow-md">
+            <QRCode value={qrValue} size={220} />
           </div>
-
-          {/* Make the QR link clickable */}
           {qrValue && (
             <a
               href={qrValue}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 text-sm text-blue-600 hover:underline break-all text-center"
+              className="mt-3 text-sm text-blue-600 hover:underline break-all text-center max-w-[260px]"
             >
               {qrValue}
             </a>
           )}
         </div>
+        {/* Print Button */}
         <button
           onClick={handlePrint}
-          className="mt-4 px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
+          className="flex items-center gap-2 px-6 py-2.5 bg-green-600 text-white rounded-xl shadow hover:bg-green-700 transition font-medium"
         >
-          Print
+          <Printer size={18} />
+          Print QR
         </button>
       </div>
     </Modal>
