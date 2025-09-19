@@ -185,17 +185,6 @@ export default function DashboardPage({
     "bg-cyan-500",
     "bg-teal-500",
   ];
-  const ICON_SHADOW = [
-  "shadow-indigo-400/50",
-  "shadow-emerald-400/50",
-  "shadow-sky-400/50",
-  "shadow-rose-400/50",
-  "shadow-amber-400/50",
-  "shadow-purple-400/50",
-  "shadow-cyan-400/50",
-  "shadow-teal-400/50",
-];
-
   const categorySales = transformCategorySalesData(data.category_sales);
   const dailySalesRanking = transformDailySalesData(data.daily_sales);
 
@@ -216,7 +205,6 @@ export default function DashboardPage({
                 >
                   <Icon className="w-5 h-5" />
                 </div>
-
                 <div className="min-w-0 flex-1">
                   <p className="text-[10px] font-medium text-gray-500 uppercase truncate">
                     {title}
