@@ -9,26 +9,24 @@ type Props = {
 
 export default function CustomerCard({ customer }: Props) {
   return (
-    <div className="w-full h-56 p-5 rounded-2xl shadow-md bg-teal-900 shadow-blue-900 flex flex-col items-center gap-3 text-white hover:bg-neutral-800 transition">
+    <div className="w-full h-56 p-5 rounded-2xl bg-teal-900 shadow-lg shadow-blue-900 flex flex-col items-center gap-3 text-white hover:bg-teal-800 transition">
       {/* Avatar */}
       <div className="p-3 rounded-full bg-neutral-700 shadow-inner">
-        <UserCircle size={34} className="text-blue-400" />
+        <UserCircle size={40} className="text-blue-400" />
       </div>
 
       {/* Name */}
-      <p className="text-lg font-bold capitalize text-white">
-        {customer.name}
-      </p>
+      <p className="text-base font-semibold capitalize">{customer.name}</p>
 
-      {/* Email (clickable) */}
+      {/* Email */}
       <a
         href={`mailto:${customer.email}`}
-        className="text-xs text-blue-400 hover:underline"
+        className="text-xs text-blue-400 hover:underline break-all text-center"
       >
         {customer.email}
       </a>
 
-      {/* Phone (clickable) */}
+      {/* Phone */}
       {customer?.phoneNumber && (
         <a
           href={`tel:${customer.phoneNumber}`}

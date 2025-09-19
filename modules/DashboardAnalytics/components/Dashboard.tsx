@@ -175,6 +175,27 @@ export default function DashboardPage({
     },
   ];
 
+  const ICON_BG = [
+    "bg-indigo-500",
+    "bg-emerald-500",
+    "bg-sky-500",
+    "bg-rose-500",
+    "bg-amber-500",
+    "bg-purple-500",
+    "bg-cyan-500",
+    "bg-teal-500",
+  ];
+  const ICON_SHADOW = [
+  "shadow-indigo-400/50",
+  "shadow-emerald-400/50",
+  "shadow-sky-400/50",
+  "shadow-rose-400/50",
+  "shadow-amber-400/50",
+  "shadow-purple-400/50",
+  "shadow-cyan-400/50",
+  "shadow-teal-400/50",
+];
+
   const categorySales = transformCategorySalesData(data.category_sales);
   const dailySalesRanking = transformDailySalesData(data.daily_sales);
 
@@ -188,18 +209,19 @@ export default function DashboardPage({
             {stats.map(({ title, value, icon: Icon }, i) => (
               <div
                 key={title}
-                className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-5 flex items-center gap-4 border border-slate-100"
+                className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-4 flex items-center gap-3 border-l-4 border-transparent hover:border-indigo-400 cursor-pointer"
               >
                 <div
-                  className={`p-3 rounded-lg ${STAT_COLORS[i].bg} ${STAT_COLORS[i].text}`}
+                  className={`p-2 rounded-md ${ICON_BG[i]} text-white shadow flex items-center justify-center`}
                 >
-                  <Icon className="w-6 h-6" />
+                  <Icon className="w-5 h-5" />
                 </div>
+
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-medium text-slate-500 truncate">
+                  <p className="text-[10px] font-medium text-gray-500 uppercase truncate">
                     {title}
                   </p>
-                  <p className="text-lg font-bold text-slate-800">{value}</p>
+                  <p className="text-sm font-semibold text-gray-900">{value}</p>
                 </div>
               </div>
             ))}
@@ -210,7 +232,7 @@ export default function DashboardPage({
             {/* Pie Chart - Categories */}
             <div className="bg-white rounded-xl shadow-sm p-5 border border-slate-100">
               <h2 className="text-sm font-semibold mb-4 text-slate-700">
-                Category Sales 
+                Category Sales
               </h2>
               {categorySales.length > 0 ? (
                 <>

@@ -17,6 +17,7 @@ import {
 } from "../types/employee";
 import Modal from "@/global/components/Modal";
 import { motion } from "framer-motion";
+import { UserPen } from "lucide-react";
 
 const genderOptions = [
   { value: "male", label: "Male" },
@@ -40,7 +41,6 @@ export default function UpdateEmployeeModal() {
   const [form, setForm] = useState<TUpdateEmployee>(updateEmployeeInitials);
   const [errors, setErrors] = useState<TEmployeeError>(employeeErrorInitials);
 
-  // Prefill form when employee is passed
   useEffect(() => {
     if (selectedEmployee) {
       setForm({
@@ -89,15 +89,22 @@ export default function UpdateEmployeeModal() {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
         transition={{ duration: 0.25 }}
-        className="bg-white rounded-xl shadow-xl w-full lg:w-[320px] mx-auto p-4 sm:p-6"
+        className="bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl shadow-xl w-full max-w-[400px] mx-auto p-5"
       >
-        <h2 className="text-xl font-bold text-gray-900 mb-1">
-          Update Employee
-        </h2>
-        <p className="text-gray-500 text-xs mb-4">
-          Update employee details below.
+        {/* Header */}
+        <div className="flex items-center gap-2 mb-3">
+          <div className="p-2 rounded-full bg-blue-100 text-blue-600">
+            <UserPen size={16} />
+          </div>
+          <h2 className="text-base font-semibold text-gray-800">
+            Update Employee
+          </h2>
+        </div>
+        <p className="text-gray-500 text-xs mb-5">
+          Edit employee details and save changes.
         </p>
 
+        {/* Form */}
         <div className="space-y-3">
           <Field
             name="firstname"
@@ -163,25 +170,27 @@ export default function UpdateEmployeeModal() {
           )}
         </div>
 
+        {/* Error */}
         {isError && (
-          <p className="text-red-600 text-xs mt-2 text-center">
+          <p className="text-red-600 text-xs mt-3 text-center">
             {(error as any)?.message}
           </p>
         )}
 
+        {/* Actions */}
         <div className="mt-6 flex justify-end gap-2">
           <button
             onClick={closeModal}
-            className="h-8 px-3 rounded-md bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition-colors"
+            className="px-4 py-2 rounded-md bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition cursor-pointer"
           >
             Cancel
           </button>
           <button
             onClick={handleSubmit}
             disabled={isPending}
-            className="h-8 px-4 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="px-5 py-2 rounded-md bg-blue-600 text-white text-sm font-medium shadow hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer"
           >
-            {isPending ? "Updating..." : "Update"}
+            {isPending ? "Saving..." : "Save"}
           </button>
         </div>
       </motion.div>

@@ -13,6 +13,7 @@ import {
 import { TCreateEmployee, TEmployee, TEmployeeError } from "../types/employee";
 import Modal from "@/global/components/Modal";
 import { motion } from "framer-motion";
+import { UserPlus } from "lucide-react";
 
 const genderOptions = [
   { value: "male", label: "Male" },
@@ -43,11 +44,8 @@ export default function CreateEmployeeModal() {
   };
 
   const handleSubmit = () => {
-    const {
-      errors: validationErrors,
-      isValid,
-      data,
-    } = EmployeeDomain.validateNewEmployee(form);
+    const { errors: validationErrors, isValid, data } =
+      EmployeeDomain.validateNewEmployee(form);
 
     setErrors({ ...employeeErrorInitials, ...validationErrors });
     if (!isValid) return;
@@ -69,15 +67,22 @@ export default function CreateEmployeeModal() {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
         transition={{ duration: 0.25 }}
-        className="bg-white rounded-xl shadow-xl w-full max-w-sm mx-auto p-4 sm:p-6"
+        className="bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl shadow-xl w-full max-w-[400px] mx-auto p-5"
       >
-        <h2 className="text-xl font-bold text-gray-900 mb-1">
-          Register Employee
-        </h2>
-        <p className="text-gray-500 text-xs mb-4">
+        {/* Header */}
+        <div className="flex items-center gap-2 mb-3">
+          <div className="p-2 rounded-full bg-green-100 text-green-600">
+            <UserPlus size={16} />
+          </div>
+          <h2 className="text-base font-semibold text-gray-800">
+            Register Employee
+          </h2>
+        </div>
+        <p className="text-gray-500 text-xs mb-5">
           Fill in the details below to create a new account.
         </p>
 
+        {/* Form */}
         <div className="space-y-3">
           <Field
             name="firstname"
@@ -110,7 +115,6 @@ export default function CreateEmployeeModal() {
             <p className="text-red-500 text-xs">{errors.email}</p>
           )}
 
-          {/* Role dropdown */}
           <Field
             name="role"
             placeholder="Select Role"
@@ -144,23 +148,25 @@ export default function CreateEmployeeModal() {
           )}
         </div>
 
+        {/* Error */}
         {isError && (
-          <p className="text-red-600 text-xs mt-2 text-center">
+          <p className="text-red-600 text-xs mt-3 text-center">
             {(error as any)?.message}
           </p>
         )}
 
+        {/* Actions */}
         <div className="mt-6 flex justify-end gap-2">
           <button
             onClick={closeModal}
-            className="h-9 px-4 rounded-lg bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition-colors"
+            className="px-5 py-2 rounded-md bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition cursor-pointer"
           >
             Cancel
           </button>
           <button
             onClick={handleSubmit}
             disabled={isPending}
-            className="h-9 px-5 rounded-lg bg-green-500 text-white font-medium shadow hover:from-green-600 hover:to-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="px-6 py-2 rounded-md bg-green-500 text-white font-medium shadow hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed transition text-sm cursor-pointer"
           >
             {isPending ? "Registering..." : "Register"}
           </button>
