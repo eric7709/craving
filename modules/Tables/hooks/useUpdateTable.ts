@@ -24,12 +24,10 @@ export const useUpdateTable = () => {
       ...prev,
       [name]: value,
     }));
-    setErrors((prev) => {
-      if (!prev[name as keyof TTableError]) return prev;
-      const next = { ...prev };
-      delete next[name as keyof TTableError];
-      return next;
-    });
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -42,7 +40,7 @@ export const useUpdateTable = () => {
       setErrors(errors);
       return;
     }
-          try {
+    try {
       mutate(data, {
         onSuccess: (data) => {
           updateTable(data);

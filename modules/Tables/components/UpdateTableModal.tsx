@@ -2,7 +2,6 @@ import React from "react";
 import Modal from "@/global/components/Modal";
 import { Field } from "@/global/components/Field";
 import { useUpdateTable } from "../hooks/useUpdateTable";
-import { useEmployeeDataStore } from "@/modules/Employees/store/useEmployeeDataStore";
 
 export default function UpdateTableModal() {
   const {
