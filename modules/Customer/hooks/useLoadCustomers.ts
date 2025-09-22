@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useCustomerDataStore } from "../store/useCustomerDataStore";
 
 export const useLoadCustomers = () => {
-  const { fetchCustomers, isLoading, customers } = useCustomerDataStore();
+  const { fetchCustomers,  } = useCustomerDataStore();
   useEffect(() => {
     fetchCustomers();
-  }, [customers, isLoading]);
+  }, []);
 };

@@ -5,6 +5,5 @@ export const dynamic = "force-dynamic";
 
 export default async function page() {
   const customers = await getAllCustomers();
-  console.log(customers)
   return <Base customers={customers} />;
 }
