@@ -15,11 +15,8 @@ export default function WaiterHeader() {
     await supabase.auth.signOut();
     window.location.href = "/auth/login";
   };
-
   const [profileOpen, setProfileOpen] = useState(false);
-
   const profileRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -29,7 +26,6 @@ export default function WaiterHeader() {
         setProfileOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -40,7 +36,6 @@ export default function WaiterHeader() {
   ];
   return (
     <header className="bg-white shadow-md px-4 py-2 flex items-center justify-between lg:justify-between">
-      {/* Left: Profile */}
       <div className="relative flex items-center gap-3" ref={profileRef}>
         <UserCircle
           className="w-8 h-8 lg:w-10 lg:h-10 text-gray-600 flex-shrink-0 cursor-pointer"
@@ -68,14 +63,11 @@ export default function WaiterHeader() {
           </button>
         </div>
       </div>
-
-      {/* Right: Navigation */}
       <div className="lg:hidden">
         <button onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
-
       <nav className="hidden lg:flex gap-3">
         {navLinks.map((link) => {
           const isActive = pathname === link.href;
@@ -94,8 +86,6 @@ export default function WaiterHeader() {
           );
         })}
       </nav>
-
-      {/* Mobile menu */}
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-white flex flex-col gap-2 p-4 shadow-md lg:hidden z-50">
           {navLinks.map((link) => {
@@ -109,7 +99,7 @@ export default function WaiterHeader() {
                     ? "bg-blue-600 text-white"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
-                onClick={() => setMenuOpen(false)} // close menu on click
+                onClick={() => setMenuOpen(false)}
               >
                 {link.label}
               </Link>

@@ -1,30 +1,24 @@
 "use client";
-import { useCategoryDataStore } from "@/modules/Category/store/useCategoryDataStore";
-import { useMenuItemDataStore } from "@/modules/MenuItem/store/useMenuItemDataStore";
 import CreateMenuItemModal from "@/modules/MenuItem/components/CreateMenuItemModal";
 import UpdateMenuItemModal from "@/modules/MenuItem/components/UpdateMenuItemModal";
 import DeleteMenuItem from "@/modules/MenuItem/components/DeleteMenuItemModal";
 import MenuItemList from "@/modules/MenuItem/components/MenuItemList";
 import { TCategory } from "@/modules/Category/types/category";
 import { TMenuItem } from "@/modules/MenuItem/types/menuItem";
-import React, { useEffect } from "react";
 import Header from "@/modules/Order/components/AdminHeader";
 import MenuItemHeader from "@/modules/MenuItem/components/MenuItemHeader";
 import AdminBodyContainer from "@/global/components/AdminBodyContainer";
+import { useLoadCategories } from "@/modules/Category/hooks/useLoadCategories";
+import { useLoadMenuItems } from "@/modules/MenuItem/hooks/useLoadMenuItems";
 
 type Props = {
   menuItems: TMenuItem[];
   categories: TCategory[];
 };
 
-export default function Base(props: Props) {
-  const { menuItems, categories } = props;
-  const { initializeMenuItems } = useMenuItemDataStore();
-  const { setCategories } = useCategoryDataStore();
-  useEffect(() => {
-    initializeMenuItems(menuItems);
-    setCategories(categories);
-  }, []);
+export default function Base({categories, menuItems}: Props) {
+  useLoadCategories(categories)
+  useLoadMenuItems(menuItems)
   return (
     <div className="h-screen flex flex-col">
       <Header children={<MenuItemHeader />} title="Menu Items" />

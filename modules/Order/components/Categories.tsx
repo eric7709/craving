@@ -1,6 +1,6 @@
 "use client";
 import { useCategoryDataStore } from "@/modules/Category/store/useCategoryDataStore";
-import React from "react";
+
 import { useMenuItemDataStore } from "@/modules/MenuItem/store/useMenuItemDataStore";
 
 export default function Categories() {

@@ -10,7 +10,6 @@ export const useMenuItemDataStore = create<TMenuItemDataStore>((set, get) => ({
   category: "all",
   isLoading: false,
   error: null,
-
   // --- Setters ---
   setSearch: (term: string) => {
     set({ searchTerm: term });
@@ -22,14 +21,14 @@ export const useMenuItemDataStore = create<TMenuItemDataStore>((set, get) => ({
   },
 
   // --- Initialize ---
-  initializeMenuItems: (items: TMenuItem[]) => {
+  setMenuItems: (items: TMenuItem[]) => {
     set({ allMenuItems: items });
-    get().filterMenuItems(); // menuItems updated based on current search/category
+    get().filterMenuItems(); 
   },
 
   // --- Realtime subscription ---
   subscribeToMenuItems: () => {
-    const channel = supabase
+    supabase
       .channel("menu-items")
       .on(
         "postgres_changes",
@@ -86,7 +85,6 @@ export const useMenuItemDataStore = create<TMenuItemDataStore>((set, get) => ({
   set((state) => {
     const exists = state.menuItems.find((item) => item.id === tempId);
     if (!exists) {
-      // Fallback: just add if optimistic item is missing
       return { menuItems: [...state.menuItems, realItem] };
     } 
     return {

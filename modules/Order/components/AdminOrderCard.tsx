@@ -7,7 +7,7 @@ import { formatRelativeDate } from "@/global/utils/formatRelativeDate";
 import { useOrderStatus } from "../hooks/useOrderStatus";
 
 export default function AdminOrderCard({ order }: { order: TOrder }) {
-  const { statusConfig, cancelOrder, isCancelling } = useOrderStatus(order);
+  const { statusConfig, cancelOrder, status } = useOrderStatus(order);
   const [showDeleteBtn, setShowDeleteBtn] = useState(false);
   const [_, setTime] = useState(Date.now());
   useEffect(() => {
@@ -22,7 +22,6 @@ export default function AdminOrderCard({ order }: { order: TOrder }) {
       }}
       className={`p-3 select-none shadow-md flex border rounded-lg flex-col gap-3 text-sm ${statusConfig.border}`}
     >
-      {/* Header */}
       <div className="flex items-center gap-3">
         <div className="text-xs">
           <p className="font-semibold capitalize">{order.customer.name}</p>
@@ -31,10 +30,9 @@ export default function AdminOrderCard({ order }: { order: TOrder }) {
         <p
           className={`ml-auto capitalize px-4 py-1.5 rounded-full shadow text-[11px] bg-gradient-to-tr ${statusConfig.bg}`}
         >
-          {order.status}
+          {status}
         </p>
       </div>
-      {/* Table & Waiter */}
       <div className="grid grid-cols-2 relative gap-2 text-xs">
         <div
           className={`flex flex-col py-2 justify-center items-center bg-gray-100 border ${statusConfig.border} rounded-lg shadow-md`}
@@ -72,24 +70,18 @@ export default function AdminOrderCard({ order }: { order: TOrder }) {
           </div>
         ))}
       </div>
-
-      {/* Footer */}
       <div className="flex justify-between items-center mt-auto">
         <div
           className={`transition-opacity duration-300 ${
             showDeleteBtn ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         >
-          {order.status !== "cancelled" && order.status !== "paid" && (
+          {status !== "cancelled" && status !== "paid" && (
             <p
               onClick={cancelOrder}
-              className={` px-3  rounded-lg py-1.5 text-xs text-white font-medium duration-300 ${
-                isCancelling
-                  ? "bg-red-200 cursor-not-allowed"
-                  : "bg-red-500 shadow active:scale-90  cursor-pointer"
-              }`}
+              className={` px-3  rounded-lg py-1.5 text-xs bg-red-500 shadow active:scale-90  cursor-pointer text-white font-medium duration-300 `}
             >
-              {isCancelling ? "Cancelling..." : "Cancel Order"}
+              Cancel Order
             </p>
           )}
         </div>

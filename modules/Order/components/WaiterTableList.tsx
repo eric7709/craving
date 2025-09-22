@@ -2,7 +2,7 @@
 import FadeInContainer from "@/global/components/FadeInContainer";
 import { useUser } from "@/global/hooks/useUser";
 import { useTableDataStore } from "@/modules/Tables/store/useTableDataStore";
-import React from "react";
+
 
 export default function WaiterTableList() {
   const { allTables, isLoading: APILoading } = useTableDataStore();

@@ -1,24 +1,17 @@
 "use client";
-import { motion } from "framer-motion";
 import AdminBodyContainer from "@/global/components/AdminBodyContainer";
 import CustomerHeader from "@/modules/Customer/components/CustomerHeader";
 import CustomerList from "@/modules/Customer/components/CustomerList";
-import { useCustomerDataStore } from "@/modules/Customer/store/useCustomerDataStore";
 import { TCustomer } from "@/modules/Customer/types/customer";
 import AdminHeader from "@/modules/Order/components/AdminHeader";
-import { useEffect } from "react";
+import { useLoadCustomers } from "@/modules/Customer/hooks/useLoadCustomers";
 
 type Props = {
   customers: TCustomer[];
 };
 
 export default function Base({ customers }: Props) {
-  const { fetchCustomers } = useCustomerDataStore();
-
-  useEffect(() => {
-    fetchCustomers();
-  }, []);
-
+  useLoadCustomers(customers);
   return (
     <div className="h-screen flex-col flex">
       <AdminHeader

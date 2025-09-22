@@ -1,4 +1,4 @@
-import React from "react";
+
 import { TCustomer } from "../types/customer";
 import { UserCircle } from "lucide-react";
 import { formatRelativeDate } from "@/global/utils/formatRelativeDate";

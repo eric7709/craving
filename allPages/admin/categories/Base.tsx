@@ -3,20 +3,15 @@ import AdminBodyContainer from "@/global/components/AdminBodyContainer";
 import CategoryHeader from "@/modules/Category/components/CategoryHeader";
 import CategoryList from "@/modules/Category/components/CategoryList";
 import DeleteCategoryModal from "@/modules/Category/components/DeleteCategoryModal";
-import { useCategoryDataStore } from "@/modules/Category/store/useCategoryDataStore";
+import { useLoadCategories } from "@/modules/Category/hooks/useLoadCategories";
 import { TCategory } from "@/modules/Category/types/category";
 import Header from "@/modules/Order/components/AdminHeader";
-import React, { useEffect } from "react";
 
 type Props = {
   categories: TCategory[];
 };
-export default function Base(props: Props) {
-  const { categories: data } = props;
-  const { setCategories } = useCategoryDataStore();
-  useEffect(() => {
-    setCategories(data);
-  }, []);
+export default function Base({ categories }: Props) {
+  useLoadCategories(categories);
   return (
     <div className="flex flex-col h-screen">
       <Header children={<CategoryHeader />} title="Categories" />

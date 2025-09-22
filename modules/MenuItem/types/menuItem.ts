@@ -55,7 +55,7 @@ export type TMenuItemDataStore = {
   setCategory: (category: string) => void;
 
   // --- Initialize ---
-  initializeMenuItems: (items: TMenuItem[]) => void;
+  setMenuItems: (items: TMenuItem[]) => void;
 
   // --- Realtime subscription ---
   subscribeToMenuItems: () => void;

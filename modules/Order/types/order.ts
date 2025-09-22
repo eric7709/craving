@@ -158,7 +158,7 @@ export type TMenuItemOrderStore = {
   setCategory: (category: string) => void;
 
   // Initialize and fetch
-  initializeMenuItems: (items: TMenuItem[]) => void;
+  setMenuItems: (items: TMenuItem[]) => void;
   fetchMenuItems: () => Promise<void>;
 
   // Menu item manipulation - can accept either type

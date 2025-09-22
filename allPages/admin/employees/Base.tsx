@@ -4,28 +4,22 @@ import DeleteEmployeeModal from "@/modules/Employees/components/DeleteEmployeeMo
 import EmployeeHeader from "@/modules/Employees/components/EmployeeHeader";
 import EmployeeList from "@/modules/Employees/components/EmployeeList";
 import RegisterEmployeeModal from "@/modules/Employees/components/CreateEmployeeModal";
-import { useEmployeeDataStore } from "@/modules/Employees/store/useEmployeeDataStore";
 import { TEmployee } from "@/modules/Employees/types/employee";
 import UpdateMenuItemModal from "@/modules/MenuItem/components/UpdateMenuItemModal";
 import Header from "@/modules/Order/components/AdminHeader";
-import React, { useEffect } from "react";
 import UpdateEmployeeModal from "@/modules/Employees/components/UpdateEmployeeModal";
 import { TTable } from "@/modules/Tables/types/table";
-import { useTableDataStore } from "@/modules/Tables/store/useTableDataStore";
+import { useLoadEmployees } from "@/modules/Employees/hooks/useLoadEmployees";
+import { useLoadTables } from "@/modules/Tables/hooks/useLoadTables";
 
 type Props = {
   employees: TEmployee[];
-  tables: TTable[]
+  tables: TTable[];
 };
 
-export default function Base(props: Props) {
-  const { employees, tables } = props;
-  const {setTables} = useTableDataStore()
-  const { setEmployees } = useEmployeeDataStore();
-  useEffect(() => {
-    setEmployees(employees);
-    setTables(tables)
-  }, []);
+export default function Base({ employees, tables }: Props) {
+  useLoadEmployees(employees);
+  useLoadTables(tables);
   return (
     <div className="">
       <Header title="Employees" children={<EmployeeHeader />} />

@@ -1,5 +1,5 @@
 import { SearchIcon } from "lucide-react";
-import React from "react";
+
 import { FaTimes } from "react-icons/fa";
 import { useMenuItemDataStore } from "@/modules/MenuItem/store/useMenuItemDataStore";
 

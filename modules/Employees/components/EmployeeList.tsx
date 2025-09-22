@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useEmployeeDataStore } from "../store/useEmployeeDataStore";
 import EmployeeCard from "./EmployeeCard";
 import { AddCard } from "@/global/components/AddCard";

@@ -1,6 +1,4 @@
-// modules/Customer/hooks/useCustomerServices.ts
 "use client";
-
 import { useQuery, useMutation } from "@tanstack/react-query";
 import {
   getCustomerById,
@@ -12,7 +10,6 @@ import {
   phoneExists,
 } from "@/app/actions/customerActions";
 import { TCreateCustomer, TUpdateCustomer } from "../types/customer";
-
 // Fetch all customers
 export function useCustomers() {
   return useQuery({

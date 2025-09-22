@@ -1,5 +1,5 @@
 import { Plus } from "lucide-react";
-import React from "react";
+
 import { useTableUtilStore } from "../store/useTableUtilStore";
 
 export default function CreateTableCard() {

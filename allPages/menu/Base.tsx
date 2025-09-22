@@ -1,9 +1,9 @@
 "use client";
 import Loading from "@/app/loading";
-import { supabase } from "@/global/lib/supabase";
-import { useCategoryDataStore } from "@/modules/Category/store/useCategoryDataStore";
+import { useLoadCategories } from "@/modules/Category/hooks/useLoadCategories";
 import { TCategory } from "@/modules/Category/types/category";
-import { useMenuItemDataStore } from "@/modules/MenuItem/store/useMenuItemDataStore";
+import { useLoadMenuItems } from "@/modules/MenuItem/hooks/useLoadMenuItems";
+import { useSubscribeToMenuItems } from "@/modules/MenuItem/hooks/useSubscribeToMenuItems";
 import { TMenuItem } from "@/modules/MenuItem/types/menuItem";
 import Categories from "@/modules/Order/components/Categories";
 import CreateCustomerModal from "@/modules/Order/components/CreateCustomerModal";
@@ -25,33 +25,18 @@ type Props = {
 export default function Base(props: Props) {
   const { menuItems, categories, table } = props;
   const [displayed, setDisplayed] = useState(false);
-  const { setCategories } = useCategoryDataStore();
-  const { initializeMenuItems, subscribeToMenuItems } = useMenuItemDataStore();
   const { setSelectedTable } = useOrderUtilStore();
-
+  useLoadCategories(categories);
+  useLoadMenuItems(menuItems);
+  useSubscribeToMenuItems();
   useEffect(() => {
-    initializeMenuItems(menuItems);
-    setCategories(categories);
     setSelectedTable(table);
-  }, [
-    categories,
-    table,
-    menuItems,
-    setCategories,
-    initializeMenuItems,
-    setSelectedTable,
-  ]);
-
+  }, [table, setSelectedTable]);
   useEffect(() => {
     setTimeout(() => {
       setDisplayed(true);
     }, 400);
   }, []);
-
-  useEffect(() => {
-    const unsubscribe = subscribeToMenuItems();
-    return unsubscribe;
-  }, [subscribeToMenuItems]);
 
   if (!displayed) return <Loading />;
 
