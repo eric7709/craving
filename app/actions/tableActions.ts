@@ -73,13 +73,11 @@ export async function getTableByUrl(url: string): Promise<TTable | null> {
         // row not found
         return null;
       }
-      console.error("Supabase error fetching table:", error);
       return null;
     }
 
     return data ? TableDomain.transformTable(data) : null;
   } catch (err) {
-    console.error("Unexpected error fetching table:", err);
     return null;
   }
 }

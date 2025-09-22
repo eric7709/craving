@@ -47,7 +47,6 @@ const createBeepSound = async (frequency: number = 800, duration: number = 300, 
       oscillator.onended = () => resolve();
     });
   } catch (error) {
-    console.warn('Could not create beep sound:', error);
   }
 };
 
@@ -72,7 +71,6 @@ const playAlertSequence = async () => {
     // Trigger vibration
     triggerVibration();
   } catch (error) {
-    console.warn('Could not play alert sequence:', error);
   }
 };
 
@@ -93,7 +91,6 @@ export const useOrderNotifications = (enabled: boolean = true) => {
       }
       audioEnabledRef.current = true;
     } catch (error) {
-      console.warn('Could not initialize audio:', error);
     }
   }, []);
 
@@ -146,9 +143,6 @@ export const useOrderNotifications = (enabled: boolean = true) => {
 
     // Play notification for each new order with "new" status
     if (allNewStatusOrders.length > 0) {
-      console.log(`🔔 New orders detected: ${allNewStatusOrders.length}`);
-      console.log('Audio enabled:', audioEnabledRef.current);
-      console.log('Orders with new status:', allNewStatusOrders.map(o => ({ id: o.id, status: o.status })));
       playAlertSequence();
     }
 

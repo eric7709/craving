@@ -97,7 +97,6 @@ export default function OrderSummary() {
         }
       );
     } catch (err) {
-      console.error("Error creating order:", err);
       alert("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);

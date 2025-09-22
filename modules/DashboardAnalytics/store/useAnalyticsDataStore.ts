@@ -14,7 +14,6 @@ export const useAnalyticsDataStore = create<TAnalyticsDataStore>((set, get) => {
   const initialStartDate = dayjs().startOf('isoWeek').format('YYYY-MM-DD'); // Monday start
   const initialEndDate = dayjs().endOf('isoWeek').format('YYYY-MM-DD'); // Sunday end
   
-  console.log("Initial date range:", { initialStartDate, initialEndDate });
 
   return {
     // Initial state
@@ -27,7 +26,6 @@ export const useAnalyticsDataStore = create<TAnalyticsDataStore>((set, get) => {
 
     // Actions
     setDateRange: (startDate: string, endDate: string) => {
-      console.log("Setting date range:", { startDate, endDate });
       set({ startDate, endDate });
     },
 
@@ -35,19 +33,15 @@ export const useAnalyticsDataStore = create<TAnalyticsDataStore>((set, get) => {
 
     fetchAnalytics: async () => {
       const { startDate, endDate, resultLimit } = get();
-      console.log("Fetching analytics with:", { startDate, endDate, resultLimit });
       set({ isLoading: true, error: null });
       try {
         const { data, error } = await fetchAnalyticsData(startDate, endDate, resultLimit);
         if (error) {
-          console.error("Analytics fetch error:", error);
           set({ error, isLoading: false });
           return;
         }
-        console.log("Analytics data received:", data);
         set({ analytics: data, isLoading: false });
       } catch (error) {
-        console.error("Analytics fetch exception:", error);
         set({
           error: error instanceof Error ? error.message : "Failed to fetch analytics",
           isLoading: false,
@@ -60,8 +54,6 @@ export const useAnalyticsDataStore = create<TAnalyticsDataStore>((set, get) => {
     reset: async () => {
       const startDate = dayjs().startOf('isoWeek').format('YYYY-MM-DD');
       const endDate = dayjs().endOf('isoWeek').format('YYYY-MM-DD');
-      console.log("Resetting to:", { startDate, endDate });
-      
       set({ 
         startDate, 
         endDate, 
@@ -77,8 +69,6 @@ export const useAnalyticsDataStore = create<TAnalyticsDataStore>((set, get) => {
     setThisWeek: async () => {
       const startDate = dayjs().startOf('isoWeek').format('YYYY-MM-DD');
       const endDate = dayjs().endOf('isoWeek').format('YYYY-MM-DD');
-      console.log("Setting this week:", { startDate, endDate });
-      
       set({ startDate, endDate });
       await get().fetchAnalytics();
     },
@@ -86,8 +76,6 @@ export const useAnalyticsDataStore = create<TAnalyticsDataStore>((set, get) => {
     setLastWeek: async () => {
       const startDate = dayjs().subtract(1, 'week').startOf('isoWeek').format('YYYY-MM-DD');
       const endDate = dayjs().subtract(1, 'week').endOf('isoWeek').format('YYYY-MM-DD');
-      console.log("Setting last week:", { startDate, endDate });
-      
       set({ startDate, endDate });
       await get().fetchAnalytics();
     },
@@ -95,8 +83,6 @@ export const useAnalyticsDataStore = create<TAnalyticsDataStore>((set, get) => {
     setThisMonth: async () => {
       const startDate = dayjs().startOf('month').format('YYYY-MM-DD');
       const endDate = dayjs().endOf('month').format('YYYY-MM-DD');
-      console.log("Setting this month:", { startDate, endDate });
-      
       set({ startDate, endDate });
       await get().fetchAnalytics();
     },
@@ -104,8 +90,6 @@ export const useAnalyticsDataStore = create<TAnalyticsDataStore>((set, get) => {
     setLastMonth: async () => {
       const startDate = dayjs().subtract(1, 'month').startOf('month').format('YYYY-MM-DD');
       const endDate = dayjs().subtract(1, 'month').endOf('month').format('YYYY-MM-DD');
-      console.log("Setting last month:", { startDate, endDate });
-      
       set({ startDate, endDate });
       await get().fetchAnalytics();
     },

@@ -81,9 +81,7 @@ export function useUpdateteMenuItem() {
         closeModal();
         toast.success(`${data.name} Created Successfully`);
       },
-      onError: (err) => {
-        console.error("Failed to create menu item:", err);
-      },
+      
     });
   };
   return {

@@ -1,4 +1,3 @@
-// app/actions/employeeActions.ts
 "use server";
 
 import { supabaseAdmin } from "@/global/lib/supabaseAdmin";
@@ -56,8 +55,7 @@ export async function createEmployee(
     );
 
   const emailResult = await sendEmail(email, firstname, password, authUserId);
-  if (!emailResult.success)
-    console.warn("⚠️ Employee created but email failed to send");
+
 
   return {
     id: employeeData.id,

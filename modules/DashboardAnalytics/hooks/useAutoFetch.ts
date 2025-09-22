@@ -5,7 +5,6 @@ export function useAnalyticsAutoFetch() {
   const { startDate, endDate, fetchAnalytics } = useAnalyticsDataStore();
 
   useEffect(() => {
-    console.log("Auto-fetch triggered with dates:", { startDate, endDate });
     fetchAnalytics();
   }, [startDate, endDate]); 
 }

@@ -39,7 +39,6 @@ export function usePendingOrderAlarm() {
       oscillator.start();
       oscillator.stop(audioContextRef.current.currentTime + 0.5); // half-second beep
     } catch (err) {
-      console.warn("Beep failed:", err);
     }
 
     // Vibrate if supported

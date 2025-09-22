@@ -15,7 +15,6 @@ export async function sendEmail(to: string,name: string, password: string, userI
     (`📧 Email sent to ${to}`);
     return { success: true };
   } catch (error) {
-    console.error("❌ Email Error:", error);
     return { success: false, error };
   }
 }

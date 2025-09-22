@@ -27,7 +27,6 @@ export function useOrderStatusAlert() {
       oscillator.start();
       oscillator.stop(context.currentTime + 0.5);
     } catch (err) {
-      console.error("Failed to play beep:", err);
     }
   };
 
@@ -45,7 +44,6 @@ export function useOrderStatusAlert() {
 
     // Play beep only if the number of new orders increased
     if (newOrdersCount > prevNewOrdersCountRef.current && newOrdersCount > 0) {
-      console.log("New orders detected:", newOrdersCount);
       playBeep();
     }
 

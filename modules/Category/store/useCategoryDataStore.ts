@@ -19,7 +19,6 @@ export const useCategoryDataStore = create<TCategoryDataStore>((set, get) => ({
     if (!exists) {
       set({ categories: [category, ...categories] });
     } else {
-      console.warn(`Category with id ${category.id} already exists.`);
     }
   },
 

@@ -22,7 +22,6 @@ export default function LoginPage() {
 
     try {
       const response = await login(formData);
-      console.log(response, "RESPONSE")
       if (response.error) {
         setError(response.error);
         setLoading(false);
@@ -30,7 +29,6 @@ export default function LoginPage() {
         router.push(response.redirect);
       }
     } catch (error) {
-      console.error("Login error:", error);
       setError("An unexpected error occurred");
       setLoading(false);
     }

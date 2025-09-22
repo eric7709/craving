@@ -31,7 +31,6 @@ export default function HomePage() {
     if (userRole && roleRoutes[userRole.toLowerCase()]) {
       router.push(roleRoutes[userRole.toLowerCase()]);
     } else {
-      console.warn("Unknown role:", userRole);
       setButtonLoading(false);
     }
   };

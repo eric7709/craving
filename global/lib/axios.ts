@@ -19,7 +19,6 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   (error) => {
-    console.error("API error:", error.response || error.message);
     if (error.response?.status === 401) {
     }
     return Promise.reject(error);

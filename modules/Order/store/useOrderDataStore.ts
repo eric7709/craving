@@ -20,7 +20,6 @@ export const useOrderDataStore = create<TOrderDataStore>((set, get) => ({
     get().filterOrders();
   },
   setStatus: (status) => {
-    console.log("Store: Setting status to:", status);
     set({ status });
     get().fetchOrders();
     get().filterOrders();
@@ -40,12 +39,6 @@ export const useOrderDataStore = create<TOrderDataStore>((set, get) => ({
       // Create date in local timezone (Nigeria)
       const startOfDay = new Date(year, month, day, 0, 0, 0, 0);
       set({ startDate: startOfDay.toISOString() });
-      console.log(
-        "Setting start date for Nigeria timezone:",
-        startOfDay.toISOString(),
-        "Local:",
-        startOfDay.toLocaleString()
-      );
     } else {
       set({ startDate: null });
     }
@@ -62,12 +55,7 @@ export const useOrderDataStore = create<TOrderDataStore>((set, get) => ({
       // Create date in local timezone (Nigeria)
       const endOfDay = new Date(year, month, day, 23, 59, 59, 999);
       set({ endDate: endOfDay.toISOString() });
-      console.log(
-        "Setting end date for Nigeria timezone:",
-        endOfDay.toISOString(),
-        "Local:",
-        endOfDay.toLocaleString()
-      );
+      
     } else {
       set({ endDate: null });
     }
@@ -127,7 +115,6 @@ export const useOrderDataStore = create<TOrderDataStore>((set, get) => ({
         endDate: get().endDate ?? undefined,
         status: get().status || undefined,
       };
-      console.log("Fetching orders with params:", params);
       const fetchedOrders = await fetchOrders(params);
       const mergedOrders = [...get().orders];
       fetchedOrders.forEach((fetched) => {
@@ -147,7 +134,6 @@ export const useOrderDataStore = create<TOrderDataStore>((set, get) => ({
       set({ orders: sorted });
       get().filterOrders();
     } catch (err) {
-      console.error("Failed to fetch orders:", err);
     } finally {
       set({ isLoading: false });
     }
@@ -270,7 +256,6 @@ export const useOrderDataStore = create<TOrderDataStore>((set, get) => ({
         }
       )
       .subscribe((status) => {
-        console.log("Realtime status:", status);
         if (status === "SUBSCRIBED") {
           get().fetchOrders();
         }

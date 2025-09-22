@@ -27,7 +27,6 @@ export default function MenuItemCard({ menuItem }: { menuItem: TMenuItem }) {
           updateMenuItem(updatedItem);
         },
         onError: (err) => {
-          console.error("❌ Update failed:", err);
           // rollback
           updateMenuItem(menuItem);
         },

@@ -26,14 +26,11 @@ export default function Sidebar() {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
       router.push("/auth/login");
-    } catch (err) {
-      console.error("Logout failed:", err);
-    } finally {
+    } catch (err) {} finally {
       setLoading(false);
     }
   };
 
-  // Close dropdown when clicking outside or pressing ESC
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (

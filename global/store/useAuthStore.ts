@@ -25,7 +25,6 @@ export const useAuthStore = create<TAuthStore>((set) => ({
     }
     const user = await getEmployeeByEmail(email)
     if (!user) {
-      console.error("Error fetching employee details:");
       set({ user: null, loading: false });
       return;
     }

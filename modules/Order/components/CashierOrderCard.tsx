@@ -11,7 +11,7 @@ import Invoice from "@/modules/Order/components/Invoice";
 import { useOrderStatus } from "../hooks/useOrderStatus";
 
 export default function CashierOrderCard({ order }: { order: TOrder }) {
-  const { statusConfig, getButtonText, changeStatus, isPending } =
+  const { statusConfig, getButtonText, changeStatus, isPending, status } =
     useOrderStatus(order);
   const [_, setTime] = useState(Date.now());
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
         <p
           className={`ml-auto capitalize px-4 py-1.5 rounded-full shadow text-[11px] bg-white/70 backdrop-blur-sm`}
         >
-          {order.status}
+          {status}
         </p>
       </div>
       <div className="grid grid-cols-2 relative gap-2 text-xs">
@@ -46,7 +46,7 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
           <p className="text-gray-600">Table Number</p>
           <p className="font-semibold">{order.table.tableNumber}</p>
         </div>
-        {order.status !== "cancelled" && order.status !== "new" && (
+        {order.status !== "cancelled" && status !== "new" && (
           <div
             onClick={handlePrint}
             className={`h-8 w-8 bg-white rounded-full ${statusConfig.border} cursor-pointer hover:scale-105 active:scale-90 duration-300 border grid place-content-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2`}
@@ -87,28 +87,21 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
       <div className="mt-auto space-y-2">
         <div
           className={`flex items-center mt-auto ${
-            order.status !== "paid" && order.status !== "cancelled"
+            status !== "paid" && status !== "cancelled"
               ? "justify-end"
               : "justify-between"
           }`}
         >
-          {order.status === "cancelled" && <FaTimes color="red" />}
-          {order.status === "paid" && <Check size={18} color="green" />}
+          {status === "cancelled" && <FaTimes color="red" />}
+          {status === "paid" && <Check size={18} color="green" />}
           <p className="font-semibold text-end">{formatPrice(order.total)}</p>
         </div>
 
         {/* Status button */}
-        {order.status !== "paid" && order.status !== "cancelled" && (
+        {status !== "paid" && status !== "cancelled" && (
           <button
-            disabled={isPending}
             onClick={changeStatus}
-            className={`${
-              statusConfig.button
-            } text-white bg-gradient-to-r rounded-lg py-2.5 text-xs duration-300 font-medium w-full ${
-              isPending
-                ? "opacity-50 cursor-not-allowed"
-                : "cursor-pointer hover:scale-[1.02]"
-            }`}
+            className={`${statusConfig.button} text-white bg-gradient-to-r cursor-pointer hover:scale-[1.02] rounded-lg py-2.5 text-xs duration-300 font-medium w-full `}
           >
             {getButtonText}
           </button>

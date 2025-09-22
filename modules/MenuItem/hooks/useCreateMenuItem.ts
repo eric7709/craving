@@ -93,7 +93,6 @@ export function useCreateMenuItem() {
       },
       onError: (err) => {
         deleteMenuItem(tempId);
-        console.error("Failed to create menu item:", err);
       },
     });
   };

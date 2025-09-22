@@ -19,6 +19,5 @@ export function playCustomBeep({
       audioCtx.close();
     };
   } catch (error) {
-    console.error("Beep not supported", error);
   }
 }

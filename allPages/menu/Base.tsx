@@ -28,23 +28,6 @@ export default function Base(props: Props) {
   const { setCategories } = useCategoryDataStore();
   const { initializeMenuItems, subscribeToMenuItems } = useMenuItemDataStore();
   const { setSelectedTable } = useOrderUtilStore();
-  const [tables, setTables] = useState<TTable[]>([]);
-  useEffect(() => {
-    const testConnection = async () => {
-      try {
-        const { data, error } = await supabase.from("tables").select("*");
-        if (data) setTables(data);
-        console.log("Connection test:", { data, error });
-      } catch (err) {
-        console.error("Connection failed:", err);
-      }
-    };
-    testConnection();
-  }, []);
-
-  useEffect(() => {
-    console.log(tables);
-  }, [tables]);
 
   useEffect(() => {
     initializeMenuItems(menuItems);

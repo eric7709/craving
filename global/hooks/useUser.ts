@@ -28,7 +28,6 @@ export function useUser() {
       setProfileID(data.user?.profileID ?? null);
       setUserEmail(data.user?.email ?? null);
     } catch (err) {
-      console.error("useUser: Error fetching user:", err);
       setUserName(null);
       setUserRole(null);
       setProfileID(null);

@@ -8,8 +8,8 @@ export type TCustomerData = {
 };
 
 export class OrderDomain {
-  static statusConfig = (order: TOrder): Record<string, any> => {
-    switch (order.status) {
+  static statusConfig = (status: TOrderStatus): Record<string, any> => {
+    switch (status) {
       case "new":
         return {
           dot: "bg-amber-500",
@@ -63,10 +63,10 @@ export class OrderDomain {
         };
     }
   };
-  static getButtonText = (order: TOrder) => {
-    if (order.status === "new") return "Start Preparing";
-    if (order.status === "in progress") return "Mark Complete";
-    if (order.status === "completed") return "Confirm Payment";
+  static getButtonText = (status: TOrderStatus) => {
+    if (status === "new") return "Start Preparing";
+    if (status === "in progress") return "Mark Complete";
+    if (status === "completed") return "Confirm Payment";
     return "Paid";
   };
 

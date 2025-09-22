@@ -5,6 +5,7 @@ import { useState } from "react";
 export function useOrderStatus(order: TOrder) {
   const [isCancelling, setIsCancelling] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [status, setStatus] = useState(order.status)
   const cancelOrder = async () => {
     setIsCancelling(true);
     await updateOrderStatus(order.id, "cancelled");
@@ -21,17 +22,16 @@ export function useOrderStatus(order: TOrder) {
     else if (currentStatus === "in progress") newStatus = "completed";
     else if (currentStatus === "completed") newStatus = "paid";
     else return;
+    setStatus(newStatus)
     await updateOrderStatus(order.id, newStatus);
-    setTimeout(() => {
-      setIsUpdating(false);
-    }, 1000);
   };
   return {
     changeStatus,
-    statusConfig: OrderDomain.statusConfig(order),
-    getButtonText: OrderDomain.getButtonText(order),
+    statusConfig: OrderDomain.statusConfig(status),
+    getButtonText: OrderDomain.getButtonText(status),
     isPending: isUpdating,
     cancelOrder,
     isCancelling,
+    status, 
   };
 }

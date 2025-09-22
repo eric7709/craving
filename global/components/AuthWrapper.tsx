@@ -33,13 +33,11 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
 
     // If not authenticated and not on a public route, redirect to login
     if (!userID && !isPublicRoute) {
-      console.log("AuthWrapper: Redirecting to login - no user");
       router.push("/auth/login");
       return;
     }
     // If authenticated and on login page, redirect to home
     if (userID && pathname === "/auth/login") {
-      console.log("AuthWrapper: Redirecting to home - user already logged in");
       router.push("/");
       return;
     }
@@ -47,9 +45,6 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
     if (userID && userRole) {
       for (const [route, allowedRoles] of Object.entries(protectedRoutes)) {
         if (pathname.startsWith(route) && !allowedRoles.includes(userRole)) {
-          console.log(
-            `AuthWrapper: Access denied to ${route} for role ${userRole}`
-          );
           router.push("/unauthorized");
           return;
         }
