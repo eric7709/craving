@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default function Base({ customers }: Props) {
-  useLoadCustomers(customers);
+  useLoadCustomers();
   return (
     <div className="h-screen flex-col flex">
       <AdminHeader

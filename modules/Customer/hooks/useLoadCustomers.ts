@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { useCustomerDataStore } from "../store/useCustomerDataStore";
-import { TCustomer } from "../types/customer";
 
-export const useLoadCustomers = (customers: TCustomer[]) => {
-  const { setCustomers } = useCustomerDataStore();
+export const useLoadCustomers = () => {
+  const { fetchCustomers, isLoading, customers } = useCustomerDataStore();
   useEffect(() => {
-    setCustomers(customers);
-  }, [customers]);
+    fetchCustomers();
+  }, [customers, isLoading]);
 };
