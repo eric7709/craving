@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { TableAllocationState, TableAllocationHistory } from "../types/table";
 
 function getTodayISODate(): string {
-  return new Date().toLocaleDateString("en-CA"); // e.g. 2025-09-26
+  return new Date().toLocaleDateString("en-CA"); 
 }
 
 export const useTableAllocationDataStore = create<TableAllocationState>(
