@@ -23,10 +23,10 @@ export default function AddMenuItemCard() {
         <Plus className="w-6 h-6 text-white" />
       </div>
       <div className="text-center">
-        <h3 className="font-semibold text-green-700 group-hover:text-green-800 transition-colors">
+        <h3 className="font-semibold text-sm lg:text-base text-green-700 group-hover:text-green-800 transition-colors">
           Add Menu Item
         </h3>
-        <p className="text-sm text-green-600 group-hover:text-green-700 transition-colors">
+        <p className="text-xs sm:text-sm text-green-600 group-hover:text-green-700 transition-colors">
           Create a new menu item
         </p>
       </div>
