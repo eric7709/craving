@@ -138,7 +138,7 @@ export default function Sidebar() {
         {sidebarOpened && (
           <>
             <motion.div
-              className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+              className="fixed inset-0 bg-black/50 z-[100] lg:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -149,7 +149,7 @@ export default function Sidebar() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ duration: 0.3 }}
-              className="fixed top-0 left-0 w-64 h-full bg-gray-900 text-white flex flex-col shadow-lg z-50 lg:hidden"
+              className="fixed top-0 left-0 z-[100] w-72 h-full bg-gray-900 text-white flex flex-col shadow-lg z-50 lg:hidden"
             >
               <SidebarContent />
             </motion.aside>
