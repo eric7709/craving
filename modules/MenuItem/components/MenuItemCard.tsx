@@ -78,7 +78,7 @@ export default function MenuItemCard({ menuItem }: { menuItem: TMenuItem }) {
       </div>
 
       <div>
-        <p className="text-center text-base capitalize font-semibold">
+        <p className="text-center text-[15px] lg:text-base capitalize font-semibold">
           {menuItem.name}
         </p>
         <p className="text-center text-xs italic capitalize">
@@ -86,7 +86,7 @@ export default function MenuItemCard({ menuItem }: { menuItem: TMenuItem }) {
         </p>
       </div>
 
-      <p className="text-center text-[17px] text-green-500 font-semibold">
+      <p className="text-center text-base lg:text-[17px] text-green-500 font-semibold">
         {formatPrice(menuItem.price)}
       </p>
     </div>
