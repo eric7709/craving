@@ -67,7 +67,7 @@ export default function CreateEmployeeModal() {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
         transition={{ duration: 0.25 }}
-        className="bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl shadow-xl w-full max-w-[400px] mx-auto p-5"
+        className="bg-white rounded-2xl shadow-xl w-full max-w-[400px] mx-auto p-5"
       >
         {/* Header */}
         <div className="flex items-center gap-2 mb-3">
