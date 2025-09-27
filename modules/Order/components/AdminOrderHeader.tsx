@@ -14,7 +14,7 @@ export default function AdminOrderHeader() {
   const { getFilteredOrdersSum } = useOrderDataStore();
   const total = formatPrice(getFilteredOrdersSum());
   return (
-    <div className="flex justify-between items-center gap-4">
+    <div className="flex justify-between items-center gap-4 h-9">
       <div className="hidden lg:block"></div>
       <div className="hidden gap-2 lg:flex">
         <OrderSearch />

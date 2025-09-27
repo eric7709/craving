@@ -7,7 +7,6 @@ export const useTableDataStore = create<TTableDataStore>((set, get) => ({
   sortBy: "",
   searchTerm: "",
   isLoading: false,
-
   startLoading: () => set({ isLoading: true }),
   stopLoading: () => set({ isLoading: false }),
 

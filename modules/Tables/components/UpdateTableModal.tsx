@@ -64,12 +64,13 @@ export default function UpdateTableModal() {
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
             handleChange({
               target: {
-                name: "is_available",
+                name: "isAvailable",
                 value: e.target.value === "true",
               },
             } as any)
           }
           options={[
+            { label: "", value: "" },
             { label: "Yes", value: "true" },
             { label: "No", value: "false" },
           ]}

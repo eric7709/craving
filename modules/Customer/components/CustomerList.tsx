@@ -19,7 +19,6 @@ export default function CustomerList() {
           <CustomerCard customer={customer} key={customer.id} />
         ))}
       </div>
-
       <div
         className={`${
           customers.length == 0 ? "grid place-content-center" : "hidden"

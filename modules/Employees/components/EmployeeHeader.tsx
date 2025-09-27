@@ -2,7 +2,7 @@ import { Filter, Search } from "lucide-react";
 import React, { useState } from "react";
 import { useEmployeeDataStore } from "../store/useEmployeeDataStore";
 
-export default function MenuItemHeader() {
+export default function EmployeeHeader() {
   const { setSearchTerm, searchTerm } = useEmployeeDataStore();
   const [menuOpened, setMenuOpened] = useState(false);
   return (

@@ -43,7 +43,8 @@ export class TableDomain {
       name: table.name,
       capacity: table.capacity,
       tableNumber: table.tableNumber,
-      waiterId: table.waiter?.id || null
+      waiterId: table.waiter?.id || null,
+      isAvailable: table.isAvailable
     };
   }
 

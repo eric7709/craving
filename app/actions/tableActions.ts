@@ -4,6 +4,7 @@ import {
   TCreateTable,
   TUpdateTable,
   TTable,
+  TableAllocationHistory,
 } from "@/modules/Tables/types/table";
 import { camelToSnake, snakeToCamel } from "@/global/utils/snakeAndCamel";
 import { TableDomain } from "@/modules/Tables/services/tableDomain";
@@ -164,7 +165,6 @@ export async function deallocateWaiter(
     .update({ waiter_id: null })
     .eq("id", tableId);
   if (updateError) throw updateError;
-
   const { error: historyError } = await supabaseAdmin
     .from("table_allocation_history")
     .insert(
@@ -175,9 +175,69 @@ export async function deallocateWaiter(
       })
     );
   if (historyError) throw historyError;
-
   return getTableById(tableId);
 }
+
+export async function getTableAllocationHistory(
+  start?: string,
+  end?: string
+): Promise<TableAllocationHistory[]> {
+  let query = supabaseAdmin
+    .from("table_allocation_history")
+    .select(
+      `
+      id,
+      tableId:table_id,
+      waiterId:waiter_id,
+      allocatedAt:allocated_at,
+      deallocatedAt:deallocated_at,
+      tables (
+        name,
+        tableNumber:table_number
+      ),
+      employees (
+        firstname,
+        lastname
+      )
+    `
+    )
+    .order("allocated_at", { ascending: false });
+
+  if (start && end) {
+    const startDate = new Date(start);
+    startDate.setHours(0, 0, 0, 0);
+
+    const endDate = new Date(end);
+    endDate.setHours(23, 59, 59, 999);
+
+    query = query.gte("allocated_at", startDate.toISOString()).lte(
+      "allocated_at",
+      endDate.toISOString()
+    );
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Error fetching table allocation history:", error.message);
+    return [];
+  }
+
+  return (
+    data?.map((row: any) => ({
+      id: row.id,
+      tableId: row.tableId,
+      waiterId: row.waiterId,
+      allocatedAt: row.allocatedAt,
+      deallocatedAt: row.deallocatedAt,
+      tableName: row.tables?.name,
+      tableNumber: row.tables?.tableNumber,
+      waiterFirstname: row.employees?.firstname,
+      waiterLastname: row.employees?.lastname,
+    })) ?? []
+  );
+}
+
 
 // Allocation history
 export async function getAllocationHistory(tableId: string) {

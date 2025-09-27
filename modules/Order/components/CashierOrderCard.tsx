@@ -98,12 +98,27 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
         </div>
 
         {/* Status button */}
+        {/* Status button */}
         {status !== "paid" && status !== "cancelled" && (
           <button
-            onClick={changeStatus}
-            className={`${statusConfig.button} text-white bg-gradient-to-r cursor-pointer hover:scale-[1.02] rounded-lg py-2.5 text-xs duration-300 font-medium w-full `}
+            onClick={() => {
+              if (!isPending) {
+                changeStatus()
+              }
+            }}
+            disabled={isPending}
+            className={`
+      ${statusConfig.button} 
+      text-white bg-gradient-to-r cursor-pointer rounded-lg py-2.5 text-xs 
+      duration-300 font-medium w-full
+      ${
+        isPending
+          ? "opacity-50 cursor-not-allowed"
+          : "cursor-pointer hover:scale-[1.02]"
+      }
+    `}
           >
-            {getButtonText}
+            {isPending ? "Processing..." : getButtonText}
           </button>
         )}
       </div>

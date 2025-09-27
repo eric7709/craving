@@ -21,6 +21,7 @@
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.18",
     "framer-motion": "^12.23.12",
+    "gsap": "^3.13.0",
     "hamburger-react": "^2.5.2",
     "lucide-react": "^0.542.0",
     "nanoid": "^5.1.5",

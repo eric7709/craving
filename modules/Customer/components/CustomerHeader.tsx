@@ -11,7 +11,6 @@ export default function CustomerHeader() {
       <div className="hidden lg:block">
         <SearchCustomer />
       </div>
-
       {/* Filter button */}
       <Filter
         className="ml-3 lg:hidden cursor-pointer"

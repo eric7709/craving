@@ -5,11 +5,11 @@ import DeleteMenuItem from "@/modules/MenuItem/components/DeleteMenuItemModal";
 import MenuItemList from "@/modules/MenuItem/components/MenuItemList";
 import { TCategory } from "@/modules/Category/types/category";
 import { TMenuItem } from "@/modules/MenuItem/types/menuItem";
-import Header from "@/modules/Order/components/AdminHeader";
 import MenuItemHeader from "@/modules/MenuItem/components/MenuItemHeader";
 import AdminBodyContainer from "@/global/components/AdminBodyContainer";
 import { useLoadCategories } from "@/modules/Category/hooks/useLoadCategories";
 import { useLoadMenuItems } from "@/modules/MenuItem/hooks/useLoadMenuItems";
+import AdminHeader from "@/modules/Order/components/AdminHeader";
 
 type Props = {
   menuItems: TMenuItem[];
@@ -21,7 +21,7 @@ export default function Base({categories, menuItems}: Props) {
   useLoadMenuItems(menuItems)
   return (
     <div className="h-screen flex flex-col">
-      <Header children={<MenuItemHeader />} title="Menu Items" />
+      <AdminHeader children={<MenuItemHeader />} title="Menu Items" />
       <AdminBodyContainer>
         <MenuItemList />
         <DeleteMenuItem />

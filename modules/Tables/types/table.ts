@@ -5,6 +5,33 @@ export type TWaiter = {
   lastname: string;
 };
 
+// types/tableAllocation.ts
+export type TableAllocationHistory = {
+  id: string;
+  tableId: string;
+  waiterId?: string | null;
+  allocatedAt: string;
+  deallocatedAt?: string | null;
+
+  // joined fields
+  tableName: string;
+  tableNumber: number;
+  waiterFirstname?: string | null;
+  waiterLastname?: string | null;
+};
+
+export interface TableAllocationState {
+  allocations: TableAllocationHistory[];
+  startDate: string; // start of the date range
+  endDate: string;   // end of the date range
+  loading: boolean;
+
+  setAllocations: (allocations: TableAllocationHistory[]) => void;
+  clearAllocations: () => void;
+  setDateRange: (start: string, end: string) => void;
+  fetchAllocations: (start?: string, end?: string) => Promise<void>;
+}
+
 // Table Types
 export type TBaseTable = {
   id: string;
@@ -13,13 +40,13 @@ export type TBaseTable = {
   capacity: number;
   isAvailable: boolean;
   waiter: TWaiter;
-  waiterId: string | null
+  waiterId: string | null;
   url: string | null;
   createdAt: string;
 };
 
-export type TTable = Omit<TBaseTable, "waiterId" >;
-export type TCreateTable = Omit<TBaseTable, "id" | "createdAt" | "waiter">
+export type TTable = Omit<TBaseTable, "waiterId">;
+export type TCreateTable = Omit<TBaseTable, "id" | "createdAt" | "waiter">;
 export type TUpdateTable = Partial<TBaseTable> & {
   id: string;
 };
@@ -95,7 +122,7 @@ export type TTableDataStore = {
   // Loading
   startLoading: () => void;
   stopLoading: () => void;
-  replaceTable: (tempId: string, data: TTable) => void
+  replaceTable: (tempId: string, data: TTable) => void;
   setTables: (tables: TTable[]) => void;
   setSearchTerm: (searchTerm: string) => void;
   changeSortBy: (sortBy: string) => void;

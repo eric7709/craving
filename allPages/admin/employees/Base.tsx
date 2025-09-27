@@ -21,7 +21,7 @@ export default function Base({ employees, tables }: Props) {
   useLoadEmployees(employees);
   useLoadTables(tables);
   return (
-    <div className="">
+    <div className="h-screen flex flex-col">
       <Header title="Employees" children={<EmployeeHeader />} />
       <AdminBodyContainer>
         <RegisterEmployeeModal />

@@ -21,9 +21,17 @@ export default function TableCard(table: TTable) {
         setSelectedTable(table);
         openUpdateTableModal();
       }}
-      className={`h-52 cursor-pointer hover:scale-[1.01] duration-300 shadow-md rounded-xl flex flex-col items-center justify-center text-white font-semibold
-       bg-emerald-950 p-4`}
+      className="relative h-52 cursor-pointer hover:scale-[1.01] duration-300 shadow-md rounded-xl flex flex-col items-center justify-center text-white font-semibold bg-green-950 p-4"
     >
+      {/* Vertical Unavailable Label */}
+      {!table.isAvailable && (
+        <div className="absolute left-0 top-0 h-full flex items-center">
+          <span className="text-xs font-bold tracking-widest text-white bg-red-600 px-2 py-1 rounded-l-md rotate-180 [writing-mode:vertical-rl]">
+            UNAVAILABLE
+          </span>
+        </div>
+      )}
+
       <GiForkKnifeSpoon className="text-3xl shrink-0 mb-2" />
       <p className="text-3xl">{table.tableNumber}</p>
       <h2 className="text-base">{table.name}</h2>
