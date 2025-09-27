@@ -69,7 +69,7 @@ export default function TableQRCodeModal() {
         </div>
 
         {/* QR Code */}
-        <div ref={qrRef} className="flex flex-col items-center">
+        <div ref={qrRef} className="flex flex-col bg-white items-center">
           <div className="bg-white p-3 rounded-lg shadow">
             <QRCode value={qrValue} size={200} />
           </div>
