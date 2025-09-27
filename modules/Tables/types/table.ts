@@ -8,17 +8,16 @@ export type TWaiter = {
 // types/tableAllocation.ts
 export type TableAllocationHistory = {
   id: string;
-  tableId: string;
-  waiterId?: string | null;
+  tableId: string | null;
+  waiterId: string | null;
   allocatedAt: string;
-  deallocatedAt?: string | null;
-
-  // joined fields
-  tableName: string;
-  tableNumber: number;
+  deallocatedAt: string | null;
+  tableName?: string | null;
+  tableNumber?: number | null;
   waiterFirstname?: string | null;
   waiterLastname?: string | null;
 };
+
 
 export interface TableAllocationState {
   allocations: TableAllocationHistory[];

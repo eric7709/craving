@@ -4,10 +4,10 @@ import {
   TCreateTable,
   TUpdateTable,
   TTable,
-  TableAllocationHistory,
 } from "@/modules/Tables/types/table";
-import { camelToSnake, snakeToCamel } from "@/global/utils/snakeAndCamel";
+import { camelToSnake } from "@/global/utils/snakeAndCamel";
 import { TableDomain } from "@/modules/Tables/services/tableDomain";
+
 // Get all tables
 export async function getAllTables(): Promise<TTable[]> {
   const { data, error } = await supabaseAdmin
@@ -24,8 +24,8 @@ export async function getAllTables(): Promise<TTable[]> {
       waiter:waiter_id(id, firstname, lastname)
     `
     )
-    // new
     .order("table_number", { ascending: true });
+
   if (error) throw error;
   return TableDomain.transformTables(data);
 }
@@ -48,9 +48,12 @@ export async function getTableById(id: string): Promise<TTable | null> {
     )
     .eq("id", id)
     .single();
+
   if (error) throw error;
   return data ? TableDomain.transformTable(data) : null;
 }
+
+// Get table by URL
 export async function getTableByUrl(url: string): Promise<TTable | null> {
   try {
     const { data, error } = await supabaseAdmin
@@ -69,6 +72,7 @@ export async function getTableByUrl(url: string): Promise<TTable | null> {
       )
       .eq("url", url)
       .maybeSingle();
+
     if (error) {
       if (error.code === "PGRST116") {
         // row not found
@@ -78,7 +82,7 @@ export async function getTableByUrl(url: string): Promise<TTable | null> {
     }
 
     return data ? TableDomain.transformTable(data) : null;
-  } catch (err) {
+  } catch {
     return null;
   }
 }
@@ -101,6 +105,7 @@ export async function createTable(payload: TCreateTable): Promise<TTable> {
     `
     )
     .single();
+
   if (error) throw error;
   return TableDomain.transformTable(data);
 }
@@ -108,6 +113,7 @@ export async function createTable(payload: TCreateTable): Promise<TTable> {
 // Update table
 export async function updateTable(payload: TUpdateTable): Promise<TTable> {
   const { id, ...rest } = payload;
+
   const { data, error } = await supabaseAdmin
     .from("tables")
     .update(camelToSnake(rest))
@@ -125,6 +131,7 @@ export async function updateTable(payload: TUpdateTable): Promise<TTable> {
     `
     )
     .single();
+
   if (error) throw error;
   return TableDomain.transformTable(data);
 }
@@ -144,15 +151,8 @@ export async function allocateWaiter(
     .from("tables")
     .update({ waiter_id: waiterId })
     .eq("id", tableId);
+
   if (updateError) throw updateError;
-
-  const { error: historyError } = await supabaseAdmin
-    .from("table_allocation_history")
-    .insert(
-      camelToSnake({ tableId, waiterId, allocatedAt: new Date().toISOString() })
-    );
-  if (historyError) throw historyError;
-
   return getTableById(tableId);
 }
 
@@ -164,97 +164,7 @@ export async function deallocateWaiter(
     .from("tables")
     .update({ waiter_id: null })
     .eq("id", tableId);
+
   if (updateError) throw updateError;
-  const { error: historyError } = await supabaseAdmin
-    .from("table_allocation_history")
-    .insert(
-      camelToSnake({
-        tableId,
-        waiterId: null,
-        deallocatedAt: new Date().toISOString(),
-      })
-    );
-  if (historyError) throw historyError;
   return getTableById(tableId);
-}
-
-export async function getTableAllocationHistory(
-  start?: string,
-  end?: string
-): Promise<TableAllocationHistory[]> {
-  let query = supabaseAdmin
-    .from("table_allocation_history")
-    .select(
-      `
-      id,
-      tableId:table_id,
-      waiterId:waiter_id,
-      allocatedAt:allocated_at,
-      deallocatedAt:deallocated_at,
-      tables (
-        name,
-        tableNumber:table_number
-      ),
-      employees (
-        firstname,
-        lastname
-      )
-    `
-    )
-    .order("allocated_at", { ascending: false });
-
-  if (start && end) {
-    const startDate = new Date(start);
-    startDate.setHours(0, 0, 0, 0);
-
-    const endDate = new Date(end);
-    endDate.setHours(23, 59, 59, 999);
-
-    query = query.gte("allocated_at", startDate.toISOString()).lte(
-      "allocated_at",
-      endDate.toISOString()
-    );
-  }
-
-  const { data, error } = await query;
-
-  if (error) {
-    console.error("Error fetching table allocation history:", error.message);
-    return [];
-  }
-
-  return (
-    data?.map((row: any) => ({
-      id: row.id,
-      tableId: row.tableId,
-      waiterId: row.waiterId,
-      allocatedAt: row.allocatedAt,
-      deallocatedAt: row.deallocatedAt,
-      tableName: row.tables?.name,
-      tableNumber: row.tables?.tableNumber,
-      waiterFirstname: row.employees?.firstname,
-      waiterLastname: row.employees?.lastname,
-    })) ?? []
-  );
-}
-
-
-// Allocation history
-export async function getAllocationHistory(tableId: string) {
-  const { data, error } = await supabaseAdmin
-    .from("table_allocation_history")
-    .select(
-      `
-      id,
-      table_id,
-      waiter_id,
-      allocated_at,
-      deallocated_at,
-      waiter:waiter_id(id, firstname, lastname)
-    `
-    )
-    .eq("table_id", tableId)
-    .order("allocated_at", { ascending: false });
-  if (error) throw error;
-  return (data || []).map(snakeToCamel);
 }

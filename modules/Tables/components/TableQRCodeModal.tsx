@@ -76,7 +76,7 @@ export default function TableQRCodeModal() {
           {qrValue && (
             <a
               href={qrValue}
-              target="_blank"
+            target="_blank"
               rel="noopener noreferrer"
               className="mt-2 text-xs text-blue-600 hover:underline text-center"
             >
