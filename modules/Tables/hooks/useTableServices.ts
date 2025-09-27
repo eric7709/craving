@@ -9,7 +9,6 @@ import {
   deleteTable,
   allocateWaiter,
   deallocateWaiter,
-  getAllocationHistory,
 } from "@/app/actions/tableActions";
 
 export function useTables() {
@@ -74,10 +73,3 @@ export function useDeallocateWaiter() {
 }
 
 // Get allocation history
-export function useAllocationHistory(tableId: string) {
-  return useQuery({
-    queryKey: ["table-allocation-history", tableId],
-    queryFn: () => getAllocationHistory(tableId),
-    enabled: !!tableId,
-  });
-}

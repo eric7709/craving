@@ -28,7 +28,6 @@ export interface TableAllocationState {
   setAllocations: (allocations: TableAllocationHistory[]) => void;
   clearAllocations: () => void;
   setDateRange: (start: string, end: string) => void;
-  fetchAllocations: (start?: string, end?: string) => Promise<void>;
 }
 
 // Table Types
