@@ -27,7 +27,6 @@ export default function DeleteMenuItemModal() {
         <p className="text-base capitalize font-semibold text-red-400">
           {selectedMenuItem?.name || "Item"}?
         </p>
-
         <div className="flex justify-center gap-2 pt-1">
           <button
             onClick={closeModal}
