@@ -1,17 +1,16 @@
 import { TOrder, TOrderStatus } from "../types/order";
 import { OrderDomain } from "../services/orderDomain";
-import { updateOrderStatus } from "@/app/actions/orderActions";
 import { useUpdateOrderStatus } from "./useOrderServices";
 export function useOrderStatus(order: TOrder) {
   const { mutate, isPending } = useUpdateOrderStatus();
   const cancelOrder = async () => {
     mutate({
       orderId: order.id,
-      status: order.status,
+      status: "cancelled",
     });
-    await updateOrderStatus(order.id, "cancelled");
   };
   const changeStatus = async () => {
+    console.log(order.status, "Order Status")
     const currentStatus = order.status;
     let newStatus: TOrderStatus;
     if (currentStatus === "new") newStatus = "in progress";

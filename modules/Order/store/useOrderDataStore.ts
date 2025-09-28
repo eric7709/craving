@@ -248,8 +248,10 @@ export const useOrderDataStore = create<TOrderDataStore>((set, get) => ({
             const data = await fetchOrderById(newOrder.id);
             if (data) get().addOrder(data);
           } else if (eventType === "UPDATE" && newOrder) {
-            const data = await fetchOrderById(newOrder.id);
-            if (data) get().updateOrder(data);
+            const order = get().orders.find(el => el.id == newOrder.id)
+            if(order != undefined) {
+              get().updateOrder({...order, status: newOrder.status});
+            }
           } else if (eventType === "DELETE" && oldOrder) {
             get().removeOrder(oldOrder.id);
           }

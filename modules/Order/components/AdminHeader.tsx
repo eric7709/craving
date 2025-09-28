@@ -7,7 +7,7 @@ type Props = {
 export default function AdminHeader({ children, title }: Props) {
   const { sidebarOpened, toggleSidebar } = useUIStore();
   return (
-    <div className="h-14 px-3 border-b  border-gray-300 flex justify-between items-center">
+    <div className="h-14 px-3 border-b sticky top-0 border-gray-300 flex justify-between items-center">
       <div className="flex items-center gap-2">
         {!sidebarOpened ? (
           <MenuIcon size={17} className="lg:hidden shrink-0" onClick={toggleSidebar} />

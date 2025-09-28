@@ -15,7 +15,7 @@ const Invoice = forwardRef<HTMLDivElement, Props>(({ order, waiterName, currentD
   const [table, setTable] = useState<TTable | null>(null);
   const { tables } = useTableDataStore();
   useEffect(() => {
-    if (order.table.id) {
+    if (order?.table?.id) {
       const table = tables.find((el) => el.id == order.table.id);
       if (table) {
         setTable(table);

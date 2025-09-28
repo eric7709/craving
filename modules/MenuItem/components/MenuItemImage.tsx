@@ -19,7 +19,7 @@ export default function MenuItemImage({
       className={`relative w-full border-2 border-dashed rounded-xl cursor-pointer flex items-center justify-center 
                   transition-all duration-300
                   ${preview ? "h-48 bg-gradient-to-br from-blue-50 to-indigo-100 border-blue-300 hover:border-blue-400" 
-                            : "h-24 bg-gray-50 border-gray-300 hover:border-gray-400"}`}
+                            : "h-32 bg-gray-50 border-gray-300 hover:border-gray-400"}`}
     >
       {preview ? (
         <div className="relative h-full w-full">

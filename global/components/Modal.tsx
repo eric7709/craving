@@ -1,5 +1,6 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 type ModalProps = {
   isOpen: boolean;
@@ -8,26 +9,49 @@ type ModalProps = {
 };
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+  const overlayRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+
+  // Animate modal in/out
+  useEffect(() => {
+    if (isOpen) {
+      // Fade in overlay
+      gsap.to(overlayRef.current, { opacity: 1, duration: 0.3, pointerEvents: "auto" });
+      // Slide + scale in modal
+      gsap.fromTo(
+        modalRef.current,
+        { y: -20, scale: 0.95, opacity: 0 },
+        { y: 0, scale: 1, opacity: 1, duration: 0.3, ease: "power3.out" }
+      );
+    } else {
+      // Fade out overlay
+      gsap.to(overlayRef.current, { opacity: 0, duration: 0.3, pointerEvents: "none" });
+      // Slide + scale out modal
+      gsap.to(modalRef.current, {
+        y: -20,
+        scale: 0.95,
+        opacity: 0,
+        duration: 0.3,
+        ease: "power3.in",
+      });
+    }
+  }, [isOpen]);
+
   const handleOverlayClick = (e: React.MouseEvent) => {
-    if (modalRef.current && e.target === modalRef.current) {
+    if (overlayRef.current && e.target === overlayRef.current) {
       onClose();
     }
   };
 
   return (
     <div
-      ref={modalRef}
+      ref={overlayRef}
       onClick={handleOverlayClick}
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 transition-opacity duration-300 ${
-        isOpen ? "opacity-100 visible" : "opacity-0 invisible"
-      }`}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 opacity-0 pointer-events-none"
     >
       <div
-        className=" rounded-lg shadow-lg transform transition-transform duration-300 ease-out inline-block max-w-[90%] w-auto"
-        style={{
-          transform: isOpen ? "translateY(0)" : "translateY(-20px)",
-        }}
+        ref={modalRef}
+        className="inline-block max-w-[90%] w-auto"
       >
         {children}
       </div>

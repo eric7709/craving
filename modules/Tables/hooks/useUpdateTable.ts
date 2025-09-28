@@ -30,6 +30,12 @@ export const useUpdateTable = () => {
     }));
   };
 
+  const options = [
+    { label: "", value: "" },
+    { label: "Yes", value: "true" },
+    { label: "No", value: "false" },
+  ];
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const { data, errors, isValid } = TableDomain.validateUpdateTable(
@@ -61,6 +67,7 @@ export const useUpdateTable = () => {
     closeModal,
     isOpen: activeModal === "update",
     values,
+    options,
     loading: isPending,
   };
 };

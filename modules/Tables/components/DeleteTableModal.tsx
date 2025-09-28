@@ -1,57 +1,58 @@
-import { useTableUtilStore } from "../store/useTableUtilStore";
+"use client";
+import { Trash2 } from "lucide-react";
 import Modal from "@/global/components/Modal";
-import { Trash2, Loader2 } from "lucide-react";
-import { useDeleteTable } from "../hooks/useTableServices";
+import { useTableUtilStore } from "../store/useTableUtilStore";
 import { useTableDataStore } from "../store/useTableDataStore";
+import { useDeleteTable } from "../hooks/useTableServices";
 
 export default function DeleteTableModal() {
   const { activeModal, closeModal, selectedTable } = useTableUtilStore();
-  const {removeTable} = useTableDataStore()
+  const { removeTable } = useTableDataStore();
   const { mutate, isPending } = useDeleteTable();
+
   const handleDelete = () => {
     if (!selectedTable) return;
     mutate(selectedTable.id, {
       onSuccess: () => {
-        removeTable(selectedTable.id)
+        removeTable(selectedTable.id);
         closeModal();
       },
     });
   };
+
   return (
     <Modal isOpen={activeModal === "delete"} onClose={closeModal}>
-      <div className="p-4 flex rounded-xl bg-white w-[275px] flex-col items-center text-center space-y-3">
-        <div className="h-10 w-10 rounded-full bg-red-100 flex items-center justify-center">
-          <Trash2 className="text-red-600" size={22} />
-        </div>
-
-        <h2 className="text-lg font-semibold text-gray-900">
-          Delete Table {selectedTable?.tableNumber}?
-        </h2>
-
-        <p className="text-sm text-gray-500">
-          You are about to delete{" "}
-          <span className="font-medium text-gray-600">{selectedTable?.name}</span>. This action
-          cannot be undone.
+      <div className="w-64 p-6 h-fit rounded-xl bg-slate-800 shadow-lg text-center space-y-3">
+        <Trash2 className="w-8 h-8 text-red-500 mx-auto" />
+        <p className="text-[13px] text-slate-300">
+          Are you sure you want to delete
+        </p>
+        <p className="text-base font-semibold text-red-400 capitalize">
+          {selectedTable?.name || `Table ${selectedTable?.tableNumber}`}?
         </p>
 
-        <div className="flex gap-2 mt-3 w-full">
+        <div className="flex justify-center gap-2 pt-1">
           <button
             onClick={closeModal}
             disabled={isPending}
-            className="flex-1 px-3 py-2 cursor-pointer rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 text-sm transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-20 h-9 rounded-lg bg-slate-700 text-xs text-slate-200 
+            hover:bg-slate-600 hover:scale-105 active:scale-95 
+            cursor-pointer transition-transform duration-200 
+            grid place-content-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
           <button
             onClick={handleDelete}
             disabled={isPending}
-            className="flex-1 px-3 py-2 cursor-pointer rounded-md bg-red-600 text-white hover:bg-red-700 text-sm transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+            className={`w-20 h-9 rounded-lg text-xs text-white 
+              ${isPending
+                ? "bg-red-400 cursor-not-allowed"
+                : "bg-red-600 hover:bg-red-500 hover:scale-105"} 
+              active:scale-95 cursor-pointer transition-transform duration-200 grid place-content-center`}
           >
             {isPending ? (
-              <>
-                <Loader2 className="animate-spin mr-1" size={16} />
-                Deleting...
-              </>
+              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mx-auto" />
             ) : (
               "Delete"
             )}

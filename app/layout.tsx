@@ -1,13 +1,13 @@
 import { ReactQueryProvider } from "@/global/provider/ReactQueryProvider";
-import { Poppins } from "next/font/google";
+import { Inter } from "next/font/google"; // ✅ Use Nunito
 import type { Metadata } from "next";
 import "./globals.css";
 
-// ✅ Import Poppins
-const poppins = Poppins({
+// ✅ Import Nunito
+const nunito = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"], // choose the weights you need
-  variable: "--font-poppins",
+  variable: "--font-nunito",
 });
 
 export const metadata: Metadata = {
@@ -22,9 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} antialiased`}>
+      <body className={`${nunito.className} antialiased`}>
         <ReactQueryProvider>
-            {children}
+          {children}
         </ReactQueryProvider>
       </body>
     </html>

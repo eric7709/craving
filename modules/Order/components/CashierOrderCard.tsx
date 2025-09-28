@@ -13,11 +13,13 @@ import { useOrderStatus } from "../hooks/useOrderStatus";
 export default function CashierOrderCard({ order }: { order: TOrder }) {
   const { statusConfig, getButtonText, changeStatus, isPending, status } =
     useOrderStatus(order);
+
   const [_, setTime] = useState(Date.now());
   useEffect(() => {
     const interval = setInterval(() => setTime(Date.now()), 10000);
     return () => clearInterval(interval);
   }, []);
+
   const invoiceRef = useRef<HTMLDivElement>(null);
   const handlePrint = useReactToPrint({
     contentRef: invoiceRef,
@@ -26,8 +28,9 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
 
   return (
     <div
-      className={`p-3 shadow-md  flex border rounded-lg flex-col gap-3 text-sm ${statusConfig.border} bg-gradient-to-br ${statusConfig.bg}`}
+      className={`p-3 shadow-md flex border rounded-lg flex-col gap-3 text-sm ${statusConfig.border} bg-gradient-to-br ${statusConfig.bg}`}
     >
+      {/* Header */}
       <div className="flex items-center gap-3">
         <div className="text-xs">
           <p className="font-semibold capitalize">{order.customer.name}</p>
@@ -39,6 +42,8 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
           {status}
         </p>
       </div>
+
+      {/* Table + Print + Waiter */}
       <div className="grid grid-cols-2 relative gap-2 text-xs">
         <div
           className={`flex flex-col py-2 justify-center items-center bg-white/80 border ${statusConfig.border} rounded-lg shadow-md`}
@@ -46,6 +51,7 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
           <p className="text-gray-600">Table Number</p>
           <p className="font-semibold">{order.table.tableNumber}</p>
         </div>
+
         {order.status !== "cancelled" && status !== "new" && (
           <div
             onClick={handlePrint}
@@ -54,6 +60,7 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
             <Printer size={15} />
           </div>
         )}
+
         <div
           className={`flex flex-col py-2 justify-center items-center bg-white/80 border ${statusConfig.border} rounded-lg shadow-md`}
         >
@@ -61,6 +68,7 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
           <p className="font-semibold">{order.waiter.firstname}</p>
         </div>
       </div>
+
       {/* Order Items */}
       <div className="flex flex-col text-xs my-2 gap-4">
         {order.items.map((item) => (
@@ -98,27 +106,34 @@ export default function CashierOrderCard({ order }: { order: TOrder }) {
         </div>
 
         {/* Status button */}
-        {/* Status button */}
         {status !== "paid" && status !== "cancelled" && (
           <button
             onClick={() => {
               if (!isPending) {
-                changeStatus()
+                changeStatus();
               }
             }}
             disabled={isPending}
             className={`
-      ${statusConfig.button} 
-      text-white bg-gradient-to-r cursor-pointer rounded-lg py-2.5 text-xs 
-      duration-300 font-medium w-full
-      ${
-        isPending
-          ? "opacity-50 cursor-not-allowed"
-          : "cursor-pointer hover:scale-[1.02]"
-      }
-    `}
+              ${statusConfig.button} 
+              text-white bg-gradient-to-r rounded-lg h-10 text-xs 
+              duration-300 font-medium w-full
+              ${
+                isPending
+                  ? "opacity-50 cursor-not-allowed"
+                  : "cursor-pointer hover:scale-[1.02]"
+              }
+            `}
           >
-            {isPending ? "Processing..." : getButtonText}
+            {isPending ? (
+              <div className="flex justify-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-bounce [animation-delay:-0.3s]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-bounce [animation-delay:-0.15s]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-bounce" />
+              </div>
+            ) : (
+              getButtonText
+            )}
           </button>
         )}
       </div>

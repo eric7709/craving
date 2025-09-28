@@ -1,6 +1,11 @@
 @import "tailwindcss";
 
 
+body{
+    color: #1F2937; /* dark gray, softer than black */
+}
+
+
 /* Hide scrollbar for all elements with scrollbar-none */
 .scrollbar-none::-webkit-scrollbar {
   display: none;

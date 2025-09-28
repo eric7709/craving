@@ -22,7 +22,7 @@ export default function CustomerCard({ customer }: Props) {
         {/* Email */}
         <a
           href={`mailto:${customer.email}`}
-          className="text-xs text-blue-300 hover:underline truncate"
+          className="text-xs text-blue-300 w-fit hover:underline truncate"
         >
           {customer.email}
         </a>

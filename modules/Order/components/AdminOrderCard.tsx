@@ -7,9 +7,10 @@ import { formatRelativeDate } from "@/global/utils/formatRelativeDate";
 import { useOrderStatus } from "../hooks/useOrderStatus";
 
 export default function AdminOrderCard({ order }: { order: TOrder }) {
-  const { statusConfig, cancelOrder, status } = useOrderStatus(order);
+  const { statusConfig, cancelOrder, status, isPending } = useOrderStatus(order);
   const [showDeleteBtn, setShowDeleteBtn] = useState(false);
   const [_, setTime] = useState(Date.now());
+
   useEffect(() => {
     const interval = setInterval(() => setTime(Date.now()), 10000);
     return () => clearInterval(interval);
@@ -17,14 +18,12 @@ export default function AdminOrderCard({ order }: { order: TOrder }) {
 
   return (
     <div
-      onDoubleClick={() => {
-        setShowDeleteBtn(!showDeleteBtn);
-      }}
+      onDoubleClick={() => setShowDeleteBtn(!showDeleteBtn)}
       className={`p-3 select-none shadow-md flex border rounded-lg flex-col gap-3 text-sm ${statusConfig.border}`}
     >
       <div className="flex items-center gap-3">
         <div className="text-xs">
-          <p className="font-semibold capitalize">{order.customer.name}</p>
+          <p className="font-semibold capitalize">{order.customer.name ?? "Unknown"}</p>
           <p className="text-[10px]">{formatRelativeDate(order.createdAt)}</p>
         </div>
         <p
@@ -38,14 +37,13 @@ export default function AdminOrderCard({ order }: { order: TOrder }) {
           className={`flex flex-col py-2 justify-center items-center bg-gray-100 border ${statusConfig.border} rounded-lg shadow-md`}
         >
           <p className="text-gray-600">Table Number</p>
-          <p className="font-semibold">{order.table.tableNumber}</p>
+          <p className="font-semibold">{order.table.tableNumber ?? "N/A"}</p>
         </div>
-
         <div
           className={`flex flex-col py-2 justify-center items-center bg-gray-100 border ${statusConfig.border} rounded-lg shadow-md`}
         >
           <p className="text-gray-600">Waiter</p>
-          <p className="font-semibold">{order.waiter.firstname}</p>
+          <p className="font-semibold">{order.waiter.firstname ?? "Unknown"}</p>
         </div>
       </div>
 
@@ -57,7 +55,7 @@ export default function AdminOrderCard({ order }: { order: TOrder }) {
               <div className="h-5 w-5 grid place-content-center rounded-full shadow bg-blue-600 text-white">
                 <p className="font-semibold">{item.quantity}</p>
               </div>
-              <p className="font-semibold capitalizep">{item.name}</p>
+              <p className="font-semibold capitalize">{item.name}</p>
               {item.takeOut && (
                 <Home color="oklch(72.3% 0.219 149.579)" size={15} />
               )}
@@ -77,12 +75,15 @@ export default function AdminOrderCard({ order }: { order: TOrder }) {
           }`}
         >
           {status !== "cancelled" && status !== "paid" && (
-            <p
+            <button
               onClick={cancelOrder}
-              className={` px-3  rounded-lg py-1.5 text-xs bg-red-500 shadow active:scale-90  cursor-pointer text-white font-medium duration-300 `}
+              disabled={isPending}
+              className={`px-3 py-1.5 text-xs bg-red-600 text-white font-medium rounded-md shadow active:scale-90 transition duration-300 ${
+                isPending ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+              }`}
             >
               Cancel Order
-            </p>
+            </button>
           )}
         </div>
         <p className="font-semibold mt-auto text-end">

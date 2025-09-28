@@ -1,9 +1,8 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
-import { Check, X } from "lucide-react";
-import MenuItemImage from "./MenuItemImage";
-import { useUpdateteMenuItem } from "../hooks/useUpdateMenuItem";
 import Modal from "@/global/components/Modal";
+import MenuItemImage from "./MenuItemImage";
+import { FaCheck, FaTimes, FaTag, FaDollarSign, FaInfoCircle } from "react-icons/fa";
+import { useUpdateteMenuItem } from "../hooks/useUpdateMenuItem";
 
 export default function UpdateMenuItemModal() {
   const {
@@ -17,144 +16,146 @@ export default function UpdateMenuItemModal() {
     fileInputRef,
     errors,
     isOpen,
-    errorClass,
-    inputClass,
-    handleSubmit,
-    toggleAvailability,
   } = useUpdateteMenuItem();
 
+  const labelClass = "text-xs font-medium text-gray-700 mb-1 flex items-center gap-1 ml-0.5";
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
-      <div className="w-[350px] mx-auto bg-white rounded-xl shadow p-4 space-y-4 max-h-[90vh] min-h-[20rem] overflow-y-auto">
-        <h2 className="text-lg font-semibold text-gray-800 text-center">
+      <form
+        onSubmit={(e: any) => {
+          e.preventDefault();
+          handleFileChange && handleFileChange(e);
+        }}
+        className="w-[325px] border-2 border-gray-200 rounded-3xl shadow-md bg-gray-50 flex flex-col h-[80vh]"
+      >
+        <h2 className="text-base text-center px-4 py-3 border-b border-gray-200 font-semibold text-gray-900">
           Update Menu Item
         </h2>
-        
 
-        
-        <MenuItemImage
-          preview={preview}
-          onFileChange={handleFileChange}
-          fileInputRef={fileInputRef}
-        />
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <div className="flex flex-col relative">
-            <label className="absolute -top-2 left-2 text-[10px] font-medium text-gray-500 bg-white px-1">
-              Item Name
+        <div className="px-4 py-4 space-y-4 overflow-y-auto">
+          {/* Image */}
+          <MenuItemImage
+            preview={preview}
+            onFileChange={handleFileChange}
+            fileInputRef={fileInputRef}
+          />
+
+          {/* Item Name */}
+          <div className="flex flex-col">
+            <label htmlFor="name" className={labelClass}>
+              <FaTag className="text-blue-500" /> Item Name
             </label>
             <input
+              id="name"
               type="text"
               value={form.name}
               onChange={(e) => setField("name", e.target.value)}
-              className={inputClass}
-              placeholder="Item name"
+              placeholder="Enter the name of your menu item"
+              className="h-9 text-xs pl-3 focus:border-blue-500 duration-300 px-2 border-[1.5px] outline-none rounded-[10px] border-gray-200 focus:ring-blue-400"
               required
             />
-            {errors.name && <span className={errorClass}>{errors.name}</span>}
+            {errors.name && <p className="text-xs text-red-600 mt-1">{errors.name}</p>}
           </div>
-          <div className="flex flex-col relative">
-            <label className="absolute -top-2 left-2 text-[10px] font-medium text-gray-500 bg-white px-1">
-              Price
+
+          {/* Price */}
+          <div className="flex flex-col">
+            <label htmlFor="price" className={labelClass}>
+              <FaDollarSign className="text-green-500" /> Price
             </label>
             <input
+              id="price"
               type="number"
               value={form.price ?? ""}
               onChange={(e) => setField("price", e.target.value)}
-              className={inputClass}
               placeholder="Price"
+              className="h-9 text-xs pl-3 focus:border-blue-500 duration-300 px-2 border-[1.5px] outline-none rounded-[10px] border-gray-200 focus:ring-blue-400"
               required
             />
-            {errors.price && <span className={errorClass}>{errors.price}</span>}
+            {errors.price && <p className="text-xs text-red-600 mt-1">{errors.price}</p>}
           </div>
-          <div className="flex flex-col relative">
-            <label className="absolute -top-2 left-2 text-[10px] font-medium text-gray-500 bg-white px-1">
-              Description
+
+          {/* Description */}
+          <div className="flex flex-col">
+            <label htmlFor="description" className={labelClass}>
+              <FaInfoCircle className="text-yellow-500" /> Description
             </label>
             <textarea
+              id="description"
               value={form.description}
               onChange={(e) => setField("description", e.target.value)}
-              className={inputClass}
               placeholder="Description"
               rows={2}
+              className="h-20 text-xs p-3 focus:border-blue-500 duration-300 px-2 border-[1.5px] outline-none rounded-[10px] border-gray-200 focus:ring-blue-400 resize-none"
             />
-            {errors.description && (
-              <span className={errorClass}>{errors.description}</span>
-            )}
+            {errors.description && <p className="text-xs text-red-600 mt-1">{errors.description}</p>}
           </div>
-          <div className="flex flex-col relative">
-            <label className="absolute -top-2 left-2 text-xs text-gray-500 bg-white px-1">
-              Category
+
+          {/* Category */}
+          <div className="flex flex-col">
+            <label htmlFor="category" className={labelClass}>
+              <FaTag className="text-purple-500" /> Category
             </label>
             <select
+              id="category"
               value={form.categoryId}
               onChange={(e) => setField("categoryId", e.target.value)}
-              className={`${inputClass} capitalize`}
+              className="h-9 text-xs pl-3 focus:border-blue-500 duration-300 px-2 border-[1.5px] outline-none rounded-[10px] border-gray-200 focus:ring-blue-400 capitalize"
             >
               <option value="">Select category</option>
               {categories.map((category) => (
-                <option
-                  value={category.id}
-                  key={category.id}
-                  className="capitalize"
-                >
+                <option key={category.id} value={category.id} className="capitalize">
                   {category.name}
                 </option>
               ))}
             </select>
-            {errors.categoryId && (
-              <span className={errorClass}>{errors.categoryId}</span>
-            )}
+            {errors.categoryId && <p className="text-xs text-red-600 mt-1">{errors.categoryId}</p>}
           </div>
-          <div className="flex items-center justify-between">
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={form.isAvailable ? "available" : "unavailable"}
-                initial={{ y: 10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -10, opacity: 0 }}
-                transition={{ duration: 0.25 }}
-                className={`text-sm font-medium ${
-                  form.isAvailable ? "text-green-600" : "text-red-600"
-                }`}
-              >
-                {form.isAvailable ? "Available" : "Unavailable"}
-              </motion.span>
-            </AnimatePresence>
-            <button
-              type="button"
-              onClick={() => {
-                toggleAvailability();
-              }}
-              className={`w-8 h-8 flex items-center justify-center rounded-full transition-transform duration-150 cursor-pointer ${
-                form.isAvailable
-                  ? "bg-green-500 hover:bg-green-600"
-                  : "bg-red-500 hover:bg-red-600"
-              } hover:scale-105`}
+
+          {/* Availability */}
+          <div className="flex flex-col">
+            <label htmlFor="isAvailable" className={labelClass}>
+              <FaCheck className="text-green-500" /> Availability
+            </label>
+            <select
+              id="isAvailable"
+              value={form.isAvailable ? "true" : "false"}
+              onChange={(e) => setField("isAvailable", e.target.value === "true")}
+              className="h-9 text-xs pl-3 focus:border-blue-500 duration-300 px-2 border-[1.5px] outline-none rounded-[10px] border-gray-200 focus:ring-blue-400"
             >
-              {form.isAvailable ? (
-                <Check size={16} className="text-white" />
-              ) : (
-                <X size={16} className="text-white" />
-              )}
-            </button>
+              <option value="true">Available</option>
+              <option value="false">Unavailable</option>
+            </select>
+            {errors.isAvailable && <p className="text-xs text-red-600 mt-1">{errors.isAvailable}</p>}
           </div>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex p-3 border-t bg-white m-2 border rounded-2xl border-gray-200 justify-end gap-2">
+          <button
+            type="button"
+            onClick={closeModal}
+            className={`px-5 py-2.5 cursor-pointer rounded-[10px] shadow-sm shadow-gray-600 text-xs font-medium transition duration-300 ${
+              isPending
+                ? "bg-gray-400 cursor-not-allowed text-gray-700"
+                : "bg-gray-200 hover:bg-gray-300 text-black"
+            }`}
+          >
+            Cancel
+          </button>
           <button
             type="submit"
             disabled={isPending}
-            className={`w-full h-10 rounded-md text-white text-sm font-medium transition ${
+            className={`px-5 py-2.5 cursor-pointer rounded-[10px] shadow-sm shadow-gray-600 text-xs font-medium text-white transition duration-300 ${
               isPending
                 ? "bg-blue-400 cursor-not-allowed"
-                : "bg-blue-600 cursor-pointer hover:bg-blue-500 active:scale-90"
-            } flex items-center justify-center gap-2`}
+                : "bg-blue-600 hover:bg-blue-700"
+            }`}
           >
-            {isPending && (
-              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-            )}
             {isPending ? "Updating..." : "Update"}
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
     </Modal>
   );
 }
