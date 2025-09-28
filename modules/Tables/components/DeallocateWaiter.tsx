@@ -28,7 +28,7 @@ export default function DeallocateWaiterModal() {
           Are you sure you want to deallocate
         </p>
         <p className="text-base font-semibold text-yellow-400">
-          {selectedTable?.waiter?.firstname} from table #{selectedTable?.tableNumber} ({selectedTable?.name})?
+          {selectedTable?.waiter?.firstname} from Table #{selectedTable?.tableNumber} ({selectedTable?.name})?
         </p>
 
         <div className="flex justify-center gap-2 pt-1">

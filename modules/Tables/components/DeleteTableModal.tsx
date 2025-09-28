@@ -28,7 +28,7 @@ export default function DeleteTableModal() {
           Are you sure you want to delete
         </p>
         <p className="text-base font-semibold text-red-400 capitalize">
-          {selectedTable?.name || `Table ${selectedTable?.tableNumber}`}?
+          Table #{selectedTable?.tableNumber} ({selectedTable?.name || `Table ${selectedTable?.tableNumber}`})?
         </p>
 
         <div className="flex justify-center gap-2 pt-1">
