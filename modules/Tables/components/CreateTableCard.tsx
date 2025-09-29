@@ -14,7 +14,7 @@ export default function CreateTableCard() {
       </div>
       <div className="text-center">
         <h3 className="font-semibold text-blue-700 group-hover:text-blue-800 transition-colors">
-          Add Table
+        Add Table
         </h3>
         <p className="text-sm text-blue-600 group-hover:text-blue-700 transition-colors">
           Create a new Table

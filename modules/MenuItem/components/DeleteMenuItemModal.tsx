@@ -22,10 +22,10 @@ export default function DeleteMenuItemModal() {
       <div className="w-64 p-6 h-fit rounded-xl bg-slate-800 shadow-lg text-center space-y-3">
         <Trash2 className="w-8 h-8 text-red-500 mx-auto" />
         <p className="text-[13px] text-slate-300">
-          Are you sure you want to delete 
+          Are you sure you want to delete this menu item?
         </p>
         <p className="text-base capitalize font-semibold text-red-400">
-          {selectedMenuItem?.name || "Item"}?
+          {selectedMenuItem?.name || "Item"}
         </p>
         <div className="flex justify-center gap-2 pt-1">
           <button

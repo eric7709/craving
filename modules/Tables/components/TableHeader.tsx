@@ -2,7 +2,7 @@ import { Filter, Search } from "lucide-react";
 import React, { useState } from "react";
 import { useTableDataStore } from "../store/useTableDataStore";
 
-export default function CategoryHeader() {
+export default function TableHeader() {
   const { setSearchTerm, searchTerm } = useTableDataStore();
   const [menuOpened, setMenuOpened] = useState(false);
   return (

@@ -1,5 +1,4 @@
 "use client";
-import React, { useEffect } from "react";
 import { Trash2 } from "lucide-react";
 import Modal from "@/global/components/Modal";
 import { useEmployeeUtilStore } from "../store/useEmployeeUtilStore";
@@ -8,7 +7,7 @@ import { useDeleteEmployee } from "../hooks/useEmployeeServices";
 
 export default function DeleteEmployeeModal() {
   const { selectedEmployee, activeModal, closeModal } = useEmployeeUtilStore();
-  const { mutate, isPending, isSuccess } = useDeleteEmployee();
+  const { mutate, isPending } = useDeleteEmployee();
   const { removeEmployee } = useEmployeeDataStore();
 
   const handleDelete = () => {
@@ -16,7 +15,7 @@ export default function DeleteEmployeeModal() {
       mutate(selectedEmployee.id, {
         onSuccess: () => {
           removeEmployee(selectedEmployee.id);
-          closeModal()
+          closeModal();
         },
       });
     }
@@ -27,12 +26,11 @@ export default function DeleteEmployeeModal() {
       <div className="w-64 p-6 h-fit rounded-xl bg-slate-800 shadow-lg text-center space-y-3">
         <Trash2 className="w-8 h-8 text-red-500 mx-auto" />
         <p className="text-[13px] text-slate-300">
-          Are you sure you want to delete
+          Are you sure you want to delete this employee?
         </p>
         <p className="text-base capitalize font-semibold text-red-400">
-          {selectedEmployee?.firstname} ?
+          {selectedEmployee?.firstname}
         </p>
-
         <div className="flex justify-center gap-2 pt-1">
           <button
             onClick={closeModal}
