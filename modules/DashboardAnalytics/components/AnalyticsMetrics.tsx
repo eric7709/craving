@@ -1,14 +1,12 @@
 "use client";
 import { useAnalyticsDataStore } from "../store/useAnalyticsDataStore";
-import { CheckCircle, XCircle, UserPlus, ShoppingCart } from "lucide-react";
+import { CheckCircle, XCircle, UserPlus } from "lucide-react";
 import { FaMoneyBill } from "react-icons/fa";
 import { formatPrice } from "@/global/utils/formatPrice";
 
 export default function AnalyticsMetrics() {
   const { analytics, isLoading } = useAnalyticsDataStore();
-
   const statistics = analytics?.orderStats;
-
   const defaultCards = [
     {
       title: "Paid Orders",

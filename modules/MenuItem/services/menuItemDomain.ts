@@ -35,7 +35,7 @@ export class MenuItemDomain {
         name: menuItem.name ?? "",
         price: menuItem.price ?? "",
         imageUrl: menuItem.imageUrl ?? "",
-        image: menuItem.imageUrl ?? null,
+        image: null,
       };
     }
     return null;

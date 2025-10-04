@@ -1,26 +1,31 @@
 "use client";
 import Modal from "@/global/components/Modal";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTableUtilStore } from "../store/useTableUtilStore";
-import { Field } from "@/global/components/Field";
 import { useAllocateWaiter } from "../hooks/useTableServices";
 import { useEmployeeDataStore } from "@/modules/Employees/store/useEmployeeDataStore";
-import { toast } from "react-toast";
 import { useTableDataStore } from "../store/useTableDataStore";
+import { FiChevronDown } from "react-icons/fi"; // dropdown indicator
 
 export default function AllocateWaiter() {
   const { activeModal, closeModal, selectedTable, clearSelectedTable } =
     useTableUtilStore();
   const { updateTable } = useTableDataStore();
   const { waiters } = useEmployeeDataStore();
+
   const [waiterId, setWaiterId] = useState("");
   const [error, setError] = useState("");
 
-  const waiterOptions = waiters.map((el) => ({
+  // ✅ Sort waiters alphabetically by firstname + lastname
+  const sortedWaiters = [...waiters].sort((a, b) =>
+    `${a.firstname} ${a.lastname}`.localeCompare(`${b.firstname} ${b.lastname}`)
+  );
+
+  const waiterOptions = sortedWaiters.map((el) => ({
     label: `${el.firstname} ${el.lastname}`,
     value: el.id,
   }));
-  const options = [{ label: "", value: "" }, ...waiterOptions];
+
   const { mutate, isPending } = useAllocateWaiter();
 
   const confirm = () => {
@@ -45,66 +50,85 @@ export default function AllocateWaiter() {
 
   return (
     <Modal isOpen={activeModal === "allocate"} onClose={closeModal}>
-      <div className="p-5 w-[300px] bg-white rounded-xl mx-auto">
-        {/* Header */}
-        <div className="mb-4">
-          <h2 className="text-lg font-semibold text-gray-900 mb-1">
-            Allocate Waiter
-          </h2>
-          <p className="text-sm text-gray-600">
-            Assign a waiter to table{" "}
-            <span className="font-medium text-gray-900">
-              #{selectedTable?.tableNumber} ({selectedTable?.name})
+      <div className="w-72 p-6 h-fit rounded-xl bg-slate-800 shadow-lg text-center space-y-3">
+        <p className="text-[13px] text-slate-300">
+          Assign a waiter to Table{" "}
+          <span className="font-medium text-yellow-400">
+            #{selectedTable?.tableNumber} ({selectedTable?.name})
+          </span>
+        </p>
+
+        {selectedTable?.waiter && (
+          <p className="text-xs text-slate-400">
+            Currently assigned:{" "}
+            <span className="font-medium text-slate-200">
+              {selectedTable.waiter.firstname} {selectedTable.waiter.lastname}
             </span>
           </p>
-        </div>
-        {selectedTable?.waiter && (
-          <div className="mb-3 p-2 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-sm text-blue-800">
-              <span className="font-medium">Currently assigned:</span>{" "}
-              {selectedTable?.waiter.firstname} {selectedTable?.waiter.lastname}
-            </p>
-          </div>
         )}
 
-        {/* Waiter Selection */}
-        <div className="mb-3">
-          <Field
-            label="Select Waiter"
-            type="select"
-            onChange={(e) => setWaiterId(e.target.value)}
-            options={options}
-            placeholder="Choose a waiter..."
-            required
-          />
+        {/* Waiter Selection with dropdown icon */}
+        {/* Waiter Selection with dropdown icon */}
+        <div className="relative text-left">
+          <label className="block text-xs text-slate-300 mb-1">Waiter</label>
+          <div className="relative">
+            <select
+              value={waiterId}
+              onChange={(e) => setWaiterId(e.target.value)}
+              className="w-full h-9 pl-3 pr-8 bg-slate-700 text-slate-200 
+        text-sm rounded-md appearance-none border border-slate-600 
+        focus:outline-none focus:ring-1 focus:ring-blue-500"
+            >
+              <option value="">Select waiter...</option>
+              {waiterOptions.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+            {/* Dropdown indicator */}
+            <FiChevronDown
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+              size={16}
+            />
+          </div>
         </div>
 
         {/* Error Message */}
         {error && (
-          <div className="mb-3 p-2 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-sm text-red-700">{error}</p>
-          </div>
+          <p className="text-xs text-red-400 bg-red-900/30 p-2 rounded-md">
+            {error}
+          </p>
         )}
 
         {/* Action Buttons */}
-        <div className="flex gap-2 justify-end">
+        <div className="flex justify-center gap-2 pt-1">
           <button
-            type="button"
             onClick={closeModal}
-            className="px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+            disabled={isPending}
+            className="w-20 h-9 rounded-lg bg-slate-700 text-xs text-slate-200 
+              hover:bg-slate-600 hover:scale-105 active:scale-95 
+              cursor-pointer transition-transform duration-200 
+              grid place-content-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
           <button
-            type="button"
             onClick={confirm}
             disabled={isPending}
-            className="px-3 py-1.5 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 flex items-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className={`w-24 h-9 rounded-lg text-xs text-white 
+              ${
+                isPending
+                  ? "bg-blue-400 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-500 hover:scale-105"
+              } 
+              active:scale-95 cursor-pointer transition-transform duration-200 grid place-content-center`}
           >
-            {isPending && (
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            {isPending ? (
+              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mx-auto" />
+            ) : (
+              "Allocate"
             )}
-            Confirm
           </button>
         </div>
       </div>

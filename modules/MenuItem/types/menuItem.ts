@@ -19,10 +19,11 @@ export type TCreateMenuItem = {
   categoryId: string;
   isAvailable: boolean;
   ingredients?: string[];
-  image: File | string | null;
+  image?: File | string | null;
 };
 export type TUpdateMenuItem = TCreateMenuItem & {
   id: string;
+  
 };
 export type TMenuItemErrors = {
   id?: string;

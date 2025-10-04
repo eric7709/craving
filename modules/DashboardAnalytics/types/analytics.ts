@@ -44,7 +44,6 @@ export type TTopCustomer = {
   percentageRevenue: number;
 };
 
-// Main analytics response type
 export type TRestaurantAnalytics = {
   topTables: TTopTable[];
   topWaiters: TTopWaiter[];
@@ -91,7 +90,6 @@ export type TAnalyticsDataStore = {
   clearError: () => void;
   reset: () => void;
 
-  // Convenience methods for common date ranges
   setThisWeek: () => void;
   setLastWeek: () => void;
   setThisMonth: () => void;

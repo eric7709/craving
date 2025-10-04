@@ -5,32 +5,23 @@ import isoWeek from 'dayjs/plugin/isoWeek';
 import { TAnalyticsDataStore } from "../types/analytics";
 import { fetchAnalyticsData } from "@/app/actions/analyticActions";
 
-// Enable plugins for better week handling
 dayjs.extend(weekOfYear);
 dayjs.extend(isoWeek);
 
 export const useAnalyticsDataStore = create<TAnalyticsDataStore>((set, get) => {
-  // Initialize dates with Day.js - much cleaner!
-  const initialStartDate = dayjs().startOf('isoWeek').format('YYYY-MM-DD'); // Monday start
-  const initialEndDate = dayjs().endOf('isoWeek').format('YYYY-MM-DD'); // Sunday end
-  
-
+  const initialStartDate = dayjs().startOf('isoWeek').format('YYYY-MM-DD'); 
+  const initialEndDate = dayjs().endOf('isoWeek').format('YYYY-MM-DD'); 
   return {
-    // Initial state
     analytics: null,
     startDate: initialStartDate,
     endDate: initialEndDate,
     isLoading: false,
     error: null,
     resultLimit: 10,
-
-    // Actions
     setDateRange: (startDate: string, endDate: string) => {
       set({ startDate, endDate });
     },
-
     setResultLimit: (limit: number) => set({ resultLimit: limit }),
-
     fetchAnalytics: async () => {
       const { startDate, endDate, resultLimit } = get();
       set({ isLoading: true, error: null });
@@ -48,9 +39,7 @@ export const useAnalyticsDataStore = create<TAnalyticsDataStore>((set, get) => {
         });
       }
     },
-
     clearError: () => set({ error: null }),
-
     reset: async () => {
       const startDate = dayjs().startOf('isoWeek').format('YYYY-MM-DD');
       const endDate = dayjs().endOf('isoWeek').format('YYYY-MM-DD');
@@ -64,8 +53,6 @@ export const useAnalyticsDataStore = create<TAnalyticsDataStore>((set, get) => {
       });
       await get().fetchAnalytics();
     },
-
-    // Quick select helpers - much cleaner with Day.js!
     setThisWeek: async () => {
       const startDate = dayjs().startOf('isoWeek').format('YYYY-MM-DD');
       const endDate = dayjs().endOf('isoWeek').format('YYYY-MM-DD');

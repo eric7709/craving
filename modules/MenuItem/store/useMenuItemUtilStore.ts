@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { TMenuItem, TMenuItemUtilStore } from "../types/menuItem";
+import { TMenuItemUtilStore } from "../types/menuItem";
 
 export const useMenuItemUtilStore = create<TMenuItemUtilStore>((set) => ({
   selectedMenuItem: null,

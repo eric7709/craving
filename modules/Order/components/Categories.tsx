@@ -8,7 +8,7 @@ export default function Categories() {
   const { category, setCategory } = useMenuItemDataStore();
 
   return (
-    <div className=" border-b border-blue-500">
+    <div className=" ">
       <div className="mx-3 flex  px-3 py-2 scrollbar-none overflow-x-auto space-x-2">
 
       {["all", ...categories.map((c) => c.name)].map((name, index, arr) => {

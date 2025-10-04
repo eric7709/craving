@@ -4,11 +4,8 @@ import { ChevronDown, ArrowUp, ArrowDown } from "lucide-react";
 import { useOrderDataStore } from "../store/useOrderDataStore";
 import { SORT_OPTIONS } from "../constants/SORT_OPTIONS";
 
-type Props = {
-  width?: string;
-};
 
-export default function SortOrderDropdown(width: Props) {
+export default function SortOrderDropdown() {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { sortBy, sortDirection, setSortBy, setSortDirection } =

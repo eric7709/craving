@@ -1,8 +1,14 @@
 "use client";
 import Modal from "@/global/components/Modal";
 import MenuItemImage from "./MenuItemImage";
-import { FaCheck, FaTimes, FaTag, FaDollarSign, FaInfoCircle } from "react-icons/fa";
-import { useUpdateteMenuItem } from "../hooks/useUpdateMenuItem";
+import {
+  FaCheck,
+  FaTimes,
+  FaTag,
+  FaDollarSign,
+  FaInfoCircle,
+} from "react-icons/fa";
+import { useUpdateMenuItem } from "../hooks/useUpdateMenuItem";
 
 export default function UpdateMenuItemModal() {
   const {
@@ -12,21 +18,20 @@ export default function UpdateMenuItemModal() {
     handleFileChange,
     isPending,
     categories,
+    handleSubmit,
     closeModal,
     fileInputRef,
     errors,
     isOpen,
-  } = useUpdateteMenuItem();
+  } = useUpdateMenuItem();
 
-  const labelClass = "text-xs font-medium text-gray-700 mb-1 flex items-center gap-1 ml-0.5";
+  const labelClass =
+    "text-xs font-medium text-gray-700 mb-1 flex items-center gap-1 ml-0.5";
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
       <form
-        onSubmit={(e: any) => {
-          e.preventDefault();
-          handleFileChange && handleFileChange(e);
-        }}
+        onSubmit={handleSubmit}
         className="w-[325px] border-2 border-gray-200 rounded-3xl shadow-md bg-gray-50 flex flex-col h-[80vh]"
       >
         <h2 className="text-base text-center px-4 py-3 border-b border-gray-200 font-semibold text-gray-900">
@@ -55,7 +60,9 @@ export default function UpdateMenuItemModal() {
               className="h-9 text-xs pl-3 focus:border-blue-500 duration-300 px-2 border-[1.5px] outline-none rounded-[10px] border-gray-200 focus:ring-blue-400"
               required
             />
-            {errors.name && <p className="text-xs text-red-600 mt-1">{errors.name}</p>}
+            {errors.name && (
+              <p className="text-xs text-red-600 mt-1">{errors.name}</p>
+            )}
           </div>
 
           {/* Price */}
@@ -72,7 +79,9 @@ export default function UpdateMenuItemModal() {
               className="h-9 text-xs pl-3 focus:border-blue-500 duration-300 px-2 border-[1.5px] outline-none rounded-[10px] border-gray-200 focus:ring-blue-400"
               required
             />
-            {errors.price && <p className="text-xs text-red-600 mt-1">{errors.price}</p>}
+            {errors.price && (
+              <p className="text-xs text-red-600 mt-1">{errors.price}</p>
+            )}
           </div>
 
           {/* Description */}
@@ -88,7 +97,9 @@ export default function UpdateMenuItemModal() {
               rows={2}
               className="h-20 text-xs p-3 focus:border-blue-500 duration-300 px-2 border-[1.5px] outline-none rounded-[10px] border-gray-200 focus:ring-blue-400 resize-none"
             />
-            {errors.description && <p className="text-xs text-red-600 mt-1">{errors.description}</p>}
+            {errors.description && (
+              <p className="text-xs text-red-600 mt-1">{errors.description}</p>
+            )}
           </div>
 
           {/* Category */}
@@ -104,12 +115,18 @@ export default function UpdateMenuItemModal() {
             >
               <option value="">Select category</option>
               {categories.map((category) => (
-                <option key={category.id} value={category.id} className="capitalize">
+                <option
+                  key={category.id}
+                  value={category.id}
+                  className="capitalize"
+                >
                   {category.name}
                 </option>
               ))}
             </select>
-            {errors.categoryId && <p className="text-xs text-red-600 mt-1">{errors.categoryId}</p>}
+            {errors.categoryId && (
+              <p className="text-xs text-red-600 mt-1">{errors.categoryId}</p>
+            )}
           </div>
 
           {/* Availability */}
@@ -120,13 +137,17 @@ export default function UpdateMenuItemModal() {
             <select
               id="isAvailable"
               value={form.isAvailable ? "true" : "false"}
-              onChange={(e) => setField("isAvailable", e.target.value === "true")}
+              onChange={(e) =>
+                setField("isAvailable", e.target.value === "true")
+              }
               className="h-9 text-xs pl-3 focus:border-blue-500 duration-300 px-2 border-[1.5px] outline-none rounded-[10px] border-gray-200 focus:ring-blue-400"
             >
               <option value="true">Available</option>
               <option value="false">Unavailable</option>
             </select>
-            {errors.isAvailable && <p className="text-xs text-red-600 mt-1">{errors.isAvailable}</p>}
+            {errors.isAvailable && (
+              <p className="text-xs text-red-600 mt-1">{errors.isAvailable}</p>
+            )}
           </div>
         </div>
 
@@ -135,7 +156,7 @@ export default function UpdateMenuItemModal() {
           <button
             type="button"
             onClick={closeModal}
-            className={`px-5 py-2.5 cursor-pointer rounded-[10px] shadow-sm shadow-gray-600 text-xs font-medium transition duration-300 ${
+            className={`px-5 py-2.5 active:scale-90 cursor-pointer rounded-[10px] shadow-sm shadow-gray-600 text-xs font-medium transition duration-300 ${
               isPending
                 ? "bg-gray-400 cursor-not-allowed text-gray-700"
                 : "bg-gray-200 hover:bg-gray-300 text-black"
@@ -146,7 +167,7 @@ export default function UpdateMenuItemModal() {
           <button
             type="submit"
             disabled={isPending}
-            className={`px-5 py-2.5 cursor-pointer rounded-[10px] shadow-sm shadow-gray-600 text-xs font-medium text-white transition duration-300 ${
+            className={`px-5 py-2.5 active:scale-90 cursor-pointer rounded-[10px] shadow-sm shadow-gray-600 text-xs font-medium text-white transition duration-300 ${
               isPending
                 ? "bg-blue-400 cursor-not-allowed"
                 : "bg-blue-600 hover:bg-blue-700"

@@ -43,13 +43,9 @@ export function useCreateMenuItem() {
       return;
     }
     setField("image", file);
-    const reader = new FileReader();
-    reader.onloadend = () => setPreview(reader.result as string);
-    reader.readAsDataURL(file);
+    setPreview(URL.createObjectURL(file)); // ✅ no FileReader needed
   };
-
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-
   const resetForm = () => {
     setForm(createMenuItemInitials);
     setPreview(null);
@@ -57,20 +53,17 @@ export function useCreateMenuItem() {
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-
     let imageUrl: string | undefined = undefined;
     if (form.image && form.image instanceof File) {
       imageUrl = await uploadMenuItemImage(form.image);
     } else if (typeof form.image === "string") {
       imageUrl = form.image;
     }
-
     const validate = MenuItemDomain.validateCreateMenuItem(form);
     if (!validate.isValid) {
       setErrors(validate.errors);
       return;
     }
-
     const payload = { ...form, imageUrl };
     const category = categories.find((el) => el.id === payload.categoryId);
 
@@ -96,7 +89,6 @@ export function useCreateMenuItem() {
       },
     });
   };
-
   return {
     form,
     preview,

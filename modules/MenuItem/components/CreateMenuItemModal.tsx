@@ -133,7 +133,7 @@ export default function CreateMenuItemModal() {
           <button
             type="button"
             onClick={closeModal}
-            className={`px-5 py-2.5 cursor-pointer rounded-[10px] shadow-sm shadow-gray-600 text-xs font-medium transition duration-300 ${
+            className={`px-5 py-2.5 active:scale-90 cursor-pointer rounded-[10px] shadow-sm shadow-gray-600 text-xs font-medium transition duration-300 ${
               isPending
                 ? "bg-gray-400 cursor-not-allowed text-gray-700"
                 : "bg-gray-200 hover:bg-gray-300 text-black"
@@ -144,7 +144,7 @@ export default function CreateMenuItemModal() {
           <button
             type="submit"
             disabled={isPending}
-            className={`px-5 py-2.5  cursor-pointer rounded-[10px] shadow-sm shadow-gray-600 text-xs font-medium text-white transition duration-300 ${
+            className={`px-5 py-2.5 active:scale-90 cursor-pointer rounded-[10px] shadow-sm shadow-gray-600 text-xs font-medium text-white transition duration-300 ${
               isPending
                 ? "bg-blue-400 cursor-not-allowed"
                 : "bg-blue-600 hover:bg-blue-700"

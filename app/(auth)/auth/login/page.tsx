@@ -15,11 +15,9 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-
     const formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
-
     try {
       const response = await login(formData);
       if (response.error) {
@@ -33,16 +31,14 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
-
   return (
     <div className="fixed inset-0 bg-gray-50 flex items-center justify-center p-2">
-      {/* Overlay Spinner */}
       {loading && (
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
         </div>
       )}
-      <div className="w-[280px] max-w-[90vw] bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+      <div className="w-[280px] bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
         <div className="flex justify-center mb-3">
           <Image
             src="/favicon.svg"
@@ -52,15 +48,12 @@ export default function LoginPage() {
             priority
           />
         </div>
-
         <h1 className="text-[13px] mb-4 font-bold text-gray-800 text-center">
           Cravings
         </h1>
-
         {error && (
           <p className="mb-2 text-[9px] text-red-600 text-center">{error}</p>
         )}
-
         <form onSubmit={handleLogin} className="flex flex-col gap-2">
           <input
             type="email"
