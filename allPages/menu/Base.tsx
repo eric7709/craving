@@ -1,6 +1,6 @@
 "use client";
 import Loading from "@/app/loading";
-import MenuList from "@/app/test/MenuList";
+import MenuList from "@/modules/MenuItem/components/MenuList";
 import { useLoadCategories } from "@/modules/Category/hooks/useLoadCategories";
 import { TCategory } from "@/modules/Category/types/category";
 import { useLoadMenuItems } from "@/modules/MenuItem/hooks/useLoadMenuItems";

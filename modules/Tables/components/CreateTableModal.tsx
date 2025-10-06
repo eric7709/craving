@@ -1,14 +1,28 @@
 import Modal from "@/global/components/Modal";
 import { useCreateTable } from "../hooks/useCreateTable";
 import { useEmployeeDataStore } from "@/modules/Employees/store/useEmployeeDataStore";
-import { FaChair, FaHashtag, FaUsers, FaCheckCircle, FaUserTie } from "react-icons/fa";
+import {
+  FaChair,
+  FaHashtag,
+  FaUsers,
+  FaCheckCircle,
+  FaUserTie,
+} from "react-icons/fa";
 
 export default function CreateTableModal() {
-  const { handleChange, handleSubmit, errors, closeModal, isOpen, values, loading } =
-    useCreateTable();
+  const {
+    handleChange,
+    handleSubmit,
+    errors,
+    closeModal,
+    isOpen,
+    values,
+    loading,
+  } = useCreateTable();
   const { waitersOptions } = useEmployeeDataStore();
 
-  const labelClass = "text-xs font-medium text-gray-700 mb-1 flex items-center gap-1 ml-0.5";
+  const labelClass =
+    "text-xs font-medium text-gray-700 mb-1 flex items-center gap-1 ml-0.5";
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
@@ -19,7 +33,6 @@ export default function CreateTableModal() {
         <h2 className="text-base px-4 py-3 text-center border-b border-gray-200 font-semibold text-gray-900">
           Create New Table
         </h2>
-
         <div className="px-4 space-y-4 py-4">
           {/* Table Number */}
           <div className="flex flex-col">
@@ -39,7 +52,6 @@ export default function CreateTableModal() {
               <p className="text-xs text-red-600 mt-1">{errors.tableNumber}</p>
             )}
           </div>
-
           {/* Table Name */}
           <div className="flex flex-col">
             <label htmlFor="name" className={labelClass}>
@@ -54,9 +66,10 @@ export default function CreateTableModal() {
               placeholder="Enter table name"
               className="h-9 text-xs pl-3 focus:border-blue-500 duration-300 px-2 border-[1.5px] outline-none rounded-[10px] border-gray-200 focus:ring-blue-400"
             />
-            {errors.name && <p className="text-xs text-red-600 mt-1">{errors.name}</p>}
+            {errors.name && (
+              <p className="text-xs text-red-600 mt-1">{errors.name}</p>
+            )}
           </div>
-
           {/* Capacity */}
           <div className="flex flex-col">
             <label htmlFor="capacity" className={labelClass}>
@@ -71,9 +84,10 @@ export default function CreateTableModal() {
               onChange={handleChange}
               className="h-9 text-xs pl-3 focus:border-blue-500 duration-300 px-2 border-[1.5px] outline-none rounded-[10px] border-gray-200 focus:ring-blue-400"
             />
-            {errors.capacity && <p className="text-xs text-red-600 mt-1">{errors.capacity}</p>}
+            {errors.capacity && (
+              <p className="text-xs text-red-600 mt-1">{errors.capacity}</p>
+            )}
           </div>
-
           {/* Availability */}
           <div className="flex flex-col">
             <label htmlFor="isAvailable" className={labelClass}>
@@ -85,7 +99,10 @@ export default function CreateTableModal() {
               value={values.isAvailable ? "true" : "false"}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                 handleChange({
-                  target: { name: "isAvailable", value: e.target.value === "true" },
+                  target: {
+                    name: "isAvailable",
+                    value: e.target.value === "true",
+                  },
                 } as any)
               }
               className="h-9 text-xs pl-3 focus:border-blue-500 duration-300 px-2 border-[1.5px] outline-none rounded-[10px] border-gray-200 focus:ring-blue-400"
@@ -93,9 +110,10 @@ export default function CreateTableModal() {
               <option value="true">Yes</option>
               <option value="false">No</option>
             </select>
-            {errors.isAvailable && <p className="text-xs text-red-600 mt-1">{errors.isAvailable}</p>}
+            {errors.isAvailable && (
+              <p className="text-xs text-red-600 mt-1">{errors.isAvailable}</p>
+            )}
           </div>
-
           {/* Waiter */}
           <div className="flex flex-col">
             <label htmlFor="waiterId" className={labelClass}>
@@ -115,12 +133,14 @@ export default function CreateTableModal() {
                 </option>
               ))}
             </select>
-            {errors.waiterId && <p className="text-xs text-red-600 mt-1">{errors.waiterId}</p>}
+            {errors.waiterId && (
+              <p className="text-xs text-red-600 mt-1">{errors.waiterId}</p>
+            )}
           </div>
-
-          {errors.general && <p className="text-sm text-red-600">{errors.general}</p>}
+          {errors.general && (
+            <p className="text-sm text-red-600">{errors.general}</p>
+          )}
         </div>
-
         {/* Buttons */}
         <div className="flex p-3 border-t bg-white m-2 border rounded-2xl border-gray-200 justify-end gap-2">
           <button

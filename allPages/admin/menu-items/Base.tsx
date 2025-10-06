@@ -2,7 +2,6 @@
 import CreateMenuItemModal from "@/modules/MenuItem/components/CreateMenuItemModal";
 import UpdateMenuItemModal from "@/modules/MenuItem/components/UpdateMenuItemModal";
 import DeleteMenuItem from "@/modules/MenuItem/components/DeleteMenuItemModal";
-import MenuItemList from "@/modules/MenuItem/components/MenuItemList";
 import { TCategory } from "@/modules/Category/types/category";
 import { TMenuItem } from "@/modules/MenuItem/types/menuItem";
 import MenuItemHeader from "@/modules/MenuItem/components/MenuItemHeader";
@@ -10,6 +9,7 @@ import AdminBodyContainer from "@/global/components/AdminBodyContainer";
 import { useLoadCategories } from "@/modules/Category/hooks/useLoadCategories";
 import { useLoadMenuItems } from "@/modules/MenuItem/hooks/useLoadMenuItems";
 import AdminHeader from "@/modules/Order/components/AdminHeader";
+import MenuItemList from "@/modules/MenuItem/components/MenuItemList";
 
 type Props = {
   menuItems: TMenuItem[];

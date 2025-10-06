@@ -1,4 +1,3 @@
-// Individual item types (as you already have them)
 export type TTopTable = {
   id: string;
   name: string;
